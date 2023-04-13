@@ -1,25 +1,44 @@
-import React, { useState } from "react";
-import { bulkUploadTransactionsRequest } from "../../utils/api";
-import { BorderBtn } from "../UI/StyledConstants";
-import { UploadFileWrapper } from "./style";
+import React, { useCallback, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
+import IconDropbox from '../../assests/images/Icons/IconDropbox';
+import { AlertMessage } from '../UI/AlertMessage';
+import { UploadFileWrapper } from './style';
 
+export function UploadFile({
+    onUploadFile = () => { },
+    uploadText = "Upload File",
+    bulkUploadRequest = () => { },
+    accept = "",
+}) {
+    const [alertMessage, setAlertMessage] = useState({
+        type: "",
+        messageList: [],
+    });
 
-export const UploadFile = ({onUploadFile = () => {}}) => {
-    const [uploadedFile, setUploadedFile] = useState('')
-    const onFileChange = event => {
+    const onDrop = useCallback(acceptedFiles => {
         const formData = new FormData();
-        formData.append("file", event.target.files[0])
-        bulkUploadTransactionsRequest(formData).then((response) => {
-            console.log("response = ", response?.data);
+        formData.append("file", acceptedFiles[0])
+        bulkUploadRequest(formData).then((response) => {
+            console.log("alertMessage response = ", response);
+            setAlertMessage({type: response?.data?.success ? 'success' : 'error', messageList: [response?.data?.msg]});
             onUploadFile(response?.data);
         })
-      };
+    }, [])
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+    console.log("alertMessage = ", alertMessage);
 
     return (
-        <UploadFileWrapper>
-            <div className="uplaod-file-inner">
-            <input  className="form-file" type="file" onChange={onFileChange} accept=".xls,.xlsx"/>
-            <BorderBtn className="btn-soft-success"><i className="fa fa-upload" aria-hidden="true"></i>Upload Transactions File</BorderBtn>
+        <UploadFileWrapper className='upload-file-wrapper'>
+            <AlertMessage alertMessage={alertMessage} />
+            <div className='upload-file-wrapper' {...getRootProps()}>
+                <input {...getInputProps()} />
+                <IconDropbox />
+                {
+                    isDragActive ?
+                        <p>Drop the files here ...</p> :
+                        <p>Drag 'n' drop some files here, or click to select files</p>
+                }
             </div>
         </UploadFileWrapper>
     )

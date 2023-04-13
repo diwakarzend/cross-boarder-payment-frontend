@@ -109,7 +109,7 @@ module.exports = {
     proxy: [
       {
         context: ["/api/"],
-        target: "https://api-service.texta.info:8443",
+        target: "http://143.110.188.1:8083",
         secure: false,
       },
       // {

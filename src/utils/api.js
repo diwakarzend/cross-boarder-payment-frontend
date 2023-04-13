@@ -167,3 +167,31 @@ export const fetchUPICollectReports = (params) => {
     params
   );
 };
+
+export const payoutBulkUploadRequest = (params) => {
+  return apiRequest.post(
+    `${urls.login.BASE_URL + urls.payout.PAYOUT_BULK_UPLOAD_URL}`,
+    params
+  );
+};
+
+export const payoutBulkUploadDetailsRequest = (params) => {
+  return apiRequest.post(
+    `${urls.login.BASE_URL + urls.payout.PAYOUT_BULK_UPLOAD_DETAILS_URL}`,
+    params
+  );
+};
+
+export const jobInvokerRequest = (uuid) => {
+  return apiRequest.get(
+    `${urls.login.BASE_URL + urls.payout.JOB_INVOKER_URL}?jobName=${uuid}`,
+    {}
+  );
+};
+
+export const getPayoutBulkUploadedListingRequest = (params) => {
+  return apiRequest.post(
+    `${urls.login.BASE_URL + urls.payout.PAYOUT_BULK_UPLOADED_LISTING_URL}`,
+    params
+  );
+};

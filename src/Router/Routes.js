@@ -23,6 +23,8 @@ import BankEntityLoadable from "../Pages/BankEntity/BankEntityLoadable";
 import ApiDocsLoadable from "../Pages/ApiDocs/ApiDocsLoadable";
 import EscrowReports from "../Pages/Payout/EscrowReports";
 
+import PayoutBulkUpload from "../Pages/PayoutBulkUpload";
+
 const Routes = (props) => {
   return (
     <div>
@@ -78,6 +80,7 @@ const Routes = (props) => {
           exact
         />
         <PrivateRoute path="/api-docs" component={ApiDocsLoadable} exact />
+        <PrivateRoute path="/payout-bulk-upload" component={PayoutBulkUpload} exact />
       </Switch>
     </div>
   );

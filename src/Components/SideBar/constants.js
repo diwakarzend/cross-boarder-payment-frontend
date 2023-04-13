@@ -96,6 +96,13 @@ export const Navigation = [
         applicableRoles: ["PTM_VENDOR", "PTM_ADMIN"],
         subNav: [],
       },
+      {
+        title: "Bulk Upload",
+        link: "/payout-bulk-upload",
+        active: false,
+        applicableRoles: ["PTM_VENDOR", "PTM_ADMIN"],
+        subNav: [],
+      },
     ],
   },
   //   {

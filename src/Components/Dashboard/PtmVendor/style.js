@@ -1,7 +1,7 @@
 import styled from "styled-components";
 export const UpiCollectionsStyle = styled.div`
   .wallet-wrapper {
-    background: #000 url("/images/dashboard-bg.png") no-repeat right center;
+    background: var(--ip-vertical-menu-bg-dark) url("/images/dashboard-bg.png") no-repeat right center;
     height: 71px;
     display: flex;
     align-items: center;

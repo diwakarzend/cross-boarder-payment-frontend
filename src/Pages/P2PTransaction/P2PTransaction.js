@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { connect } from "react-redux";
-import { getP2pTxnListing } from "../../utils/api";
+import { bulkUploadTransactionsRequest, getP2pTxnListing } from "../../utils/api";
 import BreadCrumb from "../../Components/BreadCrumb/BreadCrumb";
 import SideBar from "../../Components/SideBar/SideBar";
 import TableHTML from "./TableHTML";
@@ -131,7 +131,12 @@ const P2PTransaction = ({ dispatch = () => {}, ...props }) => {
           <div className="flex item-center gap4">
             {uploadMsg && <div style={{ color: "green" }}>{uploadMsg}</div>}
             {userData?.role === "PTM_ADMIN" && (
-              <UploadFile onUploadFile={onUploadFile} />
+              <UploadFile 
+                onUploadFile={onUploadFile} 
+                uploadText="Upload Transactions File"
+                bulkUploadRequest={bulkUploadTransactionsRequest} 
+                accept=".xls,.xlsx"
+              />
             )}
             <div className="download-csv">
               <BorderBtn className="btn-soft-success" onClick={onDownloadClick}>

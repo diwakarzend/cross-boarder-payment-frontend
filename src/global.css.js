@@ -17,8 +17,8 @@ export default createGlobalStyle`
     --ip-vertical-menu-sub-item-hover-color: #032d28;
     --ip-vertical-menu-sub-item-active-color: #032d28;
     --ip-vertical-menu-title-color: #919da9;
-    --ip-vertical-menu-bg-dark: #053D36;
-    --ip-nav-link-color: #6EC4B9;
+    --ip-vertical-menu-bg-dark: #00286F;
+    --ip-nav-link-color: #fff;
     --ip-vertical-menu-item-hover-color-dark: #fff;
     --ip-vertical-menu-item-active-color-dark: #fff;
     --ip-vertical-menu-sub-item-color-dark: #abb9e8;
@@ -26,7 +26,7 @@ export default createGlobalStyle`
     --ip-vertical-menu-sub-item-active-color-dark: #fff;
     --ip-vertical-menu-title-color-dark: #838fb9;
     --ip-vertical-submenu-title-bg-dark: rgba(41, 41, 41, .4);
-    --ip-vertical-submenu-active-bg: rgba(24, 66, 61, 1);
+    --ip-vertical-submenu-active-bg: var(--ip-vertical-menu-bg-dark);
     --ip-header-bg: #fff;
     --ip-header-item-color: #e9ecef;
     --ip-header-bg-dark: #032d28;
@@ -99,6 +99,7 @@ export default createGlobalStyle`
     --ip-btn-soft-success-color: #065b51;
     --ip-btn-soft-success-bg: #e6eeed;
     --ip-black:#000;
+    --ip-common-gradient: transparent linear-gradient(252deg, #193d7d 0%,#00ffff 100%) 0% 0% no-repeat padding-box;
 }
   * {
     margin: 0;
@@ -413,7 +414,8 @@ export default createGlobalStyle`
     white-space: nowrap;
     border: none;
     color:#fff;
-      background: transparent linear-gradient(249deg, rgba(255, 102, 0, 1) 0%, rgba(105, 44, 255, 1) 100%) 0% 0% no-repeat padding-box;
+      /* background: transparent linear-gradient(249deg, rgba(255, 102, 0, 1) 0%, rgba(105, 44, 255, 1) 100%) 0% 0% no-repeat padding-box; */
+      background: var(--ip-common-gradient);
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.17);
     &:hover,&.active{
         outline:none;
@@ -446,7 +448,8 @@ export default createGlobalStyle`
     border: none;
     &:hover,&.active{
         color:#fff;
-        background: transparent linear-gradient(249deg, rgba(255, 102, 0, 1) 0%, rgba(105, 44, 255, 1) 100%) 0% 0% no-repeat padding-box;
+        /* background: transparent linear-gradient(249deg, rgba(255, 102, 0, 1) 0%, rgba(105, 44, 255, 1) 100%) 0% 0% no-repeat padding-box; */
+        background: var(--ip-common-gradient);
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.17);
         outline:none;
     }

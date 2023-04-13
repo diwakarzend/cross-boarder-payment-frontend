@@ -243,7 +243,8 @@ export const Button = styled.button`
     white-space: nowrap;
     border: none;
     color:#fff;
-    background: transparent linear-gradient(249deg, rgba(255, 102, 0, 1) 0%, rgba(105, 44, 255, 1) 100%) 0% 0% no-repeat padding-box;
+    /* background: transparent linear-gradient(249deg, rgba(255, 102, 0, 1) 0%, rgba(105, 44, 255, 1) 100%) 0% 0% no-repeat padding-box; */
+    background: var(--ip-common-gradient);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.17);
     &:hover,&.active{
         outline:none;
@@ -313,7 +314,7 @@ export const BorderBtn = styled.button`
     }
     &:hover,&.active{
         color:#fff;
-        background: transparent linear-gradient(249deg, rgba(255, 102, 0, 1) 0%, rgba(105, 44, 255, 1) 100%) 0% 0% no-repeat padding-box;
+        background: var(--ip-common-gradient);
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.17);
         outline:none;
         .icon{
@@ -591,4 +592,53 @@ export const AlertWrapper = styled.div`
         }   
     }
     
+`
+
+export const TabCardsWraper = styled.div`
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    .tab-card {
+        padding: 20px 40px 20px 20px;
+        border: 1px solid #E0E0E0;
+        border-radius: 10px;
+        background-color: #fff;
+        position: relative;
+        flex: 0 0 25%;
+        min-height: 100px;
+        &.active {
+            border-color: var(--ip-vertical-menu-bg-dark);
+        }
+    }
+    .tab-card-details {
+        flex: 0 0 calc(75% - 20px);
+        border: 1px solid #E0E0E0;
+        border-radius: 10px;
+        background-color: #f5f5f5;
+        position: relative;
+        display: flex;
+        align-items: center;
+        .details-data {
+            padding: 20px;
+            flex: 0 0 calc(33.33% - 20px);
+        }
+    }
+    .title {
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 500;
+    }
+    .text {
+        font-size: 13px;
+        line-height: 18px;
+        font-weight: 400;
+        height: 44px;
+        margin-top: 5px;
+    }
+    .value {
+        font-size: 18px;
+        line-height: 22px;
+        font-weight: 600;
+        height: 44px;
+    }
 `

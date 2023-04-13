@@ -5,7 +5,8 @@ export default {
     //BASE_URL: "http://34.93.135.35:8080",
     //BASE_URL: "https://api-service.texta.info:8443",
     // BASE_URL:"https://api-service.primepay.info:8443",
-    BASE_URL: "https://api-service.texta.info",
+    // BASE_URL: "https://api-service.texta.info",
+    BASE_URL: "",
 
     LOGIN_REQUEST: "/api/authenticate",
     OTP_VALIDATION: "/agent/otp/validation",
@@ -68,7 +69,10 @@ export default {
     TRANSACTION_REPORT: "/api/payout/transaction-report",
     UPI_TRANSACTION_REPORT: "/api/upi/upipayment-transaction-report",
     UPI_COLLECT_STATUS_REPORT: "/api/upi/collect-status-report",
-
+    PAYOUT_BULK_UPLOAD_URL: "/api/upload/payout-csv",
+    PAYOUT_BULK_UPLOAD_DETAILS_URL: "/api/upload/uploadFile-detail",
+    PAYOUT_BULK_UPLOADED_LISTING_URL: "",
+    JOB_INVOKER_URL: '/api/job/invoke',
     // MONTHLY_REPORT: "/api/payout/dashboard/monthly-report",
     // STATUS_REPORT: "/api/payout/dashboard/status-report",
     STATUS_TRANSACTION_REPORT:
