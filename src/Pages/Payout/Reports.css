@@ -1,0 +1,7 @@
+.report-form .form-item{
+    flex: 1 0 16%;
+}
+.primary-btn{
+    height: 50px;
+    border-radius: 30px;
+}

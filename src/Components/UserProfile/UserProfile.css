@@ -1,0 +1,9 @@
+.fund-btn {
+  position: absolute;
+  right: 15px;
+  top: 13px;
+}
+
+.modal-backdrop {
+  z-index: 1017 !important;
+}

@@ -1,0 +1,111 @@
+/* breadcrumb */
+/* .page_breadc {
+  width: 100%;
+  display: inline-block;
+  padding: 0px 30px;
+}
+.page-heading {
+  background: #1572e8 !important;
+  background: -webkit-linear-gradient(
+    legacy-direction(-45deg),
+    #06418e,
+    #1572e8
+  ) !important;
+  background: linear-gradient(-45deg, #06418e, #1572e8) !important;
+  margin: 0 -30px -35px -30px;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  padding-bottom: 4rem;
+  padding-top: 3rem;
+  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+}
+.page-breadcrumb h1 {
+  margin: 0;
+  color: #fff;
+}
+.breadcrumb_nav {
+  margin-bottom: 0;
+} */
+/* breadcrumb */
+
+.card-body .dropdown .dropdown-menu {
+  left: 0 !important;
+  right: auto !important;
+}
+.card-body .dropdown .dropdown-menu:before,
+.btn-group .dropdown-menu:before {
+  display: none !important;
+}
+.grid-view [class^="col-"] {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid rgba(86, 61, 124, 0.2);
+  background-color: rgba(86, 61, 124, 0.15);
+}
+.grid-view {
+  margin-bottom: 10px;
+  padding: 0 15px;
+}
+.card .card-header .card-title {
+  margin-bottom: 0;
+  color: #53505f;
+  font-size: 18px;
+  font-weight: 500;
+}
+.lobicard-custom-icon > .card-header .dropdown,
+.card-shadow .card-header .dropdown,
+.lobicard-custom-control .card-header .dropdown {
+  display: inline-block;
+  float: right;
+  position: relative;
+}
+.lobicard-custom-icon > .card-header .dropdown .tools,
+.card-shadow .card-header .dropdown .tools,
+.lobicard-custom-control .card-header .dropdown .tools {
+  margin: 0px;
+}
+.baseline .baseline-list .baseline-info {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+.baseline-info {
+  border-color: #36a2f5 !important;
+}
+.baseline-border {
+  border-left: 1px solid #e5ebf8;
+}
+.baseline,
+.baseline .baseline-list {
+  position: relative;
+  border-color: #e5ebf8;
+}
+.baseline .baseline-list {
+  padding-bottom: 1px;
+}
+.baseline,
+.baseline .baseline-list {
+  position: relative;
+  border-color: #e5ebf8;
+}
+.baseline .baseline-list:before {
+  display: table;
+  content: " ";
+}
+.baseline .baseline-list:after {
+  display: table;
+  position: absolute;
+  top: 18px;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  content: "";
+  border-width: 1px;
+  border-style: solid;
+  border-color: inherit;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 0 3px #e5ebf8 inset;
+}
