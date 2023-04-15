@@ -793,7 +793,7 @@ export default createGlobalStyle`
         z-index: 2;
     }
     .login-form-inner {
-        max-width: 900px;
+        // max-width: 900px;
         margin: 0 auto;
         box-shadow: 0 10px 50px #0000001A;
         background-color: var(--ip-white-bg);

@@ -1,102 +1,125 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { isEmpty } from "../../utils/common";
 import ResetPassword from "../../Components/ResetPassword/ResetPassword";
 import { LoginFormWrapper } from "./style";
+import MaterialInput from "../../Components/Common/Form";
 import IconEye from "../../assests/images/Icons/IconEye";
 import IconTexta from "../../assests/images/Icons/IconTexta";
-class LoginForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      errors: {
-        username: null,
-        password: null,
-        tenantId: 0,
-      },
-      forgotPasswordClicked: false,
-      successMsg: "",
-      showPassword: false,
-    };
-    this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.removeErrorMsg = this.removeErrorMsg.bind(this);
-  }
+import IconLogo from "../../assests/images/Icons/IconLogo";
+// import loginBg from "../../assests/images/cb_login.png";
+const LoginForm = () => {
+  const [formData, updateFormData] = useState({ userName: "", password: "" });
+  const [forgotPasswordClicked, setForgotPasswordClicked] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  const [error, setError] = useState("");
 
-  onFormSubmit(e) {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     errors: {
+  //       username: null,
+  //       password: null,
+  //       tenantId: 0,
+  //     },
+  //     forgotPasswordClicked: false,
+  //     successMsg: "",
+  //     showPassword: false,
+  //   };
+  //   this.onFormSubmit = this.onFormSubmit.bind(this);
+  //   this.removeErrorMsg = this.removeErrorMsg.bind(this);
+  // }
+
+  const onFormSubmit = (e) => {
     e.preventDefault();
-    const formData = {
-      username: this.username.value,
-      password: this.password.value,
-      tenantId: 1,
-    };
-    if (this.validateInput(formData)) {
-      this.props.onLoginSubmit(formData);
-    }
+    // const formData = {
+    //   username: this.username.value,
+    //   password: this.password.value,
+    //   tenantId: 1,
+    // };
+    // if (this.validateInput(formData)) {
+    //   this.props.onLoginSubmit(formData);
+    // }
   }
 
-  validateInput(data) {
-    if (isEmpty(data.username)) {
-      this.setState({ errors: { username: "Username is required!" } });
-      return false;
-    }
-    if (isEmpty(data.password)) {
-      this.setState({ errors: { password: "Password is required!" } });
-      return false;
-    }
+  // const validateInput = (data) => {
+  //   if (isEmpty(data.username)) {
+  //     this.setState({ errors: { username: "Username is required!" } });
+  //     return false;
+  //   }
+  //   if (isEmpty(data.password)) {
+  //     this.setState({ errors: { password: "Password is required!" } });
+  //     return false;
+  //   }
 
-    return true;
-  }
+  //   return true;
+  // }
 
-  removeErrorMsg() {
-    this.setState({ errors: { username: null, password: null } });
-  }
+  // const removeErrorMsg = () => {
+  //   this.setState({ errors: { username: null, password: null } });
+  // }
 
-  handleForgotPassword = () => {
-    this.setState({ forgotPasswordClicked: true });
+  const handleForgotPassword = () => {
+    setForgotPasswordClicked(true)
   };
 
-  cancelForgotPassword = () => {
-    this.setState({ forgotPasswordClicked: false });
+  const cancelForgotPassword = () => {
+    setForgotPasswordClicked(false)
   };
 
-  resetSuccess = () => {
-    this.setState({
-      forgotPasswordClicked: false,
-      successMsg: "Password reset successfully",
+  // const resetSuccess = () => {
+  //   this.setState({
+  //     forgotPasswordClicked: false,
+  //     successMsg: "Password reset successfully",
+  //   });
+  // };
+
+  const handleFormDataChange = (event) => {
+    let inputVal = event.target.value;
+    updateFormData({
+      ...formData,
+      [event.target.name]: inputVal,
     });
+    setFormErrors({ [event.target.name]: "" });
   };
-
-  render() {
-    const _this = this;
-    const { errorMsg } = this.props;
-    const { forgotPasswordClicked, successMsg, showPassword } = this.state;
+    // const _this = this;
+    // const { errorMsg } = this.props;
+    // const { forgotPasswordClicked, successMsg, showPassword } = this.state;
     return (
       <LoginFormWrapper className="login-form-wrapper">
         <div className="">
-          <div className="login-bg">
+          {/* <div className="login-bg">
             <img src={"/images/login-banner.svg"} alt="" />
-          </div>
+          </div> */}
           <div className="login-form">
-            <div className="form-heading text-center mb-28">
+            {/* <div className="form-heading text-center mb-28">
               <img
                 src={"/images/texta-white-logo.png"}
                 alt="INRPAY"
                 className="logo-icon"
               />
-            </div>
+            </div> */}
             <div className="login-form-inner">
               {forgotPasswordClicked ? (
                 <ResetPassword
-                  handleCancel={this.cancelForgotPassword}
-                  resetSuccess={this.resetSuccess}
+                  handleCancel={cancelForgotPassword}
+                  resetSuccess={resetSuccess}
                 />
               ) : (
                 <Fragment>
                   <form
                     className="form-group flex space-between"
-                    onSubmit={this.onFormSubmit}
+                    onSubmit={onFormSubmit}
                   >
                     <div className="logo-wrapper">
                       <div className="login-logo mb12">
+                      <img src="/images/success.png" width="150" />
+                      <img src={"/images/cb_login.png"} />
+
+                        {/* <img
+                          src={loginBg}
+                          alt="INRPAY"
+                          className="logo-icon"
+                        /> */}
                         <IconTexta />
                       </div>
                       <h3 className="mb12">Easy & Fast Payment with UPI</h3>
@@ -106,21 +129,43 @@ class LoginForm extends React.Component {
                     </div>
                     <div className="form-text-wrapper">
                       <div className="form-text-inner">
+                        <IconLogo />
                         <div className="title mb20">
-                          Sign in to continue to TEXTA.
+                        Login to Dashboard
                         </div>
-                        {(successMsg || errorMsg) && (
+                        <MaterialInput
+                          wrapperClassName="mobile-number"
+                          // icon={<IconMobile />}
+                          name="userName"
+                          maxLength="10"
+                          type="text"
+                          onChange={handleFormDataChange}
+                          placeholder="User ID / Mobile No."
+                          value={formData?.userName}
+                          error={error.userName}
+                        />
+                        <MaterialInput
+                          wrapperClassName="mobile-number"
+                          // icon={<IconMobile />}
+                          name="password"
+                          maxLength="10"
+                          type="text"
+                          onChange={handleFormDataChange}
+                          placeholder="Password"
+                          value={formData?.password}
+                          error={error.password}
+                        />
+                        {/* {(successMsg || errorMsg) && (
                           <div
-                            className={`${
-                              successMsg ? "alert-success" : "alert-danger"
-                            } alert text-center`}
+                            className={`${successMsg ? "alert-success" : "alert-danger"
+                              } alert text-center`}
                             role="alert"
                           >
                             {successMsg || errorMsg}
                           </div>
-                        )}
+                        )} */}
 
-                        <div className="floating-label-group inputgroup">
+                        {/* <div className="floating-label-group inputgroup">
                           <div className="flex space-between floating-label-input">
                             <input
                               id="user-name"
@@ -142,8 +187,8 @@ class LoginForm extends React.Component {
                               Username
                             </label>
                           </div>
-                        </div>
-                        <div className="floating-label-group inputgroup">
+                        </div> */}
+                        {/* <div className="floating-label-group inputgroup">
                           <div className="flex space-between floating-label-input">
                             <input
                               id="password"
@@ -164,9 +209,8 @@ class LoginForm extends React.Component {
                               Password
                             </label>
                             <span
-                              className={`eye-icon${
-                                !showPassword ? " cross" : ""
-                              }`}
+                              className={`eye-icon${!showPassword ? " cross" : ""
+                                }`}
                               onClick={() => {
                                 _this.setState({
                                   ..._this.state,
@@ -186,7 +230,7 @@ class LoginForm extends React.Component {
                           >
                             Forgot password
                           </div>
-                        </div>
+                        </div> */}
                         <input
                           type="submit"
                           value="Submit"
@@ -205,7 +249,6 @@ class LoginForm extends React.Component {
         </div>
       </LoginFormWrapper>
     );
-  }
 }
 
 export default LoginForm;
