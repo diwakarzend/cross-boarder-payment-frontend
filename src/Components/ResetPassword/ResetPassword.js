@@ -4,6 +4,7 @@ import urls from "../../utils/urls";
 import { autoFocusOTPForm } from "../../utils/common";
 import RequestOTPForm from "./RequestOTPForm";
 import ResetPasswordForm from "./ResetPasswordForm";
+import IconLogo from "../../assests/images/Icons/IconLogo";
 import IconTexta from "../../assests/images/Icons/IconTexta";
 const initialState = {
   otpSend: false,
@@ -37,7 +38,7 @@ const ForGotPassword = memo(({ handleCancel, resetSuccess }) => {
         });
       }
     };
-    const errorHandler = (response) => {};
+    const errorHandler = (response) => { };
 
     const api = new Request("", successHandler, errorHandler, false);
     return api.get(
@@ -91,24 +92,17 @@ const ForGotPassword = memo(({ handleCancel, resetSuccess }) => {
 
   const cssClass = formData.successMsg ? "success-msg" : "error-msg";
   return (
-    <div className="flex space-between">
-      <div className="logo-wrapper">
-        <div className="login-logo mb12">
-          <IconTexta />
-        </div>
-        <h3 className="mb12">Easy & Fast Payment with UPI</h3>
-        <p>Pay directly from your bank account using your mobile</p>
-      </div>
-      <div className="form-text-wrapper">
-        <div className="form-text-inner">
-          <div className="title mb20">Reset password with TEXTA.</div>
-          {formData.successMsg || formData.errorMsg ? (
+    <>
+          <div className="logo">
+            <IconLogo />
+            <div className="title mb20">
+              Login to Dashboard
+            </div>
+          </div>
+          {/* <div className="title mb20">Reset password with TEXTA.</div> */}
+          {formData.successMsg || formData.errorMsg && (
             <div className={`alert alert-warning ${cssClass}`}>
               {formData.successMsg || formData.errorMsg}
-            </div>
-          ) : (
-            <div className="alert alert-warning" role="alert">
-              Enter your email and instructions will be sent to you!
             </div>
           )}
 
@@ -126,9 +120,7 @@ const ForGotPassword = memo(({ handleCancel, resetSuccess }) => {
               handleChange={handleChange}
             />
           )}
-        </div>
-      </div>
-    </div>
+    </>
   );
 });
 

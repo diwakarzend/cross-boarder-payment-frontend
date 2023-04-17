@@ -67,7 +67,7 @@ export const SidebarWrapper = styled.nav`
   .profile-wraper {
     padding: 0 24px;
     margin-bottom: 15px;
-    font-family: "Cabin", sans-serif;
+    font-family: "Roboto", sans-serif;
     .link {
       border-radius: 10px 10px 0 10px;
       background-color: #fff;
@@ -190,7 +190,7 @@ export const SidebarWrapper = styled.nav`
     transition: all 0.1s ease-in-out;
     border-radius: 10px 10px 0 10px;
     position: relative;
-    font-family: "Cabin", sans-serif;
+    font-family: "Roboto", sans-serif;
     .icon {
       fill: var(--ip-nav-link-color);
     }

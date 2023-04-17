@@ -56,16 +56,14 @@ export const MaterialInputWrapper = styled.div`
 
   .item-text {
     width: 100%;
-    /* height: 60px; */
     height: 60px;
     background-color: ${theme[themeName].color.color7};
     border: none;
     border-bottom: 1px solid ${theme[themeName].color.color2};
     border-radius: 4px;
     padding: 30px 0 5px 53px;
-    /* font-size: 20px; */
     font-size: 15px;
-    color: ${theme[themeName].color.color5};
+    color: ${theme[themeName].color.color3};
     &.has-file {
       padding-right: 70px;
     }
@@ -79,7 +77,7 @@ export const MaterialInputWrapper = styled.div`
       pointer-events: none;
       display: flex;
       align-items: center;
-      padding: 5px 16px 5px 56px;
+      padding: 5px 16px 5px 20px;
       white-space: nowrap;
       top: -30px;
       .item-label {
@@ -91,10 +89,9 @@ export const MaterialInputWrapper = styled.div`
       .item-icon {
         position: absolute;
         left: 20px;
-        top: 0px;
+        top: 60px;
         width: 100%;
         height: 100%;
-        display: flex;
       }
     }
     &:hover {
@@ -144,7 +141,7 @@ export const MaterialInputWrapper = styled.div`
       pointer-events: none;
       display: flex;
       align-items: center;
-      padding: 5px 16px 5px 56px;
+      padding: 5px 16px 5px 20px;
       white-space: nowrap;
       .item-label {
         font-size: 14px;
@@ -217,7 +214,7 @@ export const MaterialInputWrapper = styled.div`
       pointer-events: none;
       display: flex;
       align-items: center;
-      padding: 5px 16px 5px 56px;
+      padding: 5px 16px 5px 20px;
       white-space: nowrap;
       .item-label {
         font-size: 14px;
@@ -284,7 +281,7 @@ export const MaterialInputWrapper = styled.div`
       pointer-events: none;
       display: flex;
       align-items: center;
-      padding: 5px 16px 5px 56px;
+      padding: 5px 16px 5px 20px;
       white-space: nowrap;
       .item-label {
         // font-size: 14px;
@@ -395,4 +392,112 @@ export const CheckFieldWrapper = styled.div`
       transform: rotate(45deg);
     }
   }
+`;
+
+export const ButtonSolid = styled.button`
+  width: ${({ width }) => width || "auto"};
+  padding: 0 15px;
+  border: none;
+  text-transform: uppercase;
+  font-family: ${theme[themeName].font.fontFamily.poppins};
+  font-weight: ${theme[themeName].font.fontWeight.semiBold};
+  padding: 0 20px;
+  cursor: pointer;
+  ${({ primary }) =>
+    primary &&
+    `
+  color: ${theme[themeName].button.solid.primary.color};
+  background-color: ${theme[themeName].button.solid.primary.bgColor};
+  `}
+  ${({ secondary }) =>
+  secondary &&
+    `
+  color: ${theme[themeName].button.solid.secondary.color};
+  background-color: ${theme[themeName].button.solid.secondary.bgColor};
+  `}
+  ${({ disabled }) =>
+    disabled &&
+    `
+  color: ${theme[themeName].button.solid.disabled.color};
+  background-color: ${theme[themeName].button.solid.disabled.bgColor};
+  cursor: not-allowed;
+  `}
+  ${({ xl }) =>
+    xl &&
+    `
+    height: ${theme[themeName].button.height.xl};
+    font-size: ${theme[themeName].button.fontSize.xl};
+  `}
+  ${({ lg }) =>
+    lg &&
+    `
+    height: ${theme[themeName].button.height.lg};
+    border-radius: ${theme[themeName].button.rounded.lg};
+    font-size: ${theme[themeName].button.fontSize.lg};
+  `}
+  ${({ md }) =>
+    md &&
+    `
+    height: ${theme[themeName].button.height.md};
+    border-radius: ${theme[themeName].button.rounded.md};
+    font-size: ${theme[themeName].button.fontSize.md};
+  `}
+  ${({ rg }) =>
+    rg &&
+    `
+    height: ${theme[themeName].button.height.rg};
+    border-radius: ${theme[themeName].button.rounded.rg};
+    font-size: ${theme[themeName].button.fontSize.rg};
+  `}
+`;
+
+export const ButtonOutline = styled.button`
+  width: ${(props) => (props.width ? props.width : "auto")};
+  padding: 0 15px;
+  border: 1px solid currentColor;
+  text-transform: uppercase;
+  font-family: ${theme[themeName].font.fontFamily.poppins};
+  font-weight: ${theme[themeName].font.fontWeight.semiBold};
+  cursor: pointer;
+  ${({ primary }) =>
+    primary &&
+    `
+  color: ${theme[themeName].button.outline.primary.color};
+  background-color: ${theme[themeName].button.outline.primary.bgColor};
+  `}
+  ${({ disabled }) =>
+    disabled &&
+    `
+  color: ${theme[themeName].button.outline.disabled.color};
+  background-color: ${theme[themeName].button.outline.disabled.bgColor};
+  cursor: not-allowed;
+  `}
+  ${({ xl }) =>
+    xl &&
+    `
+    height: ${theme[themeName].button.height.xl};
+    border-radius: ${theme[themeName].button.rounded.xl};
+    font-size: ${theme[themeName].button.fontSize.xl};
+  `}
+  ${({ lg }) =>
+    lg &&
+    `
+    height: ${theme[themeName].button.height.lg};
+    border-radius: ${theme[themeName].button.rounded.lg};
+    font-size: ${theme[themeName].button.fontSize.lg};
+  `}
+  ${({ md }) =>
+    md &&
+    `
+    height: ${theme[themeName].button.height.md};
+    border-radius: ${theme[themeName].button.rounded.md};
+    font-size: ${theme[themeName].button.fontSize.md};
+  `}
+  ${({ rg }) =>
+    rg &&
+    `
+    height: ${theme[themeName].button.height.rg};
+    border-radius: ${theme[themeName].button.rounded.rg};
+    font-size: ${theme[themeName].button.fontSize.rg};
+  `}
 `;

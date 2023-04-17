@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import IconError from "../assets/images/IconError";
+import IconError from "../assests/images/Icons/IconError";
 const ErrorMessage = ({ error = "", className = "", datetimestamp }) => {
   const [alert, setAlert] = useState(true);
 
@@ -22,7 +22,7 @@ const ErrorMessage = ({ error = "", className = "", datetimestamp }) => {
     <>
       {alert && (
         <div className={`inline-message error mt8 ${className}`}>
-          {/* <IconError className="icon" /> */}
+          <IconError className="icon" />
           {error}
         </div>
       )}

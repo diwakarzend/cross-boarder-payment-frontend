@@ -1,6 +1,7 @@
 import styled from 'styled-components'; 
 
 export const LoginFormWrapper = styled.div`
+    height: 100%;
     .login-bg {
         position: absolute;
         top: 0;
@@ -28,5 +29,79 @@ export const LoginFormWrapper = styled.div`
             transform: translateX(-50%);
         }
     }
-    
+    .banner{
+        background-image: url(../images/cb_backbg.png);
+        background-size: cover;
+        flex: 1;
+    }
+    .form-group{
+        height: 100%;
+    }
+    .inner-box{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content:  center;
+    }
+    .form-text-wrapper{
+        background-image: url(../images/cb_3ddesign.png);
+        background-size: contain;
+    }
+    .logo{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    .text-box {
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100px;
+        justify-content: center;
+        gap: 20px;
+    }
+    .banner-box{
+        position: relative;
+    }
+    .banner-text {
+        position: absolute;
+        top: 70px;
+        color: #fff;
+        left: 110px;
+        font-size: 20px;
+        width: 50%;
+        font-weight: 500;
+    }
+    .banner-heading {
+        top: 150px;
+        font-size: 35px;
+        width: 32%;
+        line-height: 35px;
+        font-weight: 600;
+    }
+    .icon-eye {
+        height: 20px;
+        position: absolute;
+        right: 20px;
+        top: 33px;
+        &:after {
+          content: "";
+          position: absolute;
+          width: 26px;
+          height: 1px;
+          background-color: #828282;
+          left: -3px;
+          top: 8px;
+          transform: rotate(-45deg);
+        }
+        &.active {
+          &:after {
+            display: none;
+          }
+        }
+        img {
+          max-width: 23px;
+        }
+      }
 `;

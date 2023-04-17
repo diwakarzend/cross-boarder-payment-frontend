@@ -2,16 +2,24 @@ import React, { Fragment, useState } from "react";
 import { isEmpty } from "../../utils/common";
 import ResetPassword from "../../Components/ResetPassword/ResetPassword";
 import { LoginFormWrapper } from "./style";
+import { formValidation } from "../../utils/formValidation";
+import ErrorMessage from "../../Components/ErrorMessage";
 import MaterialInput from "../../Components/Common/Form";
+import IconMobile from "../../assests/images/Icons/IconMobile";
 import IconEye from "../../assests/images/Icons/IconEye";
+import IconPassword from "../../assests/images/Icons/IconPassword";
 import IconTexta from "../../assests/images/Icons/IconTexta";
 import IconLogo from "../../assests/images/Icons/IconLogo";
+import { ButtonSolid, Text } from "../../Components/styledConstants";
 // import loginBg from "../../assests/images/cb_login.png";
-const LoginForm = () => {
+const LoginForm = ({ onLoginSubmit, errorMsg }) => {
   const [formData, updateFormData] = useState({ userName: "", password: "" });
   const [forgotPasswordClicked, setForgotPasswordClicked] = useState(false);
   const [formErrors, setFormErrors] = useState({});
-  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
+
+  // const [error, setError] = useState("");
 
   // constructor(props) {
   //   super(props);
@@ -31,14 +39,17 @@ const LoginForm = () => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    // const formData = {
-    //   username: this.username.value,
-    //   password: this.password.value,
-    //   tenantId: 1,
-    // };
-    // if (this.validateInput(formData)) {
-    //   this.props.onLoginSubmit(formData);
-    // }
+    const payload = {
+      username: formData.userName,
+      password: formData.password,
+      tenantId: 1,
+    };
+    const errors = formValidation(formData);
+    if (!!errors && Object.keys(errors).length != 0) {
+      setFormErrors(errors);
+    } else {
+      onLoginSubmit(payload);
+    }
   }
 
   // const validateInput = (data) => {
@@ -66,12 +77,14 @@ const LoginForm = () => {
     setForgotPasswordClicked(false)
   };
 
-  // const resetSuccess = () => {
-  //   this.setState({
-  //     forgotPasswordClicked: false,
-  //     successMsg: "Password reset successfully",
-  //   });
-  // };
+  const resetSuccess = () => {
+    // this.setState({
+    // forgotPasswordClicked: false,
+    // successMsg: "Password reset successfully",
+    // });
+    setForgotPasswordClicked(false);
+    setSuccessMsg("Password reset successfully");
+  };
 
   const handleFormDataChange = (event) => {
     let inputVal = event.target.value;
@@ -81,81 +94,102 @@ const LoginForm = () => {
     });
     setFormErrors({ [event.target.name]: "" });
   };
-    // const _this = this;
-    // const { errorMsg } = this.props;
-    // const { forgotPasswordClicked, successMsg, showPassword } = this.state;
-    return (
-      <LoginFormWrapper className="login-form-wrapper">
-        <div className="">
-          {/* <div className="login-bg">
-            <img src={"/images/login-banner.svg"} alt="" />
-          </div> */}
-          <div className="login-form">
-            {/* <div className="form-heading text-center mb-28">
-              <img
-                src={"/images/texta-white-logo.png"}
-                alt="INRPAY"
-                className="logo-icon"
-              />
-            </div> */}
-            <div className="login-form-inner">
-              {forgotPasswordClicked ? (
-                <ResetPassword
-                  handleCancel={cancelForgotPassword}
-                  resetSuccess={resetSuccess}
-                />
-              ) : (
-                <Fragment>
-                  <form
-                    className="form-group flex space-between"
-                    onSubmit={onFormSubmit}
-                  >
-                    <div className="logo-wrapper">
-                      <div className="login-logo mb12">
-                      <img src="/images/success.png" width="150" />
+  // const _this = this;
+  // const { errorMsg } = this.props;`
+  // const { forgotPasswordClicked, successMsg, showPassword } = this.state;
+  console.log('33', errorMsg)
+  return (
+    <LoginFormWrapper className="login-form-wrapper">
+      <div className="login-form">
+        <div className="login-form-inner">
+            <Fragment>
+              <form
+                className="form-group flex space-between"
+                onSubmit={onFormSubmit}
+              >
+                <div className="banner">
+                  <div className="inner-box">
+                    <div className="banner-box">
                       <img src={"/images/cb_login.png"} />
-
-                        {/* <img
-                          src={loginBg}
-                          alt="INRPAY"
-                          className="logo-icon"
-                        /> */}
-                        <IconTexta />
-                      </div>
-                      <h3 className="mb12">Easy & Fast Payment with UPI</h3>
-                      <p>
-                        Pay directly from your bank account using your mobile
-                      </p>
+                      <Text className="banner-text" as="span">
+                        Transfer money globally at the best exchange rate & lowest fee
+                      </Text>
+                      <Text className="banner-text banner-heading" as="h3">
+                        Sending Money Abroad from India just got easier.
+                      </Text>
                     </div>
-                    <div className="form-text-wrapper">
-                      <div className="form-text-inner">
-                        <IconLogo />
-                        <div className="title mb20">
+                  </div>
+                </div>
+                <div className="form-text-wrapper">
+                  <div className="form-text-inner">
+                    
+                    {forgotPasswordClicked ? (
+                      <ResetPassword
+                        handleCancel={cancelForgotPassword}
+                        resetSuccess={resetSuccess}
+                      />) :
+                      <>
+                      <div className="logo">
+                      <IconLogo />
+                      <div className="title mb20">
                         Login to Dashboard
+                      </div>
+                    </div>
+                        {errorMsg && <ErrorMessage className="mb20" error={errorMsg} datetimestamp={+new Date()} />}
+                        <div className="mb16">
+                          <MaterialInput
+                            wrapperClassName="username"
+                            icon={<IconMobile />}
+                            maxLength="10"
+                            name="userName"
+                            type="text"
+                            onChange={handleFormDataChange}
+                            placeholder="User ID / Mobile No."
+                            value={formData?.userName}
+                            error={formErrors.userName}
+                          />
                         </div>
-                        <MaterialInput
-                          wrapperClassName="mobile-number"
-                          // icon={<IconMobile />}
-                          name="userName"
-                          maxLength="10"
-                          type="text"
-                          onChange={handleFormDataChange}
-                          placeholder="User ID / Mobile No."
-                          value={formData?.userName}
-                          error={error.userName}
-                        />
-                        <MaterialInput
-                          wrapperClassName="mobile-number"
-                          // icon={<IconMobile />}
-                          name="password"
-                          maxLength="10"
-                          type="text"
-                          onChange={handleFormDataChange}
-                          placeholder="Password"
-                          value={formData?.password}
-                          error={error.password}
-                        />
-                        {/* {(successMsg || errorMsg) && (
+                        <div className="pos-rel">
+                          <MaterialInput
+                            wrapperClassName="password"
+                            icon={<IconPassword />}
+                            name="password"
+                            type={showPassword ? "text" : "password"}
+                            onChange={handleFormDataChange}
+                            placeholder="Password"
+                            value={formData?.password}
+                            error={formErrors.password}
+                          />
+                          <span
+                            className={`icon-eye pointer${showPassword ? " active" : ""}`}
+                            onClick={() => setShowPassword(!showPassword)}
+                            role="button"
+                            tabIndex={0}
+                          >
+                            <IconEye />
+                          </span>
+                        </div>
+                        <ButtonSolid primary xl className="mt30 full-width" type="button" onClick={onFormSubmit}>
+                      Login
+                    </ButtonSolid>
+                    <div className="text-box">
+                      <Text className="pointer underline" as="span" size="sm" color="color3" onClick={handleForgotPassword}>
+                        Forgot Password?
+                      </Text>
+                      <Text as="span" size="sm" color="color3">
+                        Don't have a P2P Solution account
+                      </Text>
+                    </div>
+
+                    <ButtonSolid secondary xl className="mt16 full-width" type="button">
+                      Create New Account
+                    </ButtonSolid>
+                    <div className="text-center footer-copy-text">
+                      © 2023 · Terms of use · Support
+                    </div>
+                      </>
+                    }
+                    {/* {(successMsg || errorMsg) && (
                           <div
                             className={`${successMsg ? "alert-success" : "alert-danger"
                               } alert text-center`}
@@ -165,7 +199,7 @@ const LoginForm = () => {
                           </div>
                         )} */}
 
-                        {/* <div className="floating-label-group inputgroup">
+                    {/* <div className="floating-label-group inputgroup">
                           <div className="flex space-between floating-label-input">
                             <input
                               id="user-name"
@@ -188,7 +222,7 @@ const LoginForm = () => {
                             </label>
                           </div>
                         </div> */}
-                        {/* <div className="floating-label-group inputgroup">
+                    {/* <div className="floating-label-group inputgroup">
                           <div className="flex space-between floating-label-input">
                             <input
                               id="password"
@@ -231,24 +265,21 @@ const LoginForm = () => {
                             Forgot password
                           </div>
                         </div> */}
-                        <input
-                          type="submit"
-                          value="Submit"
-                          className="submit-btn primary-btn"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </Fragment>
-              )}
-            </div>
-            <div className="text-center footer-copy-text">
-              © 2023 · Terms of use · Support
-            </div>
-          </div>
+                    {/* <input
+                      type="submit"
+                      value="Submit"
+                      className="submit-btn primary-btn"
+                    /> */}
+                    
+                  </div>
+                </div>
+              </form>
+            </Fragment>
         </div>
-      </LoginFormWrapper>
-    );
+
+      </div>
+    </LoginFormWrapper>
+  );
 }
 
 export default LoginForm;

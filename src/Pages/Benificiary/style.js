@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
             border-radius: 30px 0 0 30px;
             padding: 0 20px;
             font-size: 15px;
-            font-family: 'Cabin', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-weight: 500;
         }
         input{

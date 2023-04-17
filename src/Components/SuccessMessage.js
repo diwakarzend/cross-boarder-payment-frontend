@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import IconSuccess from "../assets/images/IconSuccess";
+import IconSuccess from "../assests/images/Icons/IconSuccess";
 const SuccessMessage = ({ successMessage, className = "", dataset = "" }) => {
   const [alert, setAlert] = useState(true);
 
@@ -20,7 +20,7 @@ const SuccessMessage = ({ successMessage, className = "", dataset = "" }) => {
     <>
       {alert && (
         <div className={`${className} inline-message success mt8 full-width`}>
-          {/* <IconSuccess className="icon" /> */}
+          <IconSuccess className="icon" />
           <img className="icon" src={""} alt="" />
           {successMessage}
         </div>

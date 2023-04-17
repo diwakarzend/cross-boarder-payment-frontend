@@ -27,7 +27,6 @@ import PayoutBulkUpload from "../Pages/PayoutBulkUpload";
 
 const Routes = (props) => {
   return (
-    <div>
       <Switch>
         <Route path="/" component={LoginPageLoadable} exact />
         <PrivateRoute path="/dashboard" component={DashboardLoadable} exact />
@@ -82,7 +81,6 @@ const Routes = (props) => {
         <PrivateRoute path="/api-docs" component={ApiDocsLoadable} exact />
         <PrivateRoute path="/payout-bulk-upload" component={PayoutBulkUpload} exact />
       </Switch>
-    </div>
   );
 };
 

@@ -63,6 +63,10 @@ const theme = {
             bgColor: "#ED141F",
             color: "#fff",
           },
+          secondary: {
+            bgColor: "#000000",
+            color: "#fff",
+          },
           disabled: {
             bgColor: "#bdbdbd",
             color: "#fff",
@@ -86,7 +90,7 @@ const theme = {
           sm: "10px",
         },
         height: {
-          xl: "42px",
+          xl: "60px",
           lg: "40px",
           md: "36px",
           rg: "30px",
