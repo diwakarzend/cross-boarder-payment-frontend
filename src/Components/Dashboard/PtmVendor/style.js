@@ -7,7 +7,7 @@ export const UpiCollectionsStyle = styled.div`
     align-items: center;
     padding: 0 23px;
     border-radius: 20px;
-    font-family: "Cabin", Times, serif;
+    font-family: "Roboto", Times, serif;
     margin-bottom: 20px;
     .image {
       margin-right: 24px;
@@ -96,7 +96,7 @@ export const UpiCollectionsStyle = styled.div`
     font-size: 20px;
     font-weight: 700;
     color: rgba(6, 49, 81, 1);
-    font-family: "Cabin", sans-serif;
+    font-family: "Roboto", sans-serif;
   }
   .status-wrap {
     height: 50px;
@@ -109,7 +109,7 @@ export const UpiCollectionsStyle = styled.div`
       font-size: 14px;
       font-weight: 500;
       color: #000;
-      font-family: "Cabin", sans-serif;
+      font-family: "Roboto", sans-serif;
       position: relative;
       padding-right: 22px;
       margin-right: 22px;
@@ -171,7 +171,7 @@ export const UpiCollectionsStyle = styled.div`
         font-size: 14px;
         width: 250px;
         font-weight: 500;
-        font-family: "Cabin", sans-serif;
+        font-family: "Roboto", sans-serif;
       }
     }
   }
@@ -220,7 +220,7 @@ export const UpiCollectionsStyle = styled.div`
     border: 1px solid rgba(223, 223, 223, 1);
     margin-bottom: 10px;
     margin-left: 10px;
-    font-size: "Cabin", sans-serif;
+    font-size: "Roboto", sans-serif;
     &:hover,
     &.active {
       background: transparent

@@ -809,6 +809,10 @@ html {
   padding: 0;
 }
 
+body,html,#app {
+  height: 100vh;
+}
+
 body {
   background-color: #eef1f5;
   padding: 0 !important;

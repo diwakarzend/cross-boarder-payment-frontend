@@ -239,7 +239,7 @@ export const Button = styled.button`
     justify-content: center;
     align-items: center;
     padding: 0 25px;
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Roboto', sans-serif;
     white-space: nowrap;
     border: none;
     color:#fff;
@@ -303,7 +303,7 @@ export const BorderBtn = styled.button`
     justify-content: center;
     align-items: center;
     padding: 0 15px;
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Roboto', sans-serif;
     white-space: nowrap;
     border: none;
     i{

@@ -17,7 +17,7 @@ export const PageTitleWrapper = styled.div`
         z-index: 9;
         top: 21px;
         left: 305px;
-        font-family: 'Cabin';
+        font-family: 'Roboto';
     }
     .separator {
         margin: 0 5px;

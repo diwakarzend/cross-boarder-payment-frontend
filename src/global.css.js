@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
   :root {
-    --font: 'Cabin', sans-serif;
+    --font: 'Roboto', sans-serif;
     --ip-body-font-size: 13px;
     --ip-body-bg: #f3f3f9;
     --ip-white-bg:#fff;
@@ -105,6 +105,9 @@ export default createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+  html,body,#app{
+    height:100vh;
   }
   body{
     font-family: var(--font);
@@ -210,6 +213,9 @@ export default createGlobalStyle`
   }
   .mt4{
     margin-top:4px;
+  }
+  .mt30{
+    margin-top:30px;
   }
   .mr4{
     margin-right: 8px;
@@ -410,7 +416,7 @@ export default createGlobalStyle`
     justify-content: center;
     align-items: center;
     padding: 0 25px;
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Roboto', sans-serif;
     white-space: nowrap;
     border: none;
     color:#fff;
@@ -443,7 +449,7 @@ export default createGlobalStyle`
     justify-content: center;
     align-items: center;
     padding: 0 25px;
-    font-family: 'Cabin', sans-serif;
+    font-family: 'Roboto', sans-serif;
     white-space: nowrap;
     border: none;
     &:hover,&.active{
@@ -791,20 +797,22 @@ export default createGlobalStyle`
     .login-form {
         position: relative;
         z-index: 2;
+        height: 100%;
     }
     .login-form-inner {
-        max-width: 900px;
+        // max-width: 900px;
         margin: 0 auto;
         box-shadow: 0 10px 50px #0000001A;
         background-color: var(--ip-white-bg);
         border-radius: 20px 20px 0 20px;
+        height: 100%;
     }
     .logo-icon {
         max-width: 200px;
     }
     .logo-wrapper {
         width: 55%;
-        padding: 36px 70px 60px;
+        padding: 0;
         h3{
             font-size: 40px;
             line-height: 45px;
@@ -816,17 +824,18 @@ export default createGlobalStyle`
         }
     }
     .form-text-wrapper{
-        padding: 36px 0;
+        padding: 0;
         width: 45%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         .title{
             font-size: 20px;
             line-height: 24px;
             font-weight: 500;
         }
         .form-text-inner{
-            height: 100%;
-            padding: 0 60px;
-            border-left: 1px dotted #292929;
+            width: 60%;
         }
 
        .eye-icon{
@@ -992,5 +1001,34 @@ export default createGlobalStyle`
           height: 40px;
         }
       }
+  }
+  .full-width {
+    width: 100%;
+  }
+  .inline-message {
+    padding: 6px 14px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    width: 100%;
+    &.error {
+      background-color: rgba(240,17,2,0.04);
+    }
+    &.success {
+      background-color: rgba(42, 201, 64,0.11);
+    }
+    .icon {
+      margin-right: 10px;
+      max-width: 16px;
+    }
+  }
+  .pos-rel {
+    position: relative;
+  }
+  .pointer {
+    cursor: pointer;
+  }
+  .underline{
+    text-decoration: underline;
   }
 `;
