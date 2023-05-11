@@ -24,6 +24,9 @@ import ApiDocsLoadable from "../Pages/ApiDocs/ApiDocsLoadable";
 import EscrowReports from "../Pages/Payout/EscrowReports";
 
 import PayoutBulkUpload from "../Pages/PayoutBulkUpload";
+import AddMerchant from "../Pages/Merchant/AddMerchant";
+import MerchantList from "../Pages/Merchant/MerchantList";
+import TransactionList from "../Pages/Transaction";
 
 const Routes = (props) => {
   return (
@@ -80,6 +83,10 @@ const Routes = (props) => {
         />
         <PrivateRoute path="/api-docs" component={ApiDocsLoadable} exact />
         <PrivateRoute path="/payout-bulk-upload" component={PayoutBulkUpload} exact />
+
+        <PrivateRoute path="/add-merchants" component={AddMerchant} exact />
+        <PrivateRoute path="/merchants-list" component={MerchantList} exact />
+        <PrivateRoute path="/transaction" component={TransactionList} exact />
       </Switch>
   );
 };

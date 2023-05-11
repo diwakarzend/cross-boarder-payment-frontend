@@ -14,7 +14,7 @@ export const IconMap = {
 
 export const Navigation = [
   {
-    title: "Dashboard",
+    title: "Overview",
     link: "/dashboard",
     active: true,
     default: true,
@@ -22,7 +22,7 @@ export const Navigation = [
     subNav: [],
   },
   {
-    title: "Manage Merchant",
+    title: "Merchant",
     link: "",
     active: false,
     applicableRoles: ["PTM_ADMIN"],
@@ -35,9 +35,31 @@ export const Navigation = [
         applicableRoles: ["PTM_ADMIN"],
         subNav: [],
       },
+      {
+        title: "Add Merchants",
+        link: "/add-merchants",
+        active: false,
+        applicableRoles: ["PTM_ADMIN"],
+        subNav: [],
+      },
+      {
+        title: "Merchants List",
+        link: "/merchants-list",
+        active: false,
+        applicableRoles: ["PTM_ADMIN"],
+        subNav: [],
+      },
     ],
   },
-
+{
+  title: "Transaction",
+  link: "/transaction",
+  active: false,
+  default: true,
+  icon: "IconSettings",
+  subNav: [],
+  applicableRoles: ["PTM_ADMIN"],
+},
   {
     title: "PayIn",
     link: "",

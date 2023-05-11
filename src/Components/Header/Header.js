@@ -63,9 +63,9 @@ const Header = () => {
             </div> */}
         </div>
         <div className="header-right flex item-center">
-          <button className="primary-btn" onClick={() => location.reload()}>
+          {/* <button className="primary-btn" onClick={() => location.reload()}>
             <i className="fa fa-refresh" aria-hidden="true"></i> Refresh
-          </button>
+          </button> */}
           <button className="round-btn">
             <i className="fa fa-bullhorn"></i>
           </button>

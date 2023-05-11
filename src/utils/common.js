@@ -486,3 +486,11 @@ export function numberToCurrency(value) {
   let v = (value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
   return `₹ ${v}`;
 }
+
+export const getParams = (formArray) => {
+  const params = {};
+  formArray.forEach((control) => {
+    params[control.name] = control.value;
+  });
+  return params;
+};

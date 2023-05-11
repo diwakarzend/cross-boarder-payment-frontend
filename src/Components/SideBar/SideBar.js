@@ -5,7 +5,9 @@ import { getUserPermissions, isEmpty } from "../../utils/common";
 
 import NavItem from "./NavItem";
 import { Navigation } from "./constants";
+import { Text } from "../styledConstants";
 import { Logo } from "../UI/StyledConstants";
+import IconLogo from "../../assests/images/Icons/IconLogo";
 import { SidebarWrapper, UserInfoWrapper } from "./style";
 
 import {
@@ -148,9 +150,10 @@ const SideBar = () => {
     <>
       <SidebarWrapper className="sidebar">
         <div className="logo">
-          <img src="/images/texta-white-logo.png" alt="" />
+        <IconLogo />
+        <Text className="logo-text">P2P Solution</Text>
         </div>
-        <div className="profile-wraper" ref={ref}>
+        {/* <div className="profile-wraper" ref={ref}>
           <div className="profile">
             <div
               className={
@@ -180,7 +183,7 @@ const SideBar = () => {
               </ul>
             </div>
           </div>
-        </div>
+        </div> */}
         <ul className="menu-wrapper">
           {!isEmpty(roles) &&
             !isEmpty(inrpayNavigation) &&

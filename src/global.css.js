@@ -440,11 +440,10 @@ export default createGlobalStyle`
   .border-btn{
     outline:1px solid rgba(5, 61, 54, 1);
     height: 40px;
-    border-radius: 20px;
-    color:var(--ip-black);
+    color:#fff;
     font-size: 15px;
     font-weight: 700;
-    background-color: #fff;
+    background-color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -455,7 +454,7 @@ export default createGlobalStyle`
     &:hover,&.active{
         color:#fff;
         /* background: transparent linear-gradient(249deg, rgba(255, 102, 0, 1) 0%, rgba(105, 44, 255, 1) 100%) 0% 0% no-repeat padding-box; */
-        background: var(--ip-common-gradient);
+        background: #000;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.17);
         outline:none;
     }
@@ -596,10 +595,12 @@ export default createGlobalStyle`
   }
   /* Auth Layout CSS */
   .main-content {
-    margin-left: 250px;
-    padding: 85px 16px 60px;
+    margin-left: 265px;
+    padding: 73px 24px 60px;
     position: relative;
     transition: all .1s ease-out;
+    height: 100%;
+    background: #fff url('/images/cb_3ddesign.png') no-repeat right bottom;
   }
   .card-wrapper {
     position: relative;
@@ -1030,5 +1031,17 @@ export default createGlobalStyle`
   }
   .underline{
     text-decoration: underline;
+  }
+  .border-r-dash {
+    border-right: 1px dashed #c0c0c0;
+  }
+  .pr10{
+    padding-right: 10px;
+  }
+  .main-container{
+    height: 100%;
+  }
+  .select__placeholder, .select__value-container .select__input-container{
+    padding-top: 30px;
   }
 `;

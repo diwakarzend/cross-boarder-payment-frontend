@@ -17,7 +17,7 @@ export const ExportToExcel = ({ apiData, fileName }) => {
 
   return (
     <BorderBtn primary lg className="ml12 border-btn" onClick={(e) => exportToCSV(apiData, fileName)}>
-      Export xls
+      XLS
     </BorderBtn>
   );
 };

@@ -60,8 +60,11 @@ const PdfDown = ({
   };
   return (
     <BorderBtn onClick={handleClick} className="btn-soft-success">
-      <i className="fa fa-download" aria-hidden="true"></i> PDF
+      PDF
     </BorderBtn>
+    // <BorderBtn onClick={handleClick} className="btn-soft-success">
+    //   <i className="fa fa-download" aria-hidden="true"></i> PDF
+    // </BorderBtn>
 
     // <ButtonSolid primary lg onClick={handleClick}>
     //   <IconDownload className="mr8" /> Download pdf

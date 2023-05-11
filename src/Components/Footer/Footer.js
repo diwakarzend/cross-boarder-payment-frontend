@@ -5,8 +5,7 @@ const Footer = () => {
   const d = new Date();
   return (
     <FooterWrapper className="footer flex item-center space-between">
-      <span>{d.getFullYear()} © Textagram Pvt. Ltd.</span>
-      <span>Design & Developed By Textagram Pvt. Ltd.</span>
+      <span>© {d.getFullYear()} 2023 · Terms of use · Privacy policy</span>
     </FooterWrapper>
   );
 };

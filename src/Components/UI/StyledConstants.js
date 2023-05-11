@@ -294,11 +294,10 @@ export const Button = styled.button`
 export const BorderBtn = styled.button`
     outline:1px solid rgba(5, 61, 54, 1);
     height: 40px;
-    border-radius: 20px;
-    color:var(--ip-black);
+    color:#fff;
     font-size: 15px;
     font-weight: 700;
-    background-color: #fff;
+    background-color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -314,7 +313,7 @@ export const BorderBtn = styled.button`
     }
     &:hover,&.active{
         color:#fff;
-        background: var(--ip-common-gradient);
+        background: #000;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.17);
         outline:none;
         .icon{

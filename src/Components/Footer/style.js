@@ -5,8 +5,9 @@ export const FooterWrapper = styled.footer`
     padding: 20px 24px !important;
     position: absolute;
     right: 0;
-    color: var(--ip-footer-color);
+    color: #000;
     height: 60px;
-    background-color: var(--ip-footer-bg);
+    background-color: transparent;
     width: 100%;
+    font-size: 15px;
 `

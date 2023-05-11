@@ -67,7 +67,6 @@ export default function MaterialInput({
           <div className="form-item">
             <Select
               {...elemConfig}
-              placeholder={placeholder}
               className={`${className} ${!isEmpty(elemConfig.value) ? "has-value" : ""} ${
                 isFocus ? " focused" : ""
               } item-select`}
@@ -83,7 +82,7 @@ export default function MaterialInput({
             />
             <label className="item-label-wrapper">
               {icon && <span className="item-icon">{icon}</span>}
-              {/* {placeholder && <span className="item-label">{placeholder}</span>} */}
+              {placeholder && <span className="item-label">{placeholder}</span>}
             </label>
           </div>
           {error && <ErrorMessage error={errorMsg} datetimestamp={+new Date()} />}
@@ -105,24 +104,49 @@ export default function MaterialInput({
               onCalendarOpen={() => {
                 setCalendarOpen(true);
               }}
-              placeholderText={placeholder}
             />
             <label className="item-label-wrapper">
               {icon && <span className="item-icon">{icon}</span>}
-              {/* {placeholder && <span className="item-label">{placeholder}</span>} */}
+              {placeholder && <span className="item-label">{placeholder}</span>}
             </label>
           </div>
           {error && <ErrorMessage error={errorMsg} datetimestamp={+new Date()} />}
         </MaterialInputWrapper>
       );
+      case "date1":
+        return (
+          <MaterialInputWrapper className={`${wrapperClassName} ${!icon ? "without-icon" : ""} filterinputbox`}>
+            <div
+              className={`${isCalenarOpen ? "focused" : ""} ${elemConfig?.value ? "has-value" : ""} form-item form-date`}
+            >
+              <DatePicker
+                {...elemConfig}
+                selected={elemConfig?.value || null}
+                className={`${className} item-text`}
+                onCalendarClose={() => {
+                  setCalendarOpen(false);
+                }}
+                onCalendarOpen={() => {
+                  setCalendarOpen(true);
+                }}
+                placeholderText={placeholder}
+              />
+              <label className="item-label-wrapper">
+                {/* {icon && <span className="item-icon">{icon}</span>} */}
+                {/* {placeholder && <span className="item-label">{placeholder}</span>} */}
+              </label>
+            </div>
+            {error && <ErrorMessage error={errorMsg} datetimestamp={+new Date()} />}
+          </MaterialInputWrapper>
+        );
     case "textarea":
       return (
         <MaterialInputWrapper className={`${wrapperClassName} ${!icon ? "without-icon" : ""}`}>
           <div className="form-item">
-            <textarea {...elemConfig} className={`${className} item-textarea`} placeholder={placeholder} />
+            <textarea {...elemConfig} className={`${className} item-textarea`} />
             <label className="item-label-wrapper">
               {icon && <span className="item-icon">{icon}</span>}
-              {/* {placeholder && <span className="item-label">{placeholder}</span>} */}
+              {placeholder && <span className="item-label">{placeholder}</span>}
             </label>
           </div>
           {error && <ErrorMessage error={errorMsg} datetimestamp={+new Date()} />}

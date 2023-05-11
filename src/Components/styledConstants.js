@@ -69,17 +69,13 @@ export const MaterialInputWrapper = styled.div`
     }
     & + .item-label-wrapper {
       position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
       background-color: transparent;
       pointer-events: none;
       display: flex;
       align-items: center;
       padding: 5px 16px 5px 20px;
       white-space: nowrap;
-      top: -30px;
+      top: 0px;
       .item-label {
         font-size: 12px;
         transform: translate(0, 0);
@@ -89,7 +85,7 @@ export const MaterialInputWrapper = styled.div`
       .item-icon {
         position: absolute;
         left: 20px;
-        top: 60px;
+        top: 30px;
         width: 100%;
         height: 100%;
       }
@@ -106,7 +102,7 @@ export const MaterialInputWrapper = styled.div`
           font-size: 12px;
           /* transform: translate(-40px, -31px); */
         //   transform: translate(-40px, -22px);
-          line-height: 25px;
+          // line-height: 25px;
           padding: 0;
           &:before {
             content: "";
@@ -134,9 +130,6 @@ export const MaterialInputWrapper = styled.div`
     & + .item-label-wrapper {
       position: absolute;
       top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
       background-color: transparent;
       pointer-events: none;
       display: flex;
@@ -144,7 +137,7 @@ export const MaterialInputWrapper = styled.div`
       padding: 5px 16px 5px 20px;
       white-space: nowrap;
       .item-label {
-        font-size: 14px;
+        font-size: 12px;
         transform: translate(0, -36px);
         transition: all 300ms;
         color: ${theme[themeName].color.color5};
@@ -152,7 +145,7 @@ export const MaterialInputWrapper = styled.div`
       .item-icon {
         position: absolute;
         left: 20px;
-        top: 0px;
+        top: 30px;
         width: 100%;
         height: 100%;
         display: flex;
@@ -166,8 +159,8 @@ export const MaterialInputWrapper = styled.div`
         .item-label {
           font-size: 12px;
           transform: translate(-40px, -61px);
-          line-height: 25px;
-          padding: 0 5px;
+          // line-height: 25px;
+          padding: 0px;
           &:before {
             content: "";
             position: absolute;
@@ -185,10 +178,11 @@ export const MaterialInputWrapper = styled.div`
   .item-select {
     .select__control {
       width: 100%;
-      min-height: 42px;
+      min-height: 60px;
       border-radius: 4px;
-      background-color: ${theme[themeName].color.color16};
-      border: 1px solid ${theme[themeName].color.color5};
+      background-color: ${theme[themeName].color.color7};
+      border: none;
+      border-bottom: 1px solid ${theme[themeName].color.color5};
       box-shadow: none;
       color: ${theme[themeName].color.color1};
       &:hover,
@@ -207,9 +201,6 @@ export const MaterialInputWrapper = styled.div`
     & + .item-label-wrapper {
       position: absolute;
       top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
       background-color: transparent;
       pointer-events: none;
       display: flex;
@@ -217,15 +208,15 @@ export const MaterialInputWrapper = styled.div`
       padding: 5px 16px 5px 20px;
       white-space: nowrap;
       .item-label {
-        font-size: 14px;
-        transform: translate(0, -18);
+        font-size: 12px;
+        transform: translate(0, 0);
         transition: all 300ms;
-        color: ${theme[themeName].color.color5};
+        color: ${theme[themeName].color.color1};
       }
       .item-icon {
         position: absolute;
         left: 20px;
-        top: 0px;
+        top: 30px;
         width: 100%;
         height: 100%;
         display: flex;
@@ -240,9 +231,9 @@ export const MaterialInputWrapper = styled.div`
       & + .item-label-wrapper {
         .item-label {
           font-size: 12px;
-          transform: translate(-40px, -22px);
-          line-height: 25px;
-          padding: 0 5px;
+          transform: translate(0px, 0px);
+          // line-height: 25px;
+          padding: 0px;
           &:before {
             content: "";
             position: absolute;
@@ -273,26 +264,23 @@ export const MaterialInputWrapper = styled.div`
   .form-date {
     .item-label-wrapper {
       position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
       background-color: transparent;
       pointer-events: none;
       display: flex;
       align-items: center;
       padding: 5px 16px 5px 20px;
       white-space: nowrap;
+      top:0;
       .item-label {
-        // font-size: 14px;
+        font-size: 12px;
         transform: translate(0, 0);
         transition: all 300ms;
-        color: ${theme[themeName].color.color5};
+        color: ${theme[themeName].color.color1};
       }
       .item-icon {
         position: absolute;
         left: 20px;
-        top: 0px;
+        top: 30px;
         width: 100%;
         height: 100%;
         display: flex;
@@ -303,9 +291,9 @@ export const MaterialInputWrapper = styled.div`
       .item-label-wrapper {
         .item-label {
           font-size: 12px;
-          transform: translate(-40px, -22px);
-          line-height: 25px;
-          padding: 0 5px;
+          transform: translate(0px, 0px);
+          // line-height: 25px;
+          padding: 0px;
           &:before {
             content: "";
             position: absolute;
@@ -500,4 +488,103 @@ export const ButtonOutline = styled.button`
     border-radius: ${theme[themeName].button.rounded.rg};
     font-size: ${theme[themeName].button.fontSize.rg};
   `}
+`;
+
+export const Heading = styled.h1`
+  ${({ size }) =>
+    size &&
+    `
+    font-size: ${theme[themeName].font.fontSize[size]};
+    line-height: ${theme[themeName].font.lineHeight[size]};
+    @media (max-width: 1400px) {
+      font-size: ${theme[themeName].font.fontSize[size == "xxxl" ? "xxl" : size == "xxl" ? "xl" : size]};
+      line-height: ${theme[themeName].font.lineHeight[size == "xxxl" ? "xxl" : size == "xxl" ? "xl" : size]};
+    }
+  `}
+  color: ${(props) => (props.color ? theme[themeName].color[props.color] : theme[themeName].color.color8)};
+  font-weight: ${(props) =>
+    props.fw ? theme[themeName].font.fontWeight[props.fw] : theme[themeName].font.fontWeight.medium};
+`;
+
+export const TableWarpper = styled.div`
+  position: relative;
+  overflow: auto;
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: ${theme[themeName].color.color7};
+    > thead {
+      > tr {
+        > th {
+          background-color: #000;
+          padding: 7px 20px;
+          & + th {
+            border-left: 1px solid rgba(128, 128, 128, 0.17);
+          }
+          &.sort {
+            position: relative;
+            padding-right: 30px;
+            &:before,
+            &:after {
+              content: "";
+              border-style: solid;
+              position: absolute;
+              right: 10px;
+              border-radius: 5px;
+            }
+            &:before {
+              border-width: 0 6px 6px 6px;
+              border-color: transparent transparent #bdbdbd transparent;
+              top: calc(50% - 7px);
+            }
+            &:after {
+              border-width: 6px 6px 0 6px;
+              border-color: #bdbdbd transparent transparent transparent;
+              bottom: calc(50% - 7px);
+            }
+            &.asc {
+              &:before {
+                border-bottom-color: #4f4f4f;
+              }
+            }
+            &.desc {
+              &:after {
+                border-top-color: #4f4f4f;
+              }
+            }
+          }
+        }
+      }
+    }
+    > tbody {
+      > tr {
+        > td {
+          padding: 9px 20px;
+          border-top: 1px solid rgba(128, 128, 128, 0.17);
+          & + td {
+            border-left: 1px solid rgba(128, 128, 128, 0.17);
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const IconInactive = styled.i`
+  position: relative;
+  width: ${({ width }) => (width ? width : "16px")};
+  height: ${({ width }) => (width ? width : "16px")};
+  border-radius: 50%;
+  border: 1px solid ${({ color }) => (color ? theme[themeName].color[color] : theme[themeName].color.color3)};
+  &:after {
+    content: "";
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: ${({ color }) => (color ? theme[themeName].color[color] : theme[themeName].color.color3)};
+    transform: rotate(-45deg);
+  }
 `;
