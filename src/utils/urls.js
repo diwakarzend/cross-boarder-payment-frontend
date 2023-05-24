@@ -6,7 +6,7 @@ export default {
     //BASE_URL: "https://api-service.texta.info:8443",
     // BASE_URL:"https://api-service.primepay.info:8443",
     // BASE_URL: "https://api-service.texta.info",
-    BASE_URL: "",
+    BASE_URL: "https://p2p-api.texta.info/payment-finance-service",
 
     LOGIN_REQUEST: "/api/authenticate",
     OTP_VALIDATION: "/agent/otp/validation",
@@ -21,8 +21,8 @@ export default {
   },
 
   User: {
-    USER_LIST: "api/users",
-    TRANSACTION_LIST: "api/transaction-report",
+    USER_LIST: "/api/users",
+    TRANSACTION_LIST: "/api/transaction-report",
     API_LIST: "/api/ip",
     API_LIST_UPDATE: "/api/update-ip",
     CREATE_NEW_USER: "/api/user/register",
@@ -38,7 +38,7 @@ export default {
     GET_ALL_PERMISISSIONS: "/api/user/mapping",
     MANAGE_USER_PERMISSIONS: "/api/user/mapping-api",
     MANAGE_USER_STATUS: "/api/user/user-status",
-    GET_CITY: "api/city/list",
+    GET_CITY: "/api/city/list",
     GET_STATE: "/api/state/list",
     GET_ROLE: "/api/role/list",
   },
