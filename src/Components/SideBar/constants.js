@@ -22,29 +22,29 @@ export const Navigation = [
     subNav: [],
   },
   {
-    title: "Merchant",
+    title: "Users",
     link: "",
     active: false,
-    applicableRoles: ["PTM_ADMIN"],
+    default: true,
     icon: "iconManage",
     subNav: [
+      // {
+      //   title: "Manage Users",
+      //   link: "/users",
+      //   active: false,
+      //   applicableRoles: ["PTM_ADMIN"],
+      //   subNav: [],
+      // },
       {
-        title: "Manage Users",
-        link: "/users",
+        title: "Create User",
+        link: "/create-user",
         active: false,
         applicableRoles: ["PTM_ADMIN"],
         subNav: [],
       },
       {
-        title: "Add Merchants",
-        link: "/add-merchants",
-        active: false,
-        applicableRoles: ["PTM_ADMIN"],
-        subNav: [],
-      },
-      {
-        title: "Merchants List",
-        link: "/merchants-list",
+        title: "Users List",
+        link: "/users-list",
         active: false,
         applicableRoles: ["PTM_ADMIN"],
         subNav: [],
@@ -58,13 +58,12 @@ export const Navigation = [
   default: true,
   icon: "IconSettings",
   subNav: [],
-  applicableRoles: ["PTM_ADMIN"],
 },
   {
     title: "PayIn",
     link: "",
     active: false,
-    applicableRoles: ["PTM_ADMIN", "PTM_VENDOR"],
+    default: true,
     icon: "IconPayIn",
     subNav: [
       {
@@ -80,8 +79,8 @@ export const Navigation = [
     title: "Payout",
     link: "",
     active: false,
+    default: true,
     icon: "IconP2PTransfer",
-    applicableRoles: ["PTM_VENDOR", "PTM_ADMIN"],
     subNav: [
       {
         title: "Fund Request",
@@ -194,6 +193,5 @@ export const Navigation = [
     default: true,
     icon: "IconSettings",
     subNav: [],
-    applicableRoles: ["PTM_VENDOR", "PTM_ADMIN"],
   },
 ];

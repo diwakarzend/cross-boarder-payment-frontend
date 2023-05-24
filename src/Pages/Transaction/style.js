@@ -4,7 +4,7 @@ export const HeadingWrapper = styled.div`
   background: #fff;
   display: flex;
   align-items: center;
-  padding: 28px;
+  padding: 32px;
   justify-content: space-between;
 `;
 

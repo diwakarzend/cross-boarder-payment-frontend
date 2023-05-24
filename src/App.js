@@ -43,7 +43,7 @@ class App extends Component {
     const permissions = login && login.userData && login.userData.apiPermission;
 
  
-    if (login.isLoggedIn && permissions && permissions.length == 0) {
+    if (login.isLoggedIn && permissions && permissions.length !== 0) {
       return (
         <Wrapper className="app-container">
           <Header />

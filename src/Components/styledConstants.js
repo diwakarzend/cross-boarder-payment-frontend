@@ -386,7 +386,6 @@ export const ButtonSolid = styled.button`
   width: ${({ width }) => width || "auto"};
   padding: 0 15px;
   border: none;
-  text-transform: uppercase;
   font-family: ${theme[themeName].font.fontFamily.poppins};
   font-weight: ${theme[themeName].font.fontWeight.semiBold};
   padding: 0 20px;

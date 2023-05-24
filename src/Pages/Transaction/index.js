@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Heading, TableWarpper, Text, IconInactive, ButtonSolid } from "../../Components/styledConstants";
 import Request from "../../utils/Request";
-import Config from "../../utils/urls";
-import CsvDown from "../../Components/ExportFiles/CsvDown";
 import PdfDown from "../../Components/ExportFiles/PdfDown";
 import XlsDown from "../../Components/ExportFiles/XlsDown";
 
@@ -17,7 +15,6 @@ import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
 
 export default function MerchantsList() {
-    // const [controls, setControls] = useState([...filterForm]);
     const [filter, setFiler] = useState()
     const [userData, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -31,12 +28,8 @@ export default function MerchantsList() {
     const [userDetail, setUserDetails] = useState({});
     const [autoCompleteShow, setAutoCompleteShow] = useState(false);
     const [showAgent, setShowAgent] = useState(false);
-    const [date, setDate] = useState("");
-    // const [csvDownloadHeading, setCsvDownloadHeading] = useState([...headers]);
-    // const [pdfDownloadHeading, setPdfDownloadHeading] = useState([...tableHeader]);
-    //   const [downloadapiLink, setDownloadapiLink] = useState(
-    //     `${Config.apis.admin.USER_LIST}?pageNo=1&pageSize=${totalElements}`,
-    //   );
+    const [toDate, setToDate] = useState("");
+    const [fromDate, setFromDate] = useState("");
     const [downloadPayload, setDownloadPayload] = useState();
 
     
@@ -74,127 +67,6 @@ export default function MerchantsList() {
         // });
     };
 
-    // const searchAdmin = (event) => {
-    //     event.preventDefault();
-    //     setAutoCompleteShow(false);
-    //     setCurrentPage(1);
-
-    //     const params = getParams(controls);
-    //     if (params.showagent) {
-    //         setShowAgent(true);
-    //         getAgentList();
-    //     } else {
-    //         setShowAgent(false);
-    //         getUsers();
-    //     }
-    // };
-
-    // const agentGetTableBody = (data) => {
-    //     const tableBody = [];
-    //     data.forEach((element) => {
-    //         tableBody.push({
-    //             name: element.name,
-    //             emailId: element.email,
-    //             createdAt: element.createdAt,
-    //             mobile: element.mobile,
-    //             userRole: element.userType,
-    //             status: element.status,
-    //             merchantCount: element.merchantCount,
-    //         });
-    //     });
-
-    //     return tableBody;
-    // };
-    // const getTableBody = (data) => {
-    //     const tableBody = [];
-    //     data.forEach((element) => {
-    //         tableBody.push({
-    //             name: element.name,
-    //             emailId: element.emailId,
-    //             createdAt: element.createdAt,
-    //             mobile: element.mobileNo,
-    //             userRole: element.role,
-    //             status: element.status,
-    //         });
-    //     });
-
-    //     return tableBody;
-    // };
-
-    // const resetFilter = () => {
-    //     setUserDetails({});
-
-    //     filterForm.forEach((obj) => {
-    //         obj.value = "";
-    //     });
-    //     setControls([...filterForm]);
-    //     if (filterForm.length === 5) {
-    //         filterForm.pop();
-    //         const _controls = [...controls];
-    //         _controls.pop();
-    //         setControls(_controls);
-    //     }
-    // };
-
-    // const refreshPage = () => {
-    //     resetFilter();
-    //     if (currentPage === 1) {
-    //         getUsers();
-    //     } else {
-    //         setCurrentPage(1);
-    //     }
-    // };
-    // const searchUsers = (name) => {
-    //     if (name.length < 3) {
-    //         setSearchUserList([]);
-    //         if (filterForm.length === 5) {
-    //             filterForm.pop();
-    //             const _controls = [...controls];
-    //             _controls.pop();
-    //             setControls(_controls);
-    //         }
-    //         return;
-    //     }
-    //     const successHandler = (res) => {
-    //         if (res.data && res.data.content) {
-    //             setSearchUserList(res.data.content);
-
-    //             setTotalElements(res.data.totalElements);
-    //         } else {
-    //             setSearchUserList([]);
-    //             if (filterForm.length === 5) {
-    //                 filterForm.pop();
-    //                 const _controls = [...controls];
-    //                 _controls.pop();
-    //                 setControls(_controls);
-    //             }
-    //         }
-    //     };
-    //     const errorHandler = () => { };
-
-    //     const api = new Request("", successHandler, errorHandler, false);
-
-    //     setAutoCompleteShow(true);
-    //     // return api.post(`${Config.apis.admin.USER_LIST}?pageNo=1&pageSize=${pageSize}`, payloads);
-    // };
-    // const setUserDetail = (item) => {
-    //     setUserDetails(item);
-    //     setAutoCompleteShow(false);
-    //     const _controls = [...controls];
-    //     _controls[3].value = item.name;
-    //     distributorPayload["distributorName"] = item.name;
-    //     distributorPayload["userId"] = item.id;
-    //     setDownloadPayload(distributorPayload);
-
-    //     const agentFilter = _controls.filter((item) => item.name === "showagent");
-
-    //     if (!agentFilter.length) {
-    //         _controls.push(showagentFilter);
-    //         filterForm.push(showagentFilter);
-    //         setControls(_controls);
-    //     }
-    // };
-
     const getAgentList = () => {
         const successHandler = (res) => {
             setLoader(false);
@@ -218,50 +90,23 @@ export default function MerchantsList() {
         // return api.post(`${Config.apis.distributer.GET_AGENTS}`, agentPayload);
     };
 
-    // const renderStatus = (data) => {
-    //     const status = data.status.toLowerCase();
-    //     switch (status) {
-    //         case 'active':
-    //             return <div className="flex flex-center">
-    //                 <IconActive width="13" className="align-top mr6" color="#2AC940" /><Text size="xsm" fw="medium" color="color10">
-    //                     {data.status}
-    //                 </Text>
-    //             </div>
-    //         case 'inactive':
-    //             return <div className="flex flex-center">
-    //                 <IconInactive width="12px" className="align-top mr6" /><Text size="xsm" fw="medium" color="color4">
-    //                     {data.status}
-    //                 </Text>
-    //             </div>
-    //         case 'suspended':
-    //             return <div className="flex flex-center">
-    //                 <IconInactive width="12px" className="align-top mr6" color="color11" /><Text size="xsm" fw="medium" color="color11">
-    //                     {data.status}
-    //                 </Text>
-    //             </div>
-    //     }
-    // }
-
     const handleDateChange = (date) => {
-        setDate(date);
-        setControls({
-            ...formData,
-            ["dob"]: new Date(date),
-        });
-        setFormErrors({ ...formErrors, [event.target.name]: "" });
+        setToDate(date);
+        // setControls({
+        //     ...formData,
+        //     ["dob"]: new Date(date),
+        // });
+        // setFormErrors({ ...formErrors, [event.target.name]: "" });
     };
 
     console.log(totalElements, pageSize);
     return (
         <>
-            <BreadCrumb heading="Transaction Report" value="Transaction Report" />
+            {/* <BreadCrumb heading="Transaction Report" value="Transaction Report" /> */}
+            <div className="wrapper">
             <HeadingWrapper>
-                <Heading size="xl" color="color3">Transaction</Heading>
+                <Heading size="xl" color="color3">Transaction Report</Heading>
                 <span className="flex gap16">
-                    {/* <CsvDown
-                        type="merchantlist"
-                        title="CSV"
-                    /> */}
                     <PdfDown
                         heading="Transaction List"
                         fileName="merchantlist"
@@ -283,37 +128,25 @@ export default function MerchantsList() {
                     <label>Filter by</label>
                     <div className="field">
                         <MaterialInput
-                            // icon={<IconMobile />}
                             name="dob"
                             type="date1"
                             onChange={handleDateChange}
                             placeholder="From Date"
-                            value={date}
-                        // error={formErrors.dob}
+                            value={toDate}
                         />
                         <MaterialInput
-                            // icon={<IconMobile />}
                             name="dob"
                             type="date1"
                             onChange={handleDateChange}
                             placeholder="To Date"
-                            value={date}
-                        // error={formErrors.dob}
+                            value={fromDate}
                         />
                         <ButtonSolid primary md>GO</ButtonSolid>
                     </div>
                 </div>
             </FilterWrapper>
             <div>
-                {/* <FilterBox
-          filterForm={filterForm}
-          onFilterChange={FilterChangeHandler}
-          onFilterSubmit={searchAdmin}
-          refreshPage={refreshPage}
-          className="filter-box"
-        /> */}
-
-                {autoCompleteShow && searchUserList.length ? (
+                {/* {autoCompleteShow && searchUserList.length ? (
                     <div className="distributorautorlist">
                         <ul>
                             {searchUserList.length
@@ -336,12 +169,12 @@ export default function MerchantsList() {
                     </div>
                 ) : (
                     ""
-                )}
+                )} */}
                 <TableWarpper className="mt24">
                     <table className="table">
                         <thead>
                             <tr>
-                                <th className="text-left sort">
+                                <th className="text-left">
                                     <Text size="rg" fw="medium" color="color7">
                                         Name
                                     </Text>
@@ -420,12 +253,7 @@ export default function MerchantsList() {
                                                 {user.createdAt && user.createdAt.split("T")[0]}
                                             </Text>
                                         </td>
-                                        <td>
-                                            {/* {renderStatus(user)} */}
-                                            {/* <Text size="xsm" fw="medium" color={userStatusColor[user.status.toLowerCase()]}>
-                        {user.status}
-                      </Text> */}
-                                        </td>
+                                       
                                         {showAgent ? (
                                             <td>
                                                 <Text size="xsm" color="color3">
@@ -510,6 +338,7 @@ export default function MerchantsList() {
                         />
                     )}
                 </div>
+            </div>
             </div>
         </>
     );

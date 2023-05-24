@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import _ from "lodash";
+import { useHistory } from "react-router-dom";
 import Request from "../../utils/Request";
 import urls from "../../utils/urls";
-import { removeOverlay } from "../../utils/common";
+import { removeOverlay, getAuthToken } from "../../utils/common";
 import { Button, ModalWrapper } from "../../Components/UI/StyledConstants";
 import MaterialInput from "../../Components/Common/Form";
 import { Text, ButtonSolid } from "../../Components/styledConstants";
@@ -10,21 +13,21 @@ import { MerchantWrapper } from "./style";
 import Tabs from "../../Components/Tabs";
 
 const initialFormData = Object.freeze({
-    address: "",
+    userName: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
     dob: "",
     email: "",
-    langKey: "en",
-    otp: "",
-    phoneNumber: "",
-    pincode: "",
-    role: "",
-    tenantId: 0,
-    userName: "",
+    address1: "",
     state: "",
     city: "",
-    country: "",
+    pincode: "",
+    country: "India",
+    langKey: "en",
+    role: "",
     aadhaarName: "",
-    aadhaarCard: "",
+    aadhaarNumber: "",
     panName: "",
     panNumber: "",
 });
@@ -44,6 +47,12 @@ const AddMerchant = (props) => {
     const [date, setDate] = useState("");
     const [activeTab, setActiveTab] = useState('PAN_VERIFICATION');
     const [merchatCreated, setMerchatCreated] = useState(false);
+    const [isPersonalDetailActive, setIsPersonalDetailActive] = useState(true)
+    const [isIdVerificationActive, setisIdVerificationActive] = useState(false)
+    const [stateData, setStateData] = useState([]);
+    const [cityLists, setCityLists] = useState([]);
+    const [roles, setRoles] = useState([]);
+    const history = useHistory();
 
 
     useEffect(() => {
@@ -54,11 +63,76 @@ const AddMerchant = (props) => {
         }
     }, [editUserData]);
 
+    const fetchState = () => {
+        const successHandler = ({ state, roles }) => {
+
+            setStateData(state);
+            setRoles(roles)
+        };
+
+        const options = {
+            headers: {
+                Authorization: getAuthToken(),
+                "api-Authorization": getAuthToken("api-Authorization"),
+            },
+        };
+
+        const promise1 = axios
+            .get(`${urls.login.BASE_URL}${urls.User.GET_STATE}`, options)
+            .catch(() => "");
+
+        const promise2 = axios
+            .get(
+                `${urls.login.BASE_URL}${urls.User.GET_ROLE}`, options)
+            .catch(() => "");
+
+        axios
+            .all([promise1, promise2])
+            .then(
+                axios.spread((...responses) => {
+                    setStateData(responses)
+                    console.log('rr', responses)
+                    const state = responses[0] && responses[0].data.data;
+                    const roles = responses[1] && responses[1].data.data;
+
+                    successHandler({
+                        state,
+                        roles,
+                    });
+                })
+            )
+            .catch((errors) => {
+                console.log("responseOne errors", errors);
+            });
+    };
+
+    useEffect(() => {
+        fetchState();
+    }, []);
+
     const handleChange = (event) => {
-        updateFormData({
-            ...formData,
-            [event.target.name]: event.target.value,
-        });
+        const re = /^[0-9\b]+$/;
+        const onlyAlphabets = /^[A-Za-z\s]*$/;
+        if (event.target.name == "phoneNumber") {
+            if (event.target.value === "" || re.test(event.target.value)) {
+                updateFormData({
+                    ...formData,
+                    [event.target.name]: event.target.value,
+                });
+            }
+        } else if (event.target.name == "firstName" || event.target.name == "lastName") {
+            if (event.target.value === "" || onlyAlphabets.test(event.target.value)) {
+                updateFormData({
+                    ...formData,
+                    [event.target.name]: event.target.value,
+                });
+            }
+        } else {
+            updateFormData({
+                ...formData,
+                [event.target.name]: event.target.value,
+            });
+        }
         setFormErrors({ ...formErrors, [event.target.name]: "" });
     };
 
@@ -71,20 +145,12 @@ const AddMerchant = (props) => {
         setFormErrors({ ...formErrors, ["dob"]: "" });
     };
 
-    const onTabClick = (tabValue) => {
-        // if(tabValue === "PAN_VERIFICATION") {
-        //     getListing(1);
-        // }
-        setActiveTab(tabValue);
-    }
-
     const updateUser = () => {
         const api = new Request("", successHandler, errorHandler, false);
         return api.post(`${urls.login.BASE_URL}${urls.User.UPDATE_USER}`, formData);
     };
 
     const errorHandler = (error) => {
-        // {"timestamp":"2021-09-18T06:25:35.505+00:00","status":401,"error":"Unauthorized","message":"","path":"/api/users"}
         const errors = [];
         if (error && error.status == 400) {
             if (error.fieldErrors && error.fieldErrors instanceof Array) {
@@ -115,7 +181,6 @@ const AddMerchant = (props) => {
     };
 
     const submitFormHandler = (event) => {
-        debugger
         event.preventDefault();
 
         if (editUserData) {
@@ -148,12 +213,78 @@ const AddMerchant = (props) => {
         };
     }
 
-    console.log("editUserData", editUserData);
+    const handlePersonalDetails = () => {
+        setIsPersonalDetailActive(false);
+        setisIdVerificationActive(true)
+    }
 
+    const handleSubmit = () => {
+        const successHandler = (res) => {
+            if (res) {
+                setisIdVerificationActive(false)
+                setMerchatCreated(true)
+            }
+        }
+
+        const errorHandler = () => { };
+        var payload = _.omit(formData, ['aadhaarName', 'panName']);
+
+
+        const api = new Request("", successHandler, errorHandler, false);
+        return api.post(`${urls.login.BASE_URL}${urls.User.CREATE_NEW_USER}`, payload);
+    }
+
+    const stateOptions = [];
+    stateData.map((state) => {
+        stateOptions.push({ label: state.stateName, value: state.stateCode, id: state.stateId });
+    })
+
+    const handleRoleChange = (option) => {
+        updateFormData({
+            ...formData,
+            ["role"]: option.value,
+        });
+    };
+
+    const handleStateChange = (option) => {
+        updateFormData({
+            ...formData,
+            ["state"]: option.value,
+        });
+        getCity(option.id);
+    };
+
+    const getCity = (stateid) => {
+        const successHandler = (res) => {
+            if (res) {
+                let cities = [];
+                if (res.data) {
+                    res.data.forEach((element) => {
+                        let obj = {};
+                        obj["label"] = element.cityName;
+                        obj["value"] = element.cityCode;
+                        cities.push(obj);
+                    });
+                }
+                setCityLists(cities);
+            }
+        };
+        const errorHandler = () => { };
+
+        const api = new Request("", successHandler, errorHandler, false);
+        return api.get(`${urls.login.BASE_URL}${urls.User.GET_CITY}/${stateid}`);
+    };
+
+    const handleCityChange = (option) => {
+        updateFormData({
+            ...formData,
+            ["city"]: option.value,
+        });
+    }
     return (
         <MerchantWrapper>
             <div className="flex gap16 item-center heading-box">
-                <Text color="color3" as="h2" className="border-r-dash pr10" size="xl">Add New Merchant</Text>
+                <Text color="color3" as="h2" className="border-r-dash pr10" size="xl" fw="bold">Add New User</Text>
                 <Text color="color3" size="md">Share your details and we will get back to you.</Text>
             </div>
             <div className="merchant-content">
@@ -170,7 +301,7 @@ const AddMerchant = (props) => {
                 <div className="merchant-body">
                     <div className="track-check">
                         <div className="box">
-                            <div className="active">
+                            <div className={isIdVerificationActive ? "active" : "disabled"}>
                                 <div className="check"></div>
                             </div>
                             <label>Personal Details</label>
@@ -183,25 +314,45 @@ const AddMerchant = (props) => {
                             <label>ID Verification</label>
                         </div>
                     </div>
-                    {true && <form onSubmit={submitFormHandler}>
+                    {isPersonalDetailActive && <><div className="flex space-between">
+                        <div className="mb16 col-6">
+                            <MaterialInput
+                                // icon={<IconMobile />}
+                                name="firstName"
+                                type="text"
+                                onChange={handleChange}
+                                placeholder="First Name"
+                                value={formData?.firstName}
+                                error={formErrors.firstName}
+                            />
+                        </div>
+                        <div className="mb16 col-6">
+                            <MaterialInput
+                                // icon={<IconMobile />}
+                                name="lastName"
+                                type="text"
+                                onChange={handleChange}
+                                placeholder="Last Name"
+                                value={formData?.lastName}
+                                error={formErrors.lastName}
+                            />
+                        </div>
+                    </div>
                         <div className="flex space-between">
                             <div className="mb16 col-6">
                                 <MaterialInput
-                                    wrapperClassName="userName"
-                                    icon={<IconMobile />}
-                                    maxLength="10"
+                                    // icon={<IconMobile />}
                                     name="userName"
                                     type="text"
                                     onChange={handleChange}
-                                    placeholder="Your Name"
+                                    placeholder="User Name"
                                     value={formData?.userName}
                                     error={formErrors.userName}
                                 />
                             </div>
                             <div className="mb16 col-6">
                                 <MaterialInput
-                                    wrapperClassName="phoneNumber"
-                                    icon={<IconMobile />}
+                                    // icon={<IconMobile />}
                                     maxLength="10"
                                     name="phoneNumber"
                                     type="text"
@@ -215,8 +366,7 @@ const AddMerchant = (props) => {
                         <div className="flex space-between">
                             <div className="mb16 col-6">
                                 <MaterialInput
-                                    wrapperClassName="username"
-                                    icon={<IconMobile />}
+                                    // icon={<IconMobile />}
                                     name="dob"
                                     type="date"
                                     onChange={handleDateChange}
@@ -228,7 +378,7 @@ const AddMerchant = (props) => {
                             <div className="mb16 col-6">
                                 <MaterialInput
                                     wrapperClassName="username"
-                                    icon={<IconMobile />}
+                                    // icon={<IconMobile />}
                                     name="email"
                                     type="text"
                                     onChange={handleChange}
@@ -242,24 +392,24 @@ const AddMerchant = (props) => {
                             <div className="mb16 col-6">
                                 <MaterialInput
                                     wrapperClassName="username"
-                                    icon={<IconMobile />}
-                                    name="address"
+                                    // icon={<IconMobile />}
+                                    name="address1"
                                     type="text"
                                     onChange={handleChange}
                                     placeholder="Address"
-                                    value={formData?.address}
-                                    error={formErrors.address}
+                                    value={formData?.address1}
+                                    error={formErrors.address1}
                                 />
                             </div>
                             <div className="mb16 col-6">
                                 <MaterialInput
-                                    wrapperClassName="username"
-                                    icon={<IconMobile />}
+                                    // icon={<IconMobile />}
                                     name="State"
                                     type="select"
-                                    onChange={handleChange}
+                                    onChange={handleStateChange}
                                     placeholder="State"
-                                    value={formData?.state}
+                                    value={stateOptions.filter((item) => item.value === formData.state)}
+                                    options={stateOptions}
                                     error={formErrors.state}
                                 />
 
@@ -268,21 +418,21 @@ const AddMerchant = (props) => {
                         <div className="flex space-between">
                             <div className="mb16 col-6">
                                 <MaterialInput
-                                    wrapperClassName="username"
-                                    icon={<IconMobile />}
+                                    // icon={<IconMobile />}
                                     name="city"
-                                    type="text"
-                                    onChange={handleChange}
+                                    type="select"
+                                    onChange={handleCityChange}
                                     placeholder="City"
-                                    value={formData?.city}
+                                    value={cityLists.filter((item) => item.value === formData.city)}
                                     error={formErrors.city}
+                                    options={cityLists}
                                 />
                             </div>
                             <div className="mb16 col-6">
                                 <MaterialInput
-                                    wrapperClassName="username"
-                                    icon={<IconMobile />}
+                                    // icon={<IconMobile />}
                                     name="pincode"
+                                    maxLength="6"
                                     type="text"
                                     onChange={handleChange}
                                     placeholder="Pin Code"
@@ -294,29 +444,39 @@ const AddMerchant = (props) => {
                         <div className="flex space-between">
                             <div className="col-6">
                                 <MaterialInput
-                                    wrapperClassName="username"
-                                    icon={<IconMobile />}
+                                    // icon={<IconMobile />}
                                     name="country"
-                                    type="select"
-                                    onChange={handleChange}
+                                    type="text"
                                     placeholder="Country"
                                     value={formData?.country}
                                     error={formErrors.country}
                                 />
                             </div>
+                            <div className="mb16 col-6">
+                                <MaterialInput
+                                    // icon={<IconMobile />}
+                                    name="role"
+                                    type="select"
+                                    onChange={handleRoleChange}
+                                    placeholder="Select role"
+                                    value={roles.filter((item) => item.value === formData.role)}
+                                    error={formErrors.role}
+                                    options={roles}
+                                />
+                            </div>
                         </div>
 
                         <div className="flex">
-                            <ButtonSolid primary xl className="mt30 col-6" type="submit">
+                            <ButtonSolid primary xl className="mt30 col-6" onClick={handlePersonalDetails}>
                                 Continue
                             </ButtonSolid>
                         </div>
-                    </form>
+                    </>
                     }
-                    {false &&
+                    {isIdVerificationActive &&
                         <>
                             <div className="tab-box">
-                                <div className="box">
+                                <div className={`box ${activeTab === 'PAN_VERIFICATION' ? 'active' : ''}`}>
                                     <div className="icon"></div>
                                     <div className="label">
                                         <label>PAN Verification</label>
@@ -324,7 +484,7 @@ const AddMerchant = (props) => {
                                     </div>
                                 </div>
 
-                                <div className="box">
+                                <div className={`box ${activeTab === 'AADHAAR_VERIFICATION' ? 'active' : ''}`}>
                                     <div className="icon"></div>
                                     <div className="label">
                                         <label>Aadhaar Verification</label>
@@ -332,8 +492,6 @@ const AddMerchant = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            {/* <Tabs onTabClick={onTabClick} activeTab={activeTab} tablist={[{ value: 'PAN_VERIFICATION', label: 'PAN Verification' }, { value: 'AADHAAR_VERIFICATION', label: 'Aadhaar Verification' }]} /> */}
-
                             <div className="">
                                 {
                                     activeTab === 'PAN_VERIFICATION' &&
@@ -344,31 +502,28 @@ const AddMerchant = (props) => {
                                         <div className="flex space-between">
                                             <div className="mb16 col-6">
                                                 <MaterialInput
-                                                    icon={<IconMobile />}
-                                                    maxLength="10"
+                                                    // icon={<IconMobile />}
                                                     name="panName"
                                                     type="text"
                                                     onChange={handleChange}
                                                     placeholder="Name of the PAN holder"
-                                                    value={formData?.userName}
-                                                    error={formErrors.userName}
+                                                    error={formErrors.panName}
                                                 />
                                             </div>
                                             <div className="mb16 col-6">
                                                 <MaterialInput
-                                                    icon={<IconMobile />}
-                                                    maxLength="10"
+                                                    // icon={<IconMobile />}
                                                     name="panNumber"
                                                     type="text"
                                                     onChange={handleChange}
                                                     placeholder="PAN Number"
-                                                    value={formData?.phoneNumber}
-                                                    error={formErrors.phoneNumber}
+                                                    value={formData?.panNumber}
+                                                    error={formErrors.panNumber}
                                                 />
                                             </div>
                                         </div>
                                         <div className="flex">
-                                            <ButtonSolid primary xl className="mt30 col-6" type="submit">
+                                            <ButtonSolid primary xl className="mt30 col-6" onClick={() => setActiveTab('AADHAAR_VERIFICATION')}>
                                                 Continue
                                             </ButtonSolid>
                                         </div>
@@ -383,8 +538,7 @@ const AddMerchant = (props) => {
                                         <div className="flex space-between">
                                             <div className="mb16 col-6">
                                                 <MaterialInput
-                                                    icon={<IconMobile />}
-                                                    maxLength="10"
+                                                    // icon={<IconMobile />}
                                                     name="aadhaarName"
                                                     type="text"
                                                     onChange={handleChange}
@@ -395,19 +549,18 @@ const AddMerchant = (props) => {
                                             </div>
                                             <div className="mb16 col-6">
                                                 <MaterialInput
-                                                    icon={<IconMobile />}
-                                                    maxLength="10"
-                                                    name="aadhaarCard"
+                                                    // icon={<IconMobile />}
+                                                    name="aadhaarNumber"
                                                     type="text"
                                                     onChange={handleChange}
                                                     placeholder="Aadhaar Number"
-                                                    value={formData?.aadhaarCard}
-                                                    error={formErrors.aadhaarCard}
+                                                    value={formData?.aadhaarNumber}
+                                                    error={formErrors.aadhaarNumber}
                                                 />
                                             </div>
                                         </div>
                                         <div className="flex">
-                                            <ButtonSolid primary xl className="mt30 col-6" type="submit">
+                                            <ButtonSolid primary xl className="mt30 col-6" onClick={handleSubmit}>
                                                 Continue
                                             </ButtonSolid>
                                         </div>
@@ -421,7 +574,7 @@ const AddMerchant = (props) => {
                         <div className="success-container">
                             <div className="border"></div>
                             <Text as="h2" color="color3">Successfully Account Created</Text>
-                            <ButtonSolid primary xl className="mt30 col-6" type="submit">
+                            <ButtonSolid primary xl className="mt30 col-6" onClick={() => history.push('/users-list')}>
                                 Back To Merchant List
                             </ButtonSolid>
                         </div>

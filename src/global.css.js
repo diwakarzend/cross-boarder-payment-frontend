@@ -275,6 +275,13 @@ export default createGlobalStyle`
   .fw-bold {
     font-weight: 600;
   }
+
+  .wrapper {
+    padding: 32px;
+  }
+  .select__single-value{
+    margin-top: 25px;
+  }
   
   h1{
     font-size:var(--h1);
@@ -596,7 +603,7 @@ export default createGlobalStyle`
   /* Auth Layout CSS */
   .main-content {
     margin-left: 265px;
-    padding: 73px 24px 60px;
+    padding: 0px;
     position: relative;
     transition: all .1s ease-out;
     height: 100%;

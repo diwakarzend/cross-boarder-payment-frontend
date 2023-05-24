@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRouter";
 import LoginPageLoadable from "../Pages/LoginPage/LoginPage";
 import DashboardLoadable from "../Pages/DashBoard/DashboardLoadable";
-import UsersLoadable from "../Pages/Users/UsersLoadable";
+import UsersLoadable from "../Pages/Usersold/UsersLoadable";
 import UPI from "../Pages/UPI/UPI";
 import AddMoneyLoadable from "../Pages/AddMoney/AddMoneyLoadable";
 import FundRequestLoadable from "../Pages/FundRequest/FundRequestLoadable";
@@ -24,8 +24,8 @@ import ApiDocsLoadable from "../Pages/ApiDocs/ApiDocsLoadable";
 import EscrowReports from "../Pages/Payout/EscrowReports";
 
 import PayoutBulkUpload from "../Pages/PayoutBulkUpload";
-import AddMerchant from "../Pages/Merchant/AddMerchant";
-import MerchantList from "../Pages/Merchant/MerchantList";
+import CreateUser from "../Pages/Users/CreateUser";
+import UserList from "../Pages/Users/UserList";
 import TransactionList from "../Pages/Transaction";
 
 const Routes = (props) => {
@@ -84,8 +84,8 @@ const Routes = (props) => {
         <PrivateRoute path="/api-docs" component={ApiDocsLoadable} exact />
         <PrivateRoute path="/payout-bulk-upload" component={PayoutBulkUpload} exact />
 
-        <PrivateRoute path="/add-merchants" component={AddMerchant} exact />
-        <PrivateRoute path="/merchants-list" component={MerchantList} exact />
+        <PrivateRoute path="/create-user" component={CreateUser} exact />
+        <PrivateRoute path="/users-list" component={UserList} exact />
         <PrivateRoute path="/transaction" component={TransactionList} exact />
       </Switch>
   );

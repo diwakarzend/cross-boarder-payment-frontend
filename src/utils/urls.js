@@ -21,10 +21,10 @@ export default {
   },
 
   User: {
-    USER_LIST: "/api/users",
+    USER_LIST: "api/payout/transaction-report",
     API_LIST: "/api/ip",
     API_LIST_UPDATE: "/api/update-ip",
-    CREATE_NEW_USER: "/api/users",
+    CREATE_NEW_USER: "/api/users/register",
     UPDATE_USER: "/api/update-users",
     DELETE_USER: "/api/delete-users/",
     EDIT_USER: "/api/users/search/{userId}",
@@ -37,6 +37,9 @@ export default {
     GET_ALL_PERMISISSIONS: "/api/user/mapping",
     MANAGE_USER_PERMISSIONS: "/api/user/mapping-api",
     MANAGE_USER_STATUS: "/api/user/user-status",
+    GET_CITY: "api/city/list",
+    GET_STATE: "/api/state/list",
+    GET_ROLE: "/api/role/list",
   },
 
   OperatorList: {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // import { ViewAdminWrapper } from "../../components/ManageAdmin/style";
 import { Heading, TableWarpper, Text, IconInactive, ButtonSolid } from "../../Components/styledConstants";
+import urls from "../../utils/urls";
 import Request from "../../utils/Request";
 import Config from "../../utils/urls";
 import CsvDown from "../../Components/ExportFiles/CsvDown";
@@ -20,6 +21,15 @@ import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
 import { BorderBtn } from "../../Components/UI/StyledConstants";
 
+const filterForm = {
+    accountNumber: "",
+    clientId: "",
+    date: "",
+    route: "",
+    status: "",
+    txnId: "",
+    vendorId: ""
+  }
 // const filterForm = [
 //     {
 //         name: "mobileNumber",
@@ -109,7 +119,7 @@ import { BorderBtn } from "../../Components/UI/StyledConstants";
 // ];
 export default function MerchantsList() {
     // const [controls, setControls] = useState([...filterForm]);
-    const [filter, setFiler] = useState()
+    const [filter, setFilter] = useState(filterForm)
     const [userData, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -122,112 +132,14 @@ export default function MerchantsList() {
     const [userDetail, setUserDetails] = useState({});
     const [autoCompleteShow, setAutoCompleteShow] = useState(false);
     const [showAgent, setShowAgent] = useState(false);
-    const [date, setDate] = useState("");
+    const [toDate, setToDate] = useState("");
+    const [fromDate, setFromDate] = useState("");
     // const [csvDownloadHeading, setCsvDownloadHeading] = useState([...headers]);
     // const [pdfDownloadHeading, setPdfDownloadHeading] = useState([...tableHeader]);
     //   const [downloadapiLink, setDownloadapiLink] = useState(
     //     `${Config.apis.admin.USER_LIST}?pageNo=1&pageSize=${totalElements}`,
     //   );
     const [downloadPayload, setDownloadPayload] = useState();
-
-    // let payloads = {
-    //     mobileNumber: "",
-    //     emailId: "",
-    //     name: name,
-    //     userType: "ROLE_MERCHANT_DISTRIBUTOR",
-    // };
-
-    // const distributorPayload = {
-    //     mobileNumber: "",
-    //     emailId: "",
-    //     name: "",
-    //     distributorName: controls[3].value,
-    //     userId: userDetail?.id,
-    // };
-
-    // const agentPayload = {
-    //     name: null,
-    //     mobileNumber: null,
-    //     status: null,
-    //     kycStatus: null,
-    //     userId: userDetail?.id,
-    //     dateFilter: {
-    //         fromDate: null,
-    //         toDate: null,
-    //     },
-    //     pagination: {
-    //         pageNo: currentPage,
-    //         pageSize: totalElements,
-    //     },
-    // };
-
-
-    // useEffect(() => {
-    //     const params = getParams(controls);
-    //     if (params.showagent) {
-    //         getAgentList();
-    //     } else {
-    //         getUsers();
-    //     }
-    // }, [currentPage]);
-
-    // useEffect(() => {
-    //     if (currentPage === 1) {
-    //         getUsers();
-    //     } else {
-    //         setCurrentPage(1);
-    //     }
-    // }, [pageSize]);
-
-    // const FilterChangeHandler = (event, index) => {
-    //     const _controls = [...controls];
-
-    //     const mob = /^[0-9\b]+$/;
-    //     const onlyAlphabets = /^[A-Za-z\s]*$/
-
-    //     if (event?.target?.name === "mobileNumber") {
-    //         if (event.target.value === "" || mob.test(event.target.value)) {
-    //             if (event.target.value.length > 10) return;
-    //             _controls[index].value = event.target.value;
-    //             setControls(_controls);
-    //         }
-    //     } else if (event?.target?.name === "name") {
-    //         if (event.target.value === "" || onlyAlphabets.test(event.target.value)) {
-    //             _controls[index].value = event.target.value;
-    //             setControls(_controls);
-    //         }
-    //     } else if (event?.target?.name === "showagent") {
-    //         if (event?.target?.checked) {
-    //             _controls[index].value = 1;
-    //         } else {
-    //             _controls[index].value = 0;
-    //         }
-    //         setControls(_controls);
-    //         setPdfDownloadHeading(agentTableHeader);
-    //         setDownloadPayload(agentPayload);
-    //         setCsvDownloadHeading(agentHeader);
-    //         //   setDownloadapiLink(`${Config.apis.distributer.GET_AGENTS}`);
-    //     } else {
-    //         _controls[index].value = event.target.value;
-    //         setControls(_controls);
-    //         setDownloadPayload(payloads);
-
-    //         //   setDownloadapiLink(`${Config.apis.admin.USER_LIST}?pageNo=1&pageSize=${totalElements}`);
-    //     }
-
-    //     if (event?.target?.name === "distributorName") {
-    //         if (event.target.value === "" || onlyAlphabets.test(event.target.value)) {
-    //             setControls(_controls);
-    //             searchUsers(event?.target?.value);
-    //             setPdfDownloadHeading(tableHeader);
-    //             console.log(distributorPayload);
-    //             setDownloadPayload(distributorPayload);
-    //             setCsvDownloadHeading(headers);
-    //             // setDownloadapiLink(`${Config.apis.admin.USER_LIST}?pageNo=1&pageSize=${totalElements}`);
-    //         }
-    //     }
-
-    // };
 
     const getUsers = () => {
         const successHandler = (res) => {
@@ -241,11 +153,15 @@ export default function MerchantsList() {
         };
         const errorHandler = () => { };
 
-        const params = getParams(controls);
+        // const params = getParams(controls);
         const api = new Request("", successHandler, errorHandler, false);
-
+        return api.post(`${urls.login.BASE_URL}${urls.User.USER_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`, filter);
         // return api.post(`${Config.apis.admin.USER_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`, params);
     };
+
+    useEffect(() => {
+        getUsers();
+    }, [])
 
     const manageStatus = (params) => {
         //       SUSPENDED, ACTIVE, IN_ACTIVE
@@ -261,127 +177,6 @@ export default function MerchantsList() {
         //   }
         // });
     };
-
-    // const searchAdmin = (event) => {
-    //     event.preventDefault();
-    //     setAutoCompleteShow(false);
-    //     setCurrentPage(1);
-
-    //     const params = getParams(controls);
-    //     if (params.showagent) {
-    //         setShowAgent(true);
-    //         getAgentList();
-    //     } else {
-    //         setShowAgent(false);
-    //         getUsers();
-    //     }
-    // };
-
-    // const agentGetTableBody = (data) => {
-    //     const tableBody = [];
-    //     data.forEach((element) => {
-    //         tableBody.push({
-    //             name: element.name,
-    //             emailId: element.email,
-    //             createdAt: element.createdAt,
-    //             mobile: element.mobile,
-    //             userRole: element.userType,
-    //             status: element.status,
-    //             merchantCount: element.merchantCount,
-    //         });
-    //     });
-
-    //     return tableBody;
-    // };
-    // const getTableBody = (data) => {
-    //     const tableBody = [];
-    //     data.forEach((element) => {
-    //         tableBody.push({
-    //             name: element.name,
-    //             emailId: element.emailId,
-    //             createdAt: element.createdAt,
-    //             mobile: element.mobileNo,
-    //             userRole: element.role,
-    //             status: element.status,
-    //         });
-    //     });
-
-    //     return tableBody;
-    // };
-
-    // const resetFilter = () => {
-    //     setUserDetails({});
-
-    //     filterForm.forEach((obj) => {
-    //         obj.value = "";
-    //     });
-    //     setControls([...filterForm]);
-    //     if (filterForm.length === 5) {
-    //         filterForm.pop();
-    //         const _controls = [...controls];
-    //         _controls.pop();
-    //         setControls(_controls);
-    //     }
-    // };
-
-    // const refreshPage = () => {
-    //     resetFilter();
-    //     if (currentPage === 1) {
-    //         getUsers();
-    //     } else {
-    //         setCurrentPage(1);
-    //     }
-    // };
-    // const searchUsers = (name) => {
-    //     if (name.length < 3) {
-    //         setSearchUserList([]);
-    //         if (filterForm.length === 5) {
-    //             filterForm.pop();
-    //             const _controls = [...controls];
-    //             _controls.pop();
-    //             setControls(_controls);
-    //         }
-    //         return;
-    //     }
-    //     const successHandler = (res) => {
-    //         if (res.data && res.data.content) {
-    //             setSearchUserList(res.data.content);
-
-    //             setTotalElements(res.data.totalElements);
-    //         } else {
-    //             setSearchUserList([]);
-    //             if (filterForm.length === 5) {
-    //                 filterForm.pop();
-    //                 const _controls = [...controls];
-    //                 _controls.pop();
-    //                 setControls(_controls);
-    //             }
-    //         }
-    //     };
-    //     const errorHandler = () => { };
-
-    //     const api = new Request("", successHandler, errorHandler, false);
-
-    //     setAutoCompleteShow(true);
-    //     // return api.post(`${Config.apis.admin.USER_LIST}?pageNo=1&pageSize=${pageSize}`, payloads);
-    // };
-    // const setUserDetail = (item) => {
-    //     setUserDetails(item);
-    //     setAutoCompleteShow(false);
-    //     const _controls = [...controls];
-    //     _controls[3].value = item.name;
-    //     distributorPayload["distributorName"] = item.name;
-    //     distributorPayload["userId"] = item.id;
-    //     setDownloadPayload(distributorPayload);
-
-    //     const agentFilter = _controls.filter((item) => item.name === "showagent");
-
-    //     if (!agentFilter.length) {
-    //         _controls.push(showagentFilter);
-    //         filterForm.push(showagentFilter);
-    //         setControls(_controls);
-    //     }
-    // };
 
     const getAgentList = () => {
         const successHandler = (res) => {
@@ -431,20 +226,21 @@ export default function MerchantsList() {
     // }
 
     const handleDateChange = (date) => {
-        setDate(date);
-        setControls({
-            ...formData,
-            ["dob"]: new Date(date),
+        setToDate(date);
+        setFilter({
+            ...filter,
+            ["toDate"]: new Date(date),
         });
-        setFormErrors({ ...formErrors, [event.target.name]: "" });
+        // setFormErrors({ ...formErrors, [event.target.name]: "" });
     };
 
     console.log(totalElements, pageSize);
     return (
         <>
-            <BreadCrumb heading="Transaction Report" value="Transaction Report" />
+            {/* <BreadCrumb heading="Transaction Report" value="Transaction Report" /> */}
+            <div className="wrapper">
             <HeadingWrapper>
-                <Heading size="xl" color="color3">Merchant List</Heading>
+                <Heading size="xl" color="color3">User List</Heading>
                 <span className="flex gap16">
                     {/* <CsvDown
                         type="merchantlist"
@@ -472,20 +268,20 @@ export default function MerchantsList() {
                     <div className="field">
                         <MaterialInput
                             // icon={<IconMobile />}
-                            name="dob"
+                            name="toDate"
                             type="date1"
                             onChange={handleDateChange}
                             placeholder="From Date"
-                            value={date}
+                            value={toDate}
                         // error={formErrors.dob}
                         />
                         <MaterialInput
                             // icon={<IconMobile />}
-                            name="dob"
+                            name="fromDate"
                             type="date1"
                             onChange={handleDateChange}
                             placeholder="To Date"
-                            value={date}
+                            value={toDate}
                         // error={formErrors.dob}
                         />
                         <ButtonSolid primary md>GO</ButtonSolid>
@@ -698,6 +494,7 @@ export default function MerchantsList() {
                         />
                     )}
                 </div>
+            </div>
             </div>
         </>
     );

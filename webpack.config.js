@@ -109,7 +109,8 @@ module.exports = {
     proxy: [
       {
         context: ["/api/"],
-        target: "http://143.110.188.1:8083",
+        // target: "http://143.110.188.1:8083",
+        target: "http://13.126.244.49:8083/payment-finance-service/",
         secure: false,
       },
       // {

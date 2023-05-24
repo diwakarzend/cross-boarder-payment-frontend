@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 
 export const MerchantWrapper = styled.div`
+    padding: 0 32px;
     .merchant-content{
         display: flex;
         justify-content: center;
