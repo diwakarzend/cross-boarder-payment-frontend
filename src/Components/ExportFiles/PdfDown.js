@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Request from "../../utils/Request";
-import { Button,BorderBtn, TableWrapper } from "../../Components/UI/StyledConstants";
+import { BorderBtn } from "../../Components/UI/StyledConstants";
 
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -22,7 +22,7 @@ const PdfDown = ({
       if (res?.success == true) {
         console.log("res===>", res);
         // setData(res?.data);
-        const tabelBody = getTableBody(res?.data);
+        const tabelBody = getTableBody(res?.data?.content || res?.data);
         generatePDF(tabelBody);
       }
     };

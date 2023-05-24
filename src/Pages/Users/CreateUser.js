@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import axios from "axios";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
@@ -17,6 +18,7 @@ const initialFormData = Object.freeze({
     firstName: "",
     lastName: "",
     phoneNumber: "",
+    password: "",
     dob: "",
     email: "",
     address1: "",
@@ -140,7 +142,7 @@ const AddMerchant = (props) => {
         setDate(date);
         updateFormData({
             ...formData,
-            ["dob"]: new Date(date),
+            ["dob"]: moment(date).format('YYYY-MM-DD'),
         });
         setFormErrors({ ...formErrors, ["dob"]: "" });
     };
@@ -315,6 +317,21 @@ const AddMerchant = (props) => {
                         </div>
                     </div>
                     {isPersonalDetailActive && <><div className="flex space-between">
+                            <div className="mb16 col-6">
+                            <MaterialInput
+                                    // icon={<IconMobile />}
+                                    name="role"
+                                    type="select"
+                                    onChange={handleRoleChange}
+                                    placeholder="Select role"
+                                    value={roles.filter((item) => item.value === formData.role)}
+                                    error={formErrors.role}
+                                    options={roles}
+                                />
+                            </div>
+                            </div>
+                    
+                    <div className="flex space-between">
                         <div className="mb16 col-6">
                             <MaterialInput
                                 // icon={<IconMobile />}
@@ -351,16 +368,16 @@ const AddMerchant = (props) => {
                                 />
                             </div>
                             <div className="mb16 col-6">
-                                <MaterialInput
+                            <MaterialInput
                                     // icon={<IconMobile />}
-                                    maxLength="10"
-                                    name="phoneNumber"
-                                    type="text"
+                                    name="password"
+                                    type="password"
+                                    placeholder="Password"
                                     onChange={handleChange}
-                                    placeholder="Phone Number"
-                                    value={formData?.phoneNumber}
-                                    error={formErrors.phoneNumber}
+                                    value={formData?.password}
+                                    error={formErrors.password}
                                 />
+                             
                             </div>
                         </div>
                         <div className="flex space-between">
@@ -373,6 +390,10 @@ const AddMerchant = (props) => {
                                     placeholder="Date Of Birth"
                                     value={date}
                                     error={formErrors.dob}
+                                    showMonthDropdown
+                                    showYearDropdown
+                                    peekNextMonth
+                                    dropdownMode="select"
                                 />
                             </div>
                             <div className="mb16 col-6">
@@ -390,7 +411,20 @@ const AddMerchant = (props) => {
                         </div>
                         <div className="flex space-between">
                             <div className="mb16 col-6">
-                                <MaterialInput
+                            <MaterialInput
+                                    // icon={<IconMobile />}
+                                    maxLength="10"
+                                    name="phoneNumber"
+                                    type="text"
+                                    onChange={handleChange}
+                                    placeholder="Phone Number"
+                                    value={formData?.phoneNumber}
+                                    error={formErrors.phoneNumber}
+                                />
+                               
+                            </div>
+                            <div className="mb16 col-6">
+                            <MaterialInput
                                     wrapperClassName="username"
                                     // icon={<IconMobile />}
                                     name="address1"
@@ -400,9 +434,12 @@ const AddMerchant = (props) => {
                                     value={formData?.address1}
                                     error={formErrors.address1}
                                 />
+
                             </div>
+                        </div>
+                        <div className="flex space-between">
                             <div className="mb16 col-6">
-                                <MaterialInput
+                            <MaterialInput
                                     // icon={<IconMobile />}
                                     name="State"
                                     type="select"
@@ -412,12 +449,10 @@ const AddMerchant = (props) => {
                                     options={stateOptions}
                                     error={formErrors.state}
                                 />
-
+                               
                             </div>
-                        </div>
-                        <div className="flex space-between">
                             <div className="mb16 col-6">
-                                <MaterialInput
+                            <MaterialInput
                                     // icon={<IconMobile />}
                                     name="city"
                                     type="select"
@@ -427,9 +462,12 @@ const AddMerchant = (props) => {
                                     error={formErrors.city}
                                     options={cityLists}
                                 />
+                                
                             </div>
-                            <div className="mb16 col-6">
-                                <MaterialInput
+                        </div>
+                        <div className="flex space-between">
+                            <div className="col-6">
+                            <MaterialInput
                                     // icon={<IconMobile />}
                                     name="pincode"
                                     maxLength="6"
@@ -439,11 +477,10 @@ const AddMerchant = (props) => {
                                     value={formData?.pincode}
                                     error={formErrors.pincode}
                                 />
+                                
                             </div>
-                        </div>
-                        <div className="flex space-between">
-                            <div className="col-6">
-                                <MaterialInput
+                            <div className="mb16 col-6">
+                            <MaterialInput
                                     // icon={<IconMobile />}
                                     name="country"
                                     type="text"
@@ -451,21 +488,10 @@ const AddMerchant = (props) => {
                                     value={formData?.country}
                                     error={formErrors.country}
                                 />
-                            </div>
-                            <div className="mb16 col-6">
-                                <MaterialInput
-                                    // icon={<IconMobile />}
-                                    name="role"
-                                    type="select"
-                                    onChange={handleRoleChange}
-                                    placeholder="Select role"
-                                    value={roles.filter((item) => item.value === formData.role)}
-                                    error={formErrors.role}
-                                    options={roles}
-                                />
+                                
                             </div>
                         </div>
-
+                        
                         <div className="flex">
                             <ButtonSolid primary xl className="mt30 col-6" onClick={handlePersonalDetails}>
                                 Continue

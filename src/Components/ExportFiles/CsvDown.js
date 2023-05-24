@@ -23,7 +23,7 @@ const CsvDown = ({
     const successHandler = (res) => {
       if (res && res.data) {
         console.log("res===>", res);
-        setData(res.data);
+        setData(res.data.content || res?.data);
         setTimeout(() => {
           csvLinkRef.current.link.click();
         }, 0);
@@ -50,10 +50,10 @@ const CsvDown = ({
       ></CSVLink>
       {url ? (
         <BorderBtn onClick={downloadReport} className="btn-soft-success">
-          <i className="fa fa-download" aria-hidden="true"></i> CSV
+          CSV
         </BorderBtn>
       ) : (
-        <BorderBtn className="btn-soft-success"> <i className="fa fa-download" aria-hidden="true"></i> CSV</BorderBtn>
+        <BorderBtn className="btn-soft-success"> CSV</BorderBtn>
       )}
     </>
   );

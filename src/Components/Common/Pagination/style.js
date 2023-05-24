@@ -67,7 +67,7 @@ export const pagination = styled.div`
     cursor: pointer;
     &.active {
       box-shadow: 0 2px 4px 0 rgba(199, 199, 199, 0.5);
-      background-color: #005aa3;
+      background-color: #ed141f;
       color: #fff;
     }
     &.disabled {

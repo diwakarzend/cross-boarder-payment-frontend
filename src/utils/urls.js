@@ -21,10 +21,11 @@ export default {
   },
 
   User: {
-    USER_LIST: "api/payout/transaction-report",
+    USER_LIST: "api/users",
+    TRANSACTION_LIST: "api/transaction-report",
     API_LIST: "/api/ip",
     API_LIST_UPDATE: "/api/update-ip",
-    CREATE_NEW_USER: "/api/users/register",
+    CREATE_NEW_USER: "/api/user/register",
     UPDATE_USER: "/api/update-users",
     DELETE_USER: "/api/delete-users/",
     EDIT_USER: "/api/users/search/{userId}",
