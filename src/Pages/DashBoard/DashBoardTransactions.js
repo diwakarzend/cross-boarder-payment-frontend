@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Text, ButtonSolid } from "../../Components/styledConstants";
 import { TableWarpper } from "../../Components/styledConstants";
 import { DashBoardTransactionWrapper } from "./style";
+import TableLoader from "../../Components/Common/TableLoader";
 
-function DashBoardTransactions() {
+function DashBoardTransactions({userData, loader}) {
     return (
         <DashBoardTransactionWrapper>
             <div className="box">
@@ -14,129 +15,60 @@ function DashBoardTransactions() {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th className="text-left sort">
+                            <th className="text-left">
                                 <Text size="rg" fw="medium" color="color7">
-                                    Payment ID
+                                    Transaction Id
                                 </Text>
                             </th>
                             <th className="text-left">
                                 <Text size="rg" fw="medium" color="color7">
-                                    Amount
+                                    Created Date
                                 </Text>
                             </th>
                             <th className="text-left">
                                 <Text size="rg" fw="medium" color="color7">
-                                    Created at
+                                    Transaction Amout
                                 </Text>
                             </th>
                             <th className="text-left">
                                 <Text size="rg" fw="medium" color="color7">
-                                    Status
+                                    Transaction Type
                                 </Text>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <Text size="rg" color="color3">YG586WE</Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    <i className="fa fa-rupee" aria-hidden="true"></i> 8.900.05
-                                </Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    24 Dec 2022
-                                </Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    Captured
-                                </Text>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <Text size="rg" color="color3">YG586WE</Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    <i className="fa fa-rupee" aria-hidden="true"></i> 8.900.05
-                                </Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    24 Dec 2022
-                                </Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    Captured
-                                </Text>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <Text size="rg" color="color3">YG586WE</Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    <i className="fa fa-rupee" aria-hidden="true"></i> 8.900.05
-                                </Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    24 Dec 2022
-                                </Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    Captured
-                                </Text>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <Text size="rg" color="color3">YG586WE</Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    <i className="fa fa-rupee" aria-hidden="true"></i> 8.900.05
-                                </Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    24 Dec 2022
-                                </Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    Captured
-                                </Text>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <Text size="rg" color="color3">YG586WE</Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    <i className="fa fa-rupee" aria-hidden="true"></i> 8.900.05
-                                </Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    24 Dec 2022
-                                </Text>
-                            </td>
-                            <td>
-                                <Text size="xsm" color="color3">
-                                    Captured
-                                </Text>
-                            </td>
-                        </tr>
+                    {loader && <TableLoader />}
+                                {!loader && userData.length ? (
+                                    userData.map((user, index) => (
+                                        <tr key={index}>
+                                            <td>
+                                                <Text size="xsm" color="color3">
+                                                    {user?.transactionId}
+                                                </Text>
+                                            </td>
+                                            <td>
+                                                <Text size="xsm" color="color3">
+                                                    {user.createdDate}
+                                                </Text>
+                                            </td>
+                                            <td>
+                                                <Text size="xsm" color="color3">
+                                                    {user.transactionAmout}
+                                                </Text>
+                                            </td>
+                                            <td>
+                                                <Text size="xsm" color="color3">
+                                                    {user.transactionType}
+                                                </Text>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={12} style={{ textAlign: 'center' }}>No record found</td>
+                                    </tr>
+                                )}
                     </tbody>
                 </table>
             </TableWarpper>

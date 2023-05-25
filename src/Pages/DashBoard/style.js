@@ -125,7 +125,7 @@ export const DashBoardDetailWrapper = styled.div`
                 border: none;
             }
             .count{
-                width: 30%;
+                width: 19%;
             }
         }
     }

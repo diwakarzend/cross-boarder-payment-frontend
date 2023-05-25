@@ -41,6 +41,8 @@ export default {
     GET_CITY: "/api/city/list",
     GET_STATE: "/api/state/list",
     GET_ROLE: "/api/role/list",
+    DASHBOARD: "/api/dashboard",
+    WALLET_BALANCE: "/api/wallet"
   },
 
   OperatorList: {

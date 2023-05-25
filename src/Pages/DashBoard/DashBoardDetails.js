@@ -2,7 +2,8 @@ import React from "react";
 import { Text, ButtonSolid } from "../../Components/styledConstants";
 import { DashBoardDetailWrapper } from "./style";
 
-function DashBoardDetails() {
+function DashBoardDetails({walletData, merchantData}) {
+    console.log('dd', merchantData)
     return (
         <DashBoardDetailWrapper>
             <div className="top">
@@ -12,18 +13,18 @@ function DashBoardDetails() {
                     </div>
                     <div className="balance">
                         <Text color="color3" size="md" fw="medium">Total Balance:</Text>
-                        <Text color="color3" size="xxxl" fw="medium"><i className="fa fa-rupee" aria-hidden="true"></i> 8.900.05</Text>
+                        <Text color="color3" size="xxxl" fw="medium"><i className="fa fa-rupee" aria-hidden="true"></i> {walletData?.MAIN_WALLET}</Text>
                     </div>
                 </div>
-                <div className="right-box">
+                {/* <div className="right-box">
                     <ButtonSolid primary rg>Add Funds</ButtonSolid>
-                </div>
+                </div> */}
             </div>
             <div className="bottom">
                 <div className="box">
                     <div className="count">
                         <Text color="color3" size="sm" fw="medium">Total Merchants</Text>
-                        <Text color="color3" size="xl" fw="medium">20</Text>
+                        <Text color="color3" size="xl" fw="medium">{merchantData?.merchantCount}</Text>
                     </div>
                     <div className="icon">
                         <img src="../images/merchant.png" />
@@ -32,13 +33,13 @@ function DashBoardDetails() {
                 <div className="box">
                     <div className="count">
                         <Text color="color3" size="sm" fw="medium">Total Pending Merchants</Text>
-                        <Text color="color3" size="xl" fw="medium">2</Text>
+                        <Text color="color3" size="xl" fw="medium">{merchantData?.inactiveMerchant}</Text>
                     </div>
                     <div className="icon">
                         <img src="../images/pending-merchant.png" />
                     </div>
                 </div>
-                <div className="box">
+                {/* <div className="box">
                     <div className="count">
                         <Text color="color3" size="sm" fw="medium">Total Blocked User</Text>
                         <Text color="color3" size="xl" fw="medium">0</Text>
@@ -46,7 +47,7 @@ function DashBoardDetails() {
                     <div className="icon">
                         <img src="../images/blocked-user.png" />
                     </div>
-                </div>
+                </div> */}
             </div>
         </DashBoardDetailWrapper>
     );
