@@ -27,6 +27,11 @@ import PayoutBulkUpload from "../Pages/PayoutBulkUpload";
 import CreateUser from "../Pages/Users/CreateUser";
 import UserList from "../Pages/Users/UserList";
 import TransactionList from "../Pages/Transaction";
+import TicketManagement from "../Pages/HelpandSupport/TicketManagement";
+import TicketList from "../Pages/HelpandSupport/Ticket";
+import AddTopic from "../Pages/HelpandSupport/AddTopic";
+import AddQuestion from "../Pages/HelpandSupport/AddQuestion";
+import CreateTicket from "../Pages/HelpandSupport/CreateTicket";
 
 const Routes = (props) => {
   return (
@@ -87,6 +92,11 @@ const Routes = (props) => {
         <PrivateRoute path="/create-user" component={CreateUser} exact />
         <PrivateRoute path="/users-list" component={UserList} exact />
         <PrivateRoute path="/transaction" component={TransactionList} exact />
+        <PrivateRoute path="/ticket-management" component={TicketManagement} exact />
+        <PrivateRoute path="/ticket-list" component={TicketList} exact />
+        <PrivateRoute path="/new-topic" component={AddTopic} exact />
+        <PrivateRoute path="/new-question" component={AddQuestion} exact />
+        <PrivateRoute path="/create-ticket" component={CreateTicket} exact />
       </Switch>
   );
 };

@@ -134,7 +134,36 @@ export const Navigation = [
   //     applicableRoles: ["PTM_VENDOR", "PTM_ADMIN"],
   //     subNav: [],
   //   },
-
+  {
+    title: "Help & Support",
+    link: "",
+    active: false,
+    default: true,
+    icon: "iconManage",
+    subNav: [
+      // {
+      //   title: "Manage Users",
+      //   link: "/users",
+      //   active: false,
+      //   applicableRoles: ["PTM_ADMIN"],
+      //   subNav: [],
+      // },
+      {
+        title: "Ticket Management",
+        link: "/ticket-management",
+        active: false,
+        applicableRoles: ["PTM_ADMIN"],
+        subNav: [],
+      },
+      {
+        title: "Ticket",
+        link: "/ticket-list",
+        active: false,
+        applicableRoles: ["PTM_ADMIN"],
+        subNav: [],
+      },
+    ],
+  },
   {
     title: "P2P",
     link: "",
