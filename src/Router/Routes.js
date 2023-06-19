@@ -32,6 +32,7 @@ import TicketList from "../Pages/HelpandSupport/Ticket";
 import AddTopic from "../Pages/HelpandSupport/AddTopic";
 import AddQuestion from "../Pages/HelpandSupport/AddQuestion";
 import CreateTicket from "../Pages/HelpandSupport/CreateTicket";
+import Chat from "../Pages/HelpandSupport/Chat";
 
 const Routes = (props) => {
   return (
@@ -97,6 +98,7 @@ const Routes = (props) => {
         <PrivateRoute path="/new-topic" component={AddTopic} exact />
         <PrivateRoute path="/new-question" component={AddQuestion} exact />
         <PrivateRoute path="/create-ticket" component={CreateTicket} exact />
+        <PrivateRoute path="/chat-details" component={Chat} exact />
       </Switch>
   );
 };

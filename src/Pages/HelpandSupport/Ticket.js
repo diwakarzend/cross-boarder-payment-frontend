@@ -231,7 +231,7 @@ export default function Ticket() {
                                     <Text size="rg" color="color3">07 Apr 2023</Text>
                                     </td>
                                     <td>
-                                    <ButtonSolid primary rg>View</ButtonSolid>
+                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
                                     </td>
                                 </tr>
                                 <tr>
@@ -263,7 +263,7 @@ export default function Ticket() {
                                     <Text size="rg" color="color3">07 Apr 2023</Text>
                                     </td>
                                     <td>
-                                    <ButtonSolid primary rg>View</ButtonSolid>
+                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
                                     </td>
                                 </tr>
                                 <tr>
@@ -295,7 +295,7 @@ export default function Ticket() {
                                     <Text size="rg" color="color3">07 Apr 2023</Text>
                                     </td>
                                     <td>
-                                    <ButtonSolid primary rg>View</ButtonSolid>
+                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
                                     </td>
                                 </tr>
                                 <tr>
@@ -327,7 +327,7 @@ export default function Ticket() {
                                     <Text size="rg" color="color3">07 Apr 2023</Text>
                                     </td>
                                     <td>
-                                    <ButtonSolid primary rg>View</ButtonSolid>
+                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
                                     </td>
                                 </tr>
                                 <tr>
@@ -359,7 +359,7 @@ export default function Ticket() {
                                     <Text size="rg" color="color3">07 Apr 2023</Text>
                                     </td>
                                     <td>
-                                    <ButtonSolid primary rg>View</ButtonSolid>
+                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
                                     </td>
                                 </tr>
                                 

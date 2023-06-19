@@ -181,9 +181,9 @@ const LoginForm = ({ onLoginSubmit, errorMsg }) => {
                       </Text>
                     </div>
 
-                    <ButtonSolid secondary xl className="mt16 full-width" type="button">
+                    {/* <ButtonSolid secondary xl className="mt16 full-width" type="button">
                       Create New Account
-                    </ButtonSolid>
+                    </ButtonSolid> */}
                     <div className="text-center footer-copy-text">
                       © 2023 · Terms of use · Support
                     </div>

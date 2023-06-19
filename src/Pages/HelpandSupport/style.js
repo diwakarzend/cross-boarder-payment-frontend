@@ -87,3 +87,107 @@ export const TicketHeadingWrapper = styled.div`
     outline: 1px solid #ED1C24;
   }
 `;
+
+export const ChatWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  min-height: 70vh;
+  .left{
+    background: #fff;
+    padding: 30px;
+    max-width: 40%;
+    ul{
+    
+      li{
+        height: 35px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+        &:nth-child(even) {
+          background: #F6F6F6;
+        }
+        span{
+          select{
+            width: 100px;
+            padding: 5px;
+          }
+          &.detail{
+            width: 30%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-align: right;
+            padding: 0 10px;
+          }
+        }
+      }
+    }
+  }
+  .right {
+    background: #191919;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    .chat-box{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      textarea{
+        resize: none;
+        height: 80px;
+        padding: 5px;
+        line-height: 20px;
+        outline: none;
+      }
+      button {
+        align-self: end;
+      }
+    }
+    ul{
+      display: flex;
+    flex-direction: column;
+    gap: 50px;
+      li{
+        display: flex;
+        max-width: 60%;
+        gap: 10px;
+        &.sender{
+          span{
+            min-height: 35px;
+            align-items: center;
+            display: flex;
+            padding: 0 10px;
+            color: #fff;
+            background: #2A2A2A;
+            line-height: 20px;
+          }
+          img{
+            width: 30px;
+            height: 30px;
+          }
+        }
+        &.receiver{
+          align-self: end;
+          justify-content: flex-end;
+          align-items: center;
+          span{
+            min-height: 35px;
+            align-items: center;
+            display: flex;
+            padding: 0 10px;
+            color: #fff;
+            background: #707070;
+            line-height: 20px;
+          }
+          svg{
+            width: 30px;
+            height: 30px;
+          }
+        }
+      }
+    }
+    }
+`;
