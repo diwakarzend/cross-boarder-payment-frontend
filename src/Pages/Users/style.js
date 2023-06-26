@@ -8,7 +8,7 @@ export const MerchantWrapper = styled.div`
         justify-content: center;
     }
     .merchant-body{
-        flex-basis: 50%;
+        flex-basis: 70%;
         display: flex;
         flex-direction: column;
     }
@@ -19,7 +19,6 @@ export const MerchantWrapper = styled.div`
         display: flex;
         justify-content: space-between;
         margin: 60px 0;
-        padding: 0 20%;
         .box{
             display: flex;
             flex-direction: column;

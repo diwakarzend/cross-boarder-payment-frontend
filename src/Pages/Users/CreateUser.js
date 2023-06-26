@@ -12,6 +12,8 @@ import { Text, ButtonSolid } from "../../Components/styledConstants";
 import IconMobile from "../../assests/images/Icons/IconMobile";
 import { MerchantWrapper } from "./style";
 import Tabs from "../../Components/Tabs";
+import { formValidation } from "../../utils/formValidation";
+
 
 const initialFormData = Object.freeze({
     userName: "",
@@ -50,7 +52,7 @@ const AddMerchant = (props) => {
     const [activeTab, setActiveTab] = useState('PAN_VERIFICATION');
     const [merchatCreated, setMerchatCreated] = useState(false);
     const [isPersonalDetailActive, setIsPersonalDetailActive] = useState(true)
-    const [isIdVerificationActive, setisIdVerificationActive] = useState(false)
+    const [isIdVerificationActive, setisIdVerificationActive] = useState(true)
     const [stateData, setStateData] = useState([]);
     const [cityLists, setCityLists] = useState([]);
     const [roles, setRoles] = useState([]);
@@ -221,6 +223,12 @@ const AddMerchant = (props) => {
     }
 
     const handleSubmit = () => {
+        var requiredFormData = _.omit(formData, ['aadhaarName', 'panName']);
+        const errors = formValidation(requiredFormData);
+        if (!!errors && Object.keys(errors).length != 0) {
+            setFormErrors(errors);
+            return;
+        }
         const successHandler = (res) => {
             if (res) {
                 setisIdVerificationActive(false)
@@ -302,7 +310,8 @@ const AddMerchant = (props) => {
                 </div> */}
                 <div className="merchant-body">
                     <div className="track-check">
-                        <div className="box">
+                        <Text color="color3" as="h2" className="pr10" size="rg" fw="bold">Personal Details</Text>
+                        {/* <div className="box">
                             <div className={isIdVerificationActive ? "active" : "disabled"}>
                                 <div className="check"></div>
                             </div>
@@ -314,51 +323,47 @@ const AddMerchant = (props) => {
                                 <div className="check"></div>
                             </div>
                             <label>ID Verification</label>
-                        </div>
+                        </div> */}
                     </div>
                     {isPersonalDetailActive && <><div className="flex space-between">
-                            <div className="mb16 col-6">
-                            <MaterialInput
-                                    // icon={<IconMobile />}
-                                    name="role"
-                                    type="select"
-                                    onChange={handleRoleChange}
-                                    placeholder="Select role"
-                                    value={roles.filter((item) => item.value === formData.role)}
-                                    error={formErrors.role}
-                                    options={roles}
-                                />
-                            </div>
-                            </div>
-                    
-                    <div className="flex space-between">
                         <div className="mb16 col-6">
                             <MaterialInput
-                                // icon={<IconMobile />}
-                                name="firstName"
-                                type="text"
-                                onChange={handleChange}
-                                placeholder="First Name"
-                                value={formData?.firstName}
-                                error={formErrors.firstName}
-                            />
-                        </div>
-                        <div className="mb16 col-6">
-                            <MaterialInput
-                                // icon={<IconMobile />}
-                                name="lastName"
-                                type="text"
-                                onChange={handleChange}
-                                placeholder="Last Name"
-                                value={formData?.lastName}
-                                error={formErrors.lastName}
+                                name="role"
+                                type="select"
+                                onChange={handleRoleChange}
+                                placeholder="Select role"
+                                value={roles.filter((item) => item.value === formData.role)}
+                                error={formErrors.role}
+                                options={roles}
                             />
                         </div>
                     </div>
+
                         <div className="flex space-between">
                             <div className="mb16 col-6">
                                 <MaterialInput
-                                    // icon={<IconMobile />}
+                                    name="firstName"
+                                    type="text"
+                                    onChange={handleChange}
+                                    placeholder="First Name"
+                                    value={formData?.firstName}
+                                    error={formErrors.firstName}
+                                />
+                            </div>
+                            <div className="mb16 col-6">
+                                <MaterialInput
+                                    name="lastName"
+                                    type="text"
+                                    onChange={handleChange}
+                                    placeholder="Last Name"
+                                    value={formData?.lastName}
+                                    error={formErrors.lastName}
+                                />
+                            </div>
+                        </div>
+                        <div className="flex space-between">
+                            <div className="mb16 col-6">
+                                <MaterialInput
                                     name="userName"
                                     type="text"
                                     onChange={handleChange}
@@ -368,8 +373,7 @@ const AddMerchant = (props) => {
                                 />
                             </div>
                             <div className="mb16 col-6">
-                            <MaterialInput
-                                    // icon={<IconMobile />}
+                                <MaterialInput
                                     name="password"
                                     type="password"
                                     placeholder="Password"
@@ -377,13 +381,11 @@ const AddMerchant = (props) => {
                                     value={formData?.password}
                                     error={formErrors.password}
                                 />
-                             
                             </div>
                         </div>
                         <div className="flex space-between">
                             <div className="mb16 col-6">
                                 <MaterialInput
-                                    // icon={<IconMobile />}
                                     name="dob"
                                     type="date"
                                     onChange={handleDateChange}
@@ -399,7 +401,6 @@ const AddMerchant = (props) => {
                             <div className="mb16 col-6">
                                 <MaterialInput
                                     wrapperClassName="username"
-                                    // icon={<IconMobile />}
                                     name="email"
                                     type="text"
                                     onChange={handleChange}
@@ -411,8 +412,7 @@ const AddMerchant = (props) => {
                         </div>
                         <div className="flex space-between">
                             <div className="mb16 col-6">
-                            <MaterialInput
-                                    // icon={<IconMobile />}
+                                <MaterialInput
                                     maxLength="10"
                                     name="phoneNumber"
                                     type="text"
@@ -421,12 +421,11 @@ const AddMerchant = (props) => {
                                     value={formData?.phoneNumber}
                                     error={formErrors.phoneNumber}
                                 />
-                               
+
                             </div>
                             <div className="mb16 col-6">
-                            <MaterialInput
+                                <MaterialInput
                                     wrapperClassName="username"
-                                    // icon={<IconMobile />}
                                     name="address1"
                                     type="text"
                                     onChange={handleChange}
@@ -439,8 +438,7 @@ const AddMerchant = (props) => {
                         </div>
                         <div className="flex space-between">
                             <div className="mb16 col-6">
-                            <MaterialInput
-                                    // icon={<IconMobile />}
+                                <MaterialInput
                                     name="State"
                                     type="select"
                                     onChange={handleStateChange}
@@ -449,11 +447,10 @@ const AddMerchant = (props) => {
                                     options={stateOptions}
                                     error={formErrors.state}
                                 />
-                               
+
                             </div>
                             <div className="mb16 col-6">
-                            <MaterialInput
-                                    // icon={<IconMobile />}
+                                <MaterialInput
                                     name="city"
                                     type="select"
                                     onChange={handleCityChange}
@@ -462,13 +459,12 @@ const AddMerchant = (props) => {
                                     error={formErrors.city}
                                     options={cityLists}
                                 />
-                                
+
                             </div>
                         </div>
                         <div className="flex space-between">
                             <div className="col-6">
-                            <MaterialInput
-                                    // icon={<IconMobile />}
+                                <MaterialInput
                                     name="pincode"
                                     maxLength="6"
                                     type="text"
@@ -477,31 +473,85 @@ const AddMerchant = (props) => {
                                     value={formData?.pincode}
                                     error={formErrors.pincode}
                                 />
-                                
+
                             </div>
                             <div className="mb16 col-6">
-                            <MaterialInput
-                                    // icon={<IconMobile />}
+                                <MaterialInput
                                     name="country"
                                     type="text"
                                     placeholder="Country"
                                     value={formData?.country}
                                     error={formErrors.country}
                                 />
-                                
+
                             </div>
                         </div>
-                        
-                        <div className="flex">
+
+                        {/* <div className="flex">
                             <ButtonSolid primary xl className="mt30 col-6" onClick={handlePersonalDetails}>
                                 Continue
                             </ButtonSolid>
-                        </div>
+                        </div> */}
                     </>
                     }
                     {isIdVerificationActive &&
                         <>
-                            <div className="tab-box">
+                            <div className="track-check">
+                                <Text color="color3" as="h2" className="pr10" size="rg" fw="bold">ID Verification</Text>
+                            </div>
+                            <div className="flex space-between">
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+
+                                        name="panName"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Name of the PAN holder"
+                                        error={formErrors.panName}
+                                    />
+                                </div>
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+
+                                        name="panNumber"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="PAN Number"
+                                        value={formData?.panNumber}
+                                        error={formErrors.panNumber}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex space-between">
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+
+                                        name="aadhaarName"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Name of the Aadhaar holder"
+                                        value={formData?.aadhaarName}
+                                        error={formErrors.aadhaarName}
+                                    />
+                                </div>
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+
+                                        name="aadhaarNumber"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Aadhaar Number"
+                                        value={formData?.aadhaarNumber}
+                                        error={formErrors.aadhaarNumber}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex">
+                                <ButtonSolid primary xl className="mt30 col-6" onClick={handleSubmit}>
+                                    Continue
+                                </ButtonSolid>
+                            </div>
+                            {/* <div className="tab-box">
                                 <div className={`box ${activeTab === 'PAN_VERIFICATION' ? 'active' : ''}`}>
                                     <div className="icon"></div>
                                     <div className="label">
@@ -517,8 +567,8 @@ const AddMerchant = (props) => {
                                         <span>Aadhaar can be verified online by filling out</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="">
+                            </div> */}
+                            {/* <div className="">
                                 {
                                     activeTab === 'PAN_VERIFICATION' &&
                                     <>
@@ -528,7 +578,7 @@ const AddMerchant = (props) => {
                                         <div className="flex space-between">
                                             <div className="mb16 col-6">
                                                 <MaterialInput
-                                                    // icon={<IconMobile />}
+                
                                                     name="panName"
                                                     type="text"
                                                     onChange={handleChange}
@@ -538,7 +588,7 @@ const AddMerchant = (props) => {
                                             </div>
                                             <div className="mb16 col-6">
                                                 <MaterialInput
-                                                    // icon={<IconMobile />}
+                
                                                     name="panNumber"
                                                     type="text"
                                                     onChange={handleChange}
@@ -564,7 +614,7 @@ const AddMerchant = (props) => {
                                         <div className="flex space-between">
                                             <div className="mb16 col-6">
                                                 <MaterialInput
-                                                    // icon={<IconMobile />}
+                
                                                     name="aadhaarName"
                                                     type="text"
                                                     onChange={handleChange}
@@ -575,7 +625,7 @@ const AddMerchant = (props) => {
                                             </div>
                                             <div className="mb16 col-6">
                                                 <MaterialInput
-                                                    // icon={<IconMobile />}
+                
                                                     name="aadhaarNumber"
                                                     type="text"
                                                     onChange={handleChange}
@@ -592,7 +642,7 @@ const AddMerchant = (props) => {
                                         </div>
                                     </>
                                 }
-                            </div>
+                            </div> */}
                         </>
                     }
                     {
