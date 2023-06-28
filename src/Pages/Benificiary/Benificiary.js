@@ -10,6 +10,7 @@ import IconUPI from "../../assests/images/Icons/IconUPI";
 import IconBank from "../../assests/images/Icons/IconBank";
 import CsvDown from "../../Components/ExportFiles/CsvDown";
 import PdfDown from "../../Components/ExportFiles/PdfDown";
+import { ButtonSolid } from "../../Components/styledConstants";
 
 import {
   addOverlay,
@@ -206,7 +207,7 @@ const Benificiary = memo((props) => {
           </div>
         </div>
       </UpiCollectionsStyle> */}
-      <BreadCrumb heading="Beneficiary" value="Beneficiary" />
+      {/* <BreadCrumb heading="Beneficiary" value="Beneficiary" /> */}
       <div style={{ textAlign: "center" }}>{statusMessage}</div>
       <div className="card-wrapper flex-column mb-4">
         <div className="card-header flex item-center space-between">
@@ -251,9 +252,10 @@ const Benificiary = memo((props) => {
               <IconSearch />
             </button>
           </div>
-          <Button className="btn-success" onClick={openPopupHandler}>
+          <ButtonSolid type="submit" primary lg> Add Beneficiary</ButtonSolid>
+          {/* <Button className="btn-success" onClick={openPopupHandler}>
             Add Beneficiary
-          </Button>
+          </Button> */}
         </div>
         <div className="card-body">
           <TableWrapper>

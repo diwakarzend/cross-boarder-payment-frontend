@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const MerchantWrapper = styled.div`
     padding: 0 32px;
+    min-height: 80%;
     .merchant-content{
         display: flex;
         justify-content: center;

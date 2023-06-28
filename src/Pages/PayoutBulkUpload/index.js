@@ -104,10 +104,10 @@ const PayoutBulkUpload = ({ dispatch = () => { }, ...props }) => {
 
     return (
         <>
-            <BreadCrumb
+            {/* <BreadCrumb
                 heading="P2P Transaction Report"
                 value="P2P Transaction Report"
-            />
+            /> */}
             <Tabs onTabClick={onTabClick} activeTab={activeTab} tablist={[{ value: 'MY_PAYOUTS', label: 'My Payouts' }, { value: 'BULK_PAYOUTS', label: 'Bulk Payouts' }]} />
             <TabCardsWraper className="">
                 <div className="tab-card active">

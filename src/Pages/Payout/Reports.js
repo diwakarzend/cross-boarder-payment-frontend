@@ -6,6 +6,7 @@ import SideBar from "../../Components/SideBar/SideBar";
 import TableHTML from "./TableHTML";
 import Pagination from "../../Components/PaginationNew/PaginationNew/Pagination";
 import { Button, BorderBtn } from "../../Components/UI/StyledConstants";
+import { ButtonSolid } from "../../Components/styledConstants";
 import "./Reports.css";
 const Reports = memo((props) => {
   const [filterItems, updateItems] = useState({});
@@ -150,7 +151,7 @@ const Reports = memo((props) => {
 
   return (
     <>
-      <BreadCrumb heading="Transaction Report" value="Transaction Report" />
+      {/* <BreadCrumb heading="Transaction Report" value="Transaction Report" /> */}
       <div className="card-wrapper flex-column mb-4">
         <div className="card-header flex item-center space-between">
           <h4 className="card-title">PayOut Transactions</h4>
@@ -241,9 +242,10 @@ const Reports = memo((props) => {
                   />
                 </div> */}
                 <div class="form-action">
-                  <Button type="submit" className="primary-btn">
+                <ButtonSolid type="submit" primary lg>Search</ButtonSolid>
+                  {/* <Button type="submit" className="primary-btn">
                     Search
-                  </Button>
+                  </Button> */}
                 </div>
               </div>
             </form>

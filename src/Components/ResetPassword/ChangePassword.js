@@ -2,6 +2,7 @@ import React, { memo, useState } from "react";
 import Request from "../../utils/Request";
 import urls from "../../utils/urls";
 import { Button } from "../UI/StyledConstants";
+import { ButtonSolid } from "../../Components/styledConstants";
 
 const initialFormData = Object.freeze({
   currentPassword: "",
@@ -106,9 +107,10 @@ const ChangePassword = memo((props) => {
             </div>
           </div>
           <div className="">
-            <Button type="submit" className="btn-success primary-btn">
+          <ButtonSolid type="submit" primary lg>Search</ButtonSolid>
+            {/* <Button type="submit" className="btn-success primary-btn">
               Update
-            </Button>
+            </Button> */}
           </div>
         </div>
       </form>
