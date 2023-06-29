@@ -148,7 +148,7 @@ const Reports = memo((props) => {
 
   return (
     <>
-      <BreadCrumb heading="Transaction Report" value="Transaction Report" />
+      {/* <BreadCrumb heading="Transaction Report" value="Transaction Report" /> */}
       <div className="card-wrapper flex-column mb-4">
         <div className="card-header flex item-center space-between">
           <h4 className="card-title">PayOut Transactions (UPI)</h4>

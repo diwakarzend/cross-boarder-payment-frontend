@@ -97,7 +97,7 @@ const Commission = (props) => {
 
   return (
     <CommissionWrapper>
-      <BreadCrumb heading="Commission" value="Commission" />
+      {/* <BreadCrumb heading="Commission" value="Commission" /> */}
       <div className="card-wrapper flex-column mb-4">
         <div className="card-header flex item-center space-between">
           <h4 className="card-title">Commission</h4>

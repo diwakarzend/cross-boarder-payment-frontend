@@ -36,36 +36,26 @@ const initialFormData = Object.freeze({
     panNumber: "",
 });
 
-const AddMerchant = (props) => {
-    const {
-        editUserData,
-        userToBeEdit,
-        closePopUpHandler,
-        fetchUsersData,
-    } = props;
+const AddMerchant = () => {
     const [formData, updateFormData] = useState(initialFormData);
-    const [editFormData, updateEditFormData] = useState(initialFormData);
     const [errors, updateError] = useState([]);
-    const [success, updateSuccess] = useState("");
     const [formErrors, setFormErrors] = useState({});
     const [date, setDate] = useState("");
-    const [activeTab, setActiveTab] = useState('PAN_VERIFICATION');
     const [merchatCreated, setMerchatCreated] = useState(false);
-    const [isPersonalDetailActive, setIsPersonalDetailActive] = useState(true)
-    const [isIdVerificationActive, setisIdVerificationActive] = useState(true)
+    const [isIdVerificationActive, setisIdVerificationActive] = useState(false)
     const [stateData, setStateData] = useState([]);
     const [cityLists, setCityLists] = useState([]);
     const [roles, setRoles] = useState([]);
     const history = useHistory();
 
-
     useEffect(() => {
-        if (editUserData) {
-            updateFormData({
-                ...editUserData,
-            });
+        const idVerificatonRole = ['PTM_MERCHANT', 'PTM_AGENT']
+        if (idVerificatonRole.includes(formData.role)) {
+            setisIdVerificationActive(true)
+        } else {
+            setisIdVerificationActive(false)
         }
-    }, [editUserData]);
+    }, [formData.role])
 
     const fetchState = () => {
         const successHandler = ({ state, roles }) => {
@@ -137,7 +127,7 @@ const AddMerchant = (props) => {
                 [event.target.name]: event.target.value,
             });
         }
-        setFormErrors({ ...formErrors, [event.target.name]: "" });
+        setFormErrors({});
     };
 
     const handleDateChange = (date) => {
@@ -154,24 +144,6 @@ const AddMerchant = (props) => {
         return api.post(`${urls.login.BASE_URL}${urls.User.UPDATE_USER}`, formData);
     };
 
-    const errorHandler = (error) => {
-        const errors = [];
-        if (error && error.status == 400) {
-            if (error.fieldErrors && error.fieldErrors instanceof Array) {
-                error.fieldErrors.forEach((item) =>
-                    errors.push(`${item.field}: ${item.message}`)
-                );
-            }
-            if (errors.length > 0) {
-                updateError(errors);
-                window.scrollTo(100, 100);
-            }
-        } else if (error && error.status == 401) {
-            updateError([error.error]);
-            window.scrollTo(100, 100);
-        }
-    };
-
     const successHandler = (data) => {
         if (!data.success) {
             updateError([data.msg]);
@@ -184,46 +156,13 @@ const AddMerchant = (props) => {
         }
     };
 
-    const submitFormHandler = (event) => {
-        event.preventDefault();
-
-        if (editUserData) {
-            updateUser();
-        }
-
-        // formData.userName = formData.phoneNumber;
-
-        // pricingToken;
-
-        const api = new Request("", successHandler, errorHandler, false);
-        return api.post(urls.login.BASE_URL + urls.User.CREATE_NEW_USER, formData);
-    };
-
-    let errorHTML = "";
-    let errorStyles = "";
-    let successStyles = "";
-    if (errors.length > 0) {
-        errorHTML = errors.map((val) => <li key={val}>{val}</li>);
-        errorStyles = {
-            color: "red",
-            fontSize: "14px",
-            marginTop: "26px",
-        };
-    } else {
-        successStyles = {
-            color: "green",
-            fontSize: "14px",
-            marginTop: "26px",
-        };
-    }
-
-    const handlePersonalDetails = () => {
-        setIsPersonalDetailActive(false);
-        setisIdVerificationActive(true)
-    }
-
     const handleSubmit = () => {
-        var requiredFormData = _.omit(formData, ['aadhaarName', 'panName']);
+        let requiredFormData;
+        if (isIdVerificationActive) {
+            requiredFormData = _.omit(formData, ['aadhaarName', 'panName']);
+        } else {
+            requiredFormData = _.omit(formData, ['aadhaarName', 'aadhaarNumber', 'panName', 'panNumber']);
+        }
         const errors = formValidation(requiredFormData);
         if (!!errors && Object.keys(errors).length != 0) {
             setFormErrors(errors);
@@ -235,13 +174,10 @@ const AddMerchant = (props) => {
                 setMerchatCreated(true)
             }
         }
-
         const errorHandler = () => { };
-        var payload = _.omit(formData, ['aadhaarName', 'panName']);
-
 
         const api = new Request("", successHandler, errorHandler, false);
-        return api.post(`${urls.login.BASE_URL}${urls.User.CREATE_NEW_USER}`, payload);
+        return api.post(`${urls.login.BASE_URL}${urls.User.CREATE_NEW_USER}`, requiredFormData);
     }
 
     const stateOptions = [];
@@ -293,39 +229,17 @@ const AddMerchant = (props) => {
     }
     return (
         <MerchantWrapper>
-            <div className="flex gap16 item-center heading-box">
+            {!merchatCreated && <div className="flex gap16 item-center heading-box">
                 <Text color="color3" as="h2" className="border-r-dash pr10" size="xl" fw="bold">Add New User</Text>
                 <Text color="color3" size="md">Share your details and we will get back to you.</Text>
-            </div>
+            </div> }
             <div className="merchant-content">
-                {/* <div className="modal-header">
-                    <h4 className="modal-title">Add User</h4>
-                    <button
-                        type="button"
-                        className="close close-btn"
-                        onClick={closePopUpHandler}
-                    >
-                        <span aria-hidden="true"><i className="fa fa-times" aria-hidden="true"></i> Cancel </span>
-                    </button>
-                </div> */}
                 <div className="merchant-body">
-                    <div className="track-check">
+                    {!merchatCreated && <>
+                        <div className="track-check">
                         <Text color="color3" as="h2" className="pr10" size="rg" fw="bold">Personal Details</Text>
-                        {/* <div className="box">
-                            <div className={isIdVerificationActive ? "active" : "disabled"}>
-                                <div className="check"></div>
-                            </div>
-                            <label>Personal Details</label>
-                        </div>
-                        <div className="border"></div>
-                        <div className="box">
-                            <div className="disabled">
-                                <div className="check"></div>
-                            </div>
-                            <label>ID Verification</label>
-                        </div> */}
                     </div>
-                    {isPersonalDetailActive && <><div className="flex space-between">
+                    <div className="flex space-between">
                         <div className="mb16 col-6">
                             <MaterialInput
                                 name="role"
@@ -486,15 +400,9 @@ const AddMerchant = (props) => {
 
                             </div>
                         </div>
-
-                        {/* <div className="flex">
-                            <ButtonSolid primary xl className="mt30 col-6" onClick={handlePersonalDetails}>
-                                Continue
-                            </ButtonSolid>
-                        </div> */}
                     </>
                     }
-                    {isIdVerificationActive &&
+                    {!merchatCreated && isIdVerificationActive &&
                         <>
                             <div className="track-check">
                                 <Text color="color3" as="h2" className="pr10" size="rg" fw="bold">ID Verification</Text>
@@ -502,17 +410,16 @@ const AddMerchant = (props) => {
                             <div className="flex space-between">
                                 <div className="mb16 col-6">
                                     <MaterialInput
-
                                         name="panName"
                                         type="text"
                                         onChange={handleChange}
                                         placeholder="Name of the PAN holder"
+                                        value={formData?.panName}
                                         error={formErrors.panName}
                                     />
                                 </div>
                                 <div className="mb16 col-6">
                                     <MaterialInput
-
                                         name="panNumber"
                                         type="text"
                                         onChange={handleChange}
@@ -525,7 +432,6 @@ const AddMerchant = (props) => {
                             <div className="flex space-between">
                                 <div className="mb16 col-6">
                                     <MaterialInput
-
                                         name="aadhaarName"
                                         type="text"
                                         onChange={handleChange}
@@ -536,7 +442,6 @@ const AddMerchant = (props) => {
                                 </div>
                                 <div className="mb16 col-6">
                                     <MaterialInput
-
                                         name="aadhaarNumber"
                                         type="text"
                                         onChange={handleChange}
@@ -546,105 +451,13 @@ const AddMerchant = (props) => {
                                     />
                                 </div>
                             </div>
-                            <div className="flex">
-                                <ButtonSolid primary xl className="mt30 col-6" onClick={handleSubmit}>
-                                    Continue
-                                </ButtonSolid>
-                            </div>
-                            {/* <div className="tab-box">
-                                <div className={`box ${activeTab === 'PAN_VERIFICATION' ? 'active' : ''}`}>
-                                    <div className="icon"></div>
-                                    <div className="label">
-                                        <label>PAN Verification</label>
-                                        <span>PAN can be verified online by filling out</span>
-                                    </div>
-                                </div>
-
-                                <div className={`box ${activeTab === 'AADHAAR_VERIFICATION' ? 'active' : ''}`}>
-                                    <div className="icon"></div>
-                                    <div className="label">
-                                        <label>Aadhaar Verification</label>
-                                        <span>Aadhaar can be verified online by filling out</span>
-                                    </div>
-                                </div>
-                            </div> */}
-                            {/* <div className="">
-                                {
-                                    activeTab === 'PAN_VERIFICATION' &&
-                                    <>
-                                        <div className="card-heading">
-                                            <Text as="h2" color="color3">PAN Verification</Text>
-                                        </div>
-                                        <div className="flex space-between">
-                                            <div className="mb16 col-6">
-                                                <MaterialInput
-                
-                                                    name="panName"
-                                                    type="text"
-                                                    onChange={handleChange}
-                                                    placeholder="Name of the PAN holder"
-                                                    error={formErrors.panName}
-                                                />
-                                            </div>
-                                            <div className="mb16 col-6">
-                                                <MaterialInput
-                
-                                                    name="panNumber"
-                                                    type="text"
-                                                    onChange={handleChange}
-                                                    placeholder="PAN Number"
-                                                    value={formData?.panNumber}
-                                                    error={formErrors.panNumber}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="flex">
-                                            <ButtonSolid primary xl className="mt30 col-6" onClick={() => setActiveTab('AADHAAR_VERIFICATION')}>
-                                                Continue
-                                            </ButtonSolid>
-                                        </div>
-                                    </>
-                                }
-                                {
-                                    activeTab === 'AADHAAR_VERIFICATION' &&
-                                    <>
-                                        <div className="card-heading">
-                                            <Text as="h2" color="color3">Aadhaar Verification</Text>
-                                        </div>
-                                        <div className="flex space-between">
-                                            <div className="mb16 col-6">
-                                                <MaterialInput
-                
-                                                    name="aadhaarName"
-                                                    type="text"
-                                                    onChange={handleChange}
-                                                    placeholder="Name of the Aadhaar holder"
-                                                    value={formData?.aadhaarName}
-                                                    error={formErrors.aadhaarName}
-                                                />
-                                            </div>
-                                            <div className="mb16 col-6">
-                                                <MaterialInput
-                
-                                                    name="aadhaarNumber"
-                                                    type="text"
-                                                    onChange={handleChange}
-                                                    placeholder="Aadhaar Number"
-                                                    value={formData?.aadhaarNumber}
-                                                    error={formErrors.aadhaarNumber}
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="flex">
-                                            <ButtonSolid primary xl className="mt30 col-6" onClick={handleSubmit}>
-                                                Continue
-                                            </ButtonSolid>
-                                        </div>
-                                    </>
-                                }
-                            </div> */}
                         </>
                     }
+                    {!merchatCreated && <div className="flex">
+                        <ButtonSolid primary xl className="mt30 col-6" onClick={handleSubmit}>
+                            Continue
+                        </ButtonSolid>
+                    </div>}
                     {
                         merchatCreated &&
                         <div className="success-container">

@@ -63,10 +63,10 @@ export const TableWrapper = styled.div`
     margin: 16px 0;
     .table {
         width: 100%;
-        color: var(--ip-body-color);
+        color: var(--ip-white-color);
         thead{
             th{
-                background-color: #FFECAF;
+                background-color: #000;
             }
         }
         th {
@@ -329,7 +329,7 @@ export const FilterFormWrapper = styled.div`
     .form-action{
         button{
             height: 50px;
-            border-radius: 25px;
+            border-radius: 5px;
         }
     }
 `

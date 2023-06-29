@@ -1,4 +1,6 @@
 import axios from "axios";
+import moment from "moment";
+import jwtDecode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
@@ -57,12 +59,15 @@ class Request {
    * @param {object} params
    */
   get(url, params = {}) {
-    if (this.authorize && !isAuthenticated()) {
-      const dispatch = useDispatch();
-      const history = useHistory();
+    if(!getAuthToken()) return;
+    const decodedToken = jwtDecode(getAuthToken());
+    const isTokenExired = moment.unix(decodedToken.exp) < moment();
+    if (this.authorize && isTokenExired) {
+      // const dispatch = useDispatch();
+      // const history = useHistory();
       clearAuthToken();
-      dispatch(loginResetStore());
-      history.push("/");
+      // dispatch(loginResetStore());
+      // history.push("/");
       return this.errorFn([], {}, httpStatusCodes.BAD_REQUEST);
     }
 
@@ -98,14 +103,20 @@ class Request {
    * @param {object} params
    */
   post(url, params) {
-    if (this.authorize && !isAuthenticated()) {
-      const dispatch = useDispatch();
-      const history = useHistory();
-      clearAuthToken();
-      dispatch(loginResetStore());
-      history.push("/");
-      return this.errorFn([], {}, httpStatusCodes.BAD_REQUEST);
+    if(!url.includes('/api/authenticate')){
+      if(!getAuthToken()) return;
+      const decodedToken = jwtDecode(getAuthToken());
+      const isTokenExired = moment.unix(decodedToken.exp) < moment();
+      if (this.authorize && isTokenExired) {
+        // const dispatch = useDispatch();
+        // const history = useHistory();
+        clearAuthToken();
+        // dispatch(loginResetStore());
+        // history.push("/");
+        return this.errorFn([], {}, httpStatusCodes.BAD_REQUEST);
+      }
     }
+    
 
     // this.instance.defaults.headers["Authorization"] = "sssssssssssssssss";
     const options = {

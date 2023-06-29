@@ -11,6 +11,7 @@ import {
   FilterFormWrapper,
 } from "../../Components/UI/StyledConstants";
 import { getCurrentDate } from "../../utils/common";
+import { ButtonSolid } from "../../Components/styledConstants";
 
 const P2PTransaction = ({ dispatch = () => {}, ...props }) => {
   const [reportsItems, setReportsItems] = useState([]);
@@ -111,10 +112,10 @@ const P2PTransaction = ({ dispatch = () => {}, ...props }) => {
 
   return (
     <>
-      <BreadCrumb
+      {/* <BreadCrumb
         heading="UPI PayIn Transaction Report"
         value="P2P Transaction Report"
-      />
+      /> */}
       <div className="card-wrapper flex-column mb-4">
         <div className="card-header flex item-center space-between">
           <h4 className="card-title">PayIn Transactions</h4>
@@ -200,9 +201,10 @@ const P2PTransaction = ({ dispatch = () => {}, ...props }) => {
                   />
                 </div>
                 <div className="form-action">
-                  <Button type="submit" className="btn-success">
+                  <ButtonSolid type="submit" primary>Search</ButtonSolid>
+                  {/* <Button type="submit" className="btn-success">
                     Search
-                  </Button>
+                  </Button> */}
                 </div>
               </FilterFormWrapper>
             </form>

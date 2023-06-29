@@ -12,6 +12,7 @@ import {
   BorderBtn,
   TableWrapper,
 } from "../../Components/UI/StyledConstants";
+import { ButtonSolid } from "../../Components/styledConstants";
 
 const FundRequest = memo((props) => {
   const { dispatch, login, userwallet } = props;
@@ -74,7 +75,7 @@ const FundRequest = memo((props) => {
   console.log("fundRequestLoading", fundRequestLoading);
   return (
     <>
-      <BreadCrumb heading="Fund Request" value="Fund Request" />
+      {/* <BreadCrumb heading="Fund Request" value="Fund Request" /> */}
       <div style={{ textAlign: "center", marginTop: "15px" }}>
         {statusMessage}
       </div>
@@ -93,9 +94,10 @@ const FundRequest = memo((props) => {
         <div className="card-body px16">
           <div className="flex space-between">
             {userRole !== "PTM_ADMIN" && (
-              <Button className="btn-success" onClick={openPopupHandler}>
-                Fund Request
-              </Button>
+               <ButtonSolid type="submit" primary> Fund Request</ButtonSolid>
+              // <Button className="btn-success" onClick={openPopupHandler}>
+              //   Fund Request
+              // </Button>
             )}
             <div className="col-2">
               {userRole != "PTM_ADMIN" && (
