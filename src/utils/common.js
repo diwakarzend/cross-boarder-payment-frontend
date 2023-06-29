@@ -494,3 +494,18 @@ export const getParams = (formArray) => {
   });
   return params;
 };
+
+export const filterDateFormate = (date) =>{
+  //const date = new Date(data);
+// Extract the day, month, and year from the date object
+const day = date.getDate().toString().padStart(2, '0');
+const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Month is zero-based
+const year = date.getFullYear();
+
+// Create the formatted date string in the dd/mm/yyyy format
+const formattedDate = `${day}-${month}-${year}`;
+ 
+return formattedDate;
+console.log(formattedDate); // Output: 14/06/2023
+
+}

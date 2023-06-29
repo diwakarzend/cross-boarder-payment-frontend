@@ -10,10 +10,11 @@ import IconActive from "../../assests/images/Icons/IconActive";
 import Pagination from "../../Components/Common/Pagination";
 import BreadCrumb from "../../Components/BreadCrumb/BreadCrumb";
 import ItemPerPage from "../../Components/Common/ItemPerPage";
-import { getParams } from "../../utils/common";
+import { getParams, filterDateFormate } from "../../utils/common";
 import { HeadingWrapper, FilterWrapper } from "./style";
 import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
+import ReactDatePicker from "../../Components/Datepicker";
 
 const headers = [
     { label: "UserId", key: "userId" },
@@ -37,6 +38,13 @@ const tableHeader = [
     },
 ];
 
+const filter ={
+    fromData:{},
+    fromDate:"",
+    toDate:""
+
+}
+
 const getTableBody = (data) => {
     const tableBody = [];
     data.forEach((element) => {
@@ -55,18 +63,22 @@ const getTableBody = (data) => {
 };
 
 export default function MerchantsList() {
-    const [filter, setFiler] = useState()
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
+    const [searchKey, setSearchKey] = useState("mobile");
+    const [searchValue, setSearchValue] = useState("");
+    // const [filter, setFiler] = useState()
     const [userData, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [loader, setLoader] = useState(false);
     const [totalElements, setTotalElements] = useState(500);
-    const [toDate, setToDate] = useState("");
-    const [fromDate, setFromDate] = useState("");
+    // const [toDate, setToDate] = useState("");
+    // const [fromDate, setFromDate] = useState("");
     const [downloadPayload, setDownloadPayload] = useState({});
 
-    const getTransactions = () => {
+    const getTransactions = (param) => {
         const successHandler = (res) => {
             if (res.data && res.data.content) {
                 setLoader(false);
@@ -97,6 +109,24 @@ export default function MerchantsList() {
     };
 
     console.log(totalElements, pageSize);
+
+  
+
+    const submitDateFilter = () => {
+        const fData ={};
+        if (startDate && endDate) {
+            filter.fromDate = filterDateFormate(startDate);
+            filter.toDate = filterDateFormate(endDate);
+        }
+        if(searchValue){
+            fData[searchKey] = searchValue;
+            filter.fromData = fData;
+        }
+
+        console.log("test",filter);
+        
+      }
+
     return (
         <>
             {/* <BreadCrumb heading="Transaction Report" value="Transaction Report" /> */}
@@ -121,34 +151,38 @@ export default function MerchantsList() {
                     </span>
                 </HeadingWrapper>
                 <FilterWrapper>
-                    <div className="search">
+                <div className="search">
                         <label>Search by</label>
-                        <div className="field">
-                            <select>
-                                <option>Phone No.</option>
-                            </select>
-                            <input type="text" placeholder="value" />
+                        <div className="field" style={{display:"flex"}}>
+                        <select value={searchKey} onChange={(e) =>setSearchKey(e.target.value)}>
+                        <option value="">select</option>
+                        <option value="phoneNumber">Phone No</option>
+                    </select>
+                            <input type="text" value={searchValue} placeholder="value"  onChange={(e) =>setSearchValue(e.target.value)}/>
                         </div>
+                        {/* <ButtonSolid primary md onClick={submitFilter}>search</ButtonSolid> */}
                     </div>
+                   
                     <div className="search">
                         <label>Filter by</label>
                         <div className="field">
-                            <MaterialInput
-                                name="dob"
-                                type="date1"
-                                onChange={handleDateChange}
-                                placeholder="From Date"
-                                value={toDate}
-                            />
-                            <MaterialInput
-                                name="dob"
-                                type="date1"
-                                onChange={handleDateChange}
-                                placeholder="To Date"
-                                value={fromDate}
-                            />
-                            <ButtonSolid primary md>GO</ButtonSolid>
+                          
+                            <ReactDatePicker
+                             selected={startDate}
+                              onChange={(date) => {setStartDate(date);setEndDate('')}}
+                               maxDate={new Date()}
+                               placeholderText="Start Date" />
+                           
+                             <ReactDatePicker
+                              selected={endDate}
+                              onChange={(date) => setEndDate(date)}
+                               placeholderText="End Date"
+                                minDate={startDate}
+                               maxDate={new Date()}
+                               disabled={startDate ? false : true} />
+                           
                         </div>
+                        <ButtonSolid primary md onClick={submitDateFilter}>GO</ButtonSolid>
                     </div>
                 </FilterWrapper>
                 <div>

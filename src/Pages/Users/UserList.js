@@ -11,12 +11,14 @@ import ItemPerPage from "../../Components/Common/ItemPerPage";
 import { HeadingWrapper, FilterWrapper } from "./style";
 import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
+import ReactDatePicker from "../../Components/Datepicker";
+import { filterDateFormate } from "../../utils/common";
 
-const filterForm = {
-    phoneNumber: "",
-    toDate: "",
-    fromDate: "",
-}
+// const filterFormField = {
+//         fromData:{},
+//         fromDate:filterDateFormate(new Date()),
+//         toDate:filterDateFormate(new Date()),
+//   };
 
 const headers = [
     { label: "First Name", key: "firstName" },
@@ -64,21 +66,18 @@ const getTableBody = (data) => {
 };
 
 export default function MerchantsList() {
-    const [filter, setFilter] = useState(filterForm)
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
+    const [searchKey, setSearchKey] = useState("mobile");
+    const [searchValue, setSearchValue] = useState("");
     const [userData, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [pageSize, setPageSize] = useState(100);
+    
 
     const [loader, setLoader] = useState(false);
-
     const [totalElements, setTotalElements] = useState(500);
-    const [searchUserList, setSearchUserList] = useState([]);
-    const [userDetail, setUserDetails] = useState({});
-    const [autoCompleteShow, setAutoCompleteShow] = useState(false);
-    const [showAgent, setShowAgent] = useState(false);
-    const [toDate, setToDate] = useState("");
-    const [fromDate, setFromDate] = useState("");
     const [downloadPayload, setDownloadPayload] = useState({});
 
     const getUsers = () => {
@@ -100,16 +99,30 @@ export default function MerchantsList() {
         getUsers();
     }, [])
 
-    const handleDateChange = (date) => {
-        setToDate(date);
-        setFilter({
-            ...filter,
-            ["toDate"]: new Date(date),
-        });
-        // setFormErrors({ ...formErrors, [event.target.name]: "" });
-    };
+    const filter ={
+        fromData:{},
+        fromDate:"",
+        toDate:""
 
-    console.log(totalElements, pageSize);
+    }
+    
+    const submitDateFilter = () => {
+        const fData ={};
+        if (startDate && endDate) {
+            filter.fromDate = filterDateFormate(startDate);
+            filter.toDate = filterDateFormate(endDate);
+        }
+        if(searchValue){
+            fData[searchKey] = searchValue;
+            filter.fromData = fData;
+        }
+
+        console.log("test",filter);
+        
+      }
+
+    //console.log(totalElements, pageSize);
+    
     return (
         <>
             {/* <BreadCrumb heading="Transaction Report" value="Transaction Report" /> */}
@@ -136,38 +149,38 @@ export default function MerchantsList() {
                     </span>
                 </HeadingWrapper>
                 <FilterWrapper>
-                    <div className="search">
+                <div className="search">
                         <label>Search by</label>
-                        <div className="field">
-                            <select>
-                                <options>Phone No.</options>
-                            </select>
-                            <input type="text" placeholder="value" />
+                        <div className="field" style={{display:"flex"}}>
+                        <select value={searchKey} onChange={(e) =>setSearchKey(e.target.value)}>
+                        <option value="">select</option>
+                        <option value="phoneNumber">Phone No</option>
+                    </select>
+                            <input type="text" value={searchValue} placeholder="value"  onChange={(e) =>setSearchValue(e.target.value)}/>
                         </div>
+                        {/* <ButtonSolid primary md onClick={submitFilter}>search</ButtonSolid> */}
                     </div>
+                   
                     <div className="search">
                         <label>Filter by</label>
                         <div className="field">
-                            <MaterialInput
-                                // icon={<IconMobile />}
-                                name="toDate"
-                                type="date1"
-                                onChange={handleDateChange}
-                                placeholder="From Date"
-                                value={toDate}
-                            // error={formErrors.dob}
-                            />
-                            <MaterialInput
-                                // icon={<IconMobile />}
-                                name="fromDate"
-                                type="date1"
-                                onChange={handleDateChange}
-                                placeholder="To Date"
-                                value={toDate}
-                            // error={formErrors.dob}
-                            />
-                            <ButtonSolid primary md>GO</ButtonSolid>
+                          
+                            <ReactDatePicker
+                             selected={startDate}
+                              onChange={(date) => {setStartDate(date);setEndDate('')}}
+                               maxDate={new Date()}
+                               placeholderText="Start Date" />
+                           
+                             <ReactDatePicker
+                              selected={endDate}
+                              onChange={(date) => setEndDate(date)}
+                               placeholderText="End Date"
+                                minDate={startDate}
+                               maxDate={new Date()}
+                               disabled={startDate ? false : true} />
+                           
                         </div>
+                        <ButtonSolid primary md onClick={submitDateFilter}>GO</ButtonSolid>
                     </div>
                 </FilterWrapper>
                 <div>
