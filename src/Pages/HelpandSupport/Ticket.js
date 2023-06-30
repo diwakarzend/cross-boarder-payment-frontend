@@ -61,7 +61,7 @@ export default function Ticket() {
           }
 
         const api = new Request("", successHandler, errorHandler, false);
-        return api.post(`${"http://13.126.244.49:8083/support-service/admin/ticket/list"}?pageNo=${pageNo}&pageSize=${pageSize}`, payload);
+        return api.post(`${"http://13.126.244.49:8085/support-service/admin/ticket/list"}?pageNo=${pageNo}&pageSize=${pageSize}`, payload);
     };
 
     useEffect(() => {
