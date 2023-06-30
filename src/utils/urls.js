@@ -6,8 +6,8 @@ export default {
     //BASE_URL: "https://api-service.texta.info:8443",
     // BASE_URL:"https://api-service.primepay.info:8443",
     // BASE_URL: "https://api-service.texta.info",
-    // BASE_URL: "https://p2p-api.texta.info/payment-finance-service",
-    BASE_URL: "",
+    BASE_URL: "https://p2p-api.texta.info/payment-finance-service",
+    //BASE_URL: "",
 
     LOGIN_REQUEST: "/api/authenticate",
     OTP_VALIDATION: "/agent/otp/validation",
