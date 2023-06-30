@@ -85,7 +85,6 @@ const AddMerchant = () => {
             .then(
                 axios.spread((...responses) => {
                     setStateData(responses)
-                    console.log('rr', responses)
                     const state = responses[0] && responses[0].data.data;
                     const roles = responses[1] && responses[1].data.data;
 

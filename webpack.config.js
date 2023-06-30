@@ -113,6 +113,11 @@ module.exports = {
         target: "http://13.126.244.49:8083/payment-finance-service/",
         secure: false,
       },
+      {
+        context: ["/admin/"],
+        target: "http://13.126.244.49:8085/support-service/",
+        secure: false,
+      },
       // {
       //   context: ["/api/**"],
       //   // target: "https://api-service.texta.info:8443",

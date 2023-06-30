@@ -22,10 +22,11 @@ const filterForm = {
 export default function Ticket() {
     const [tab, setTab] = useState('all');
     const [filter, setFilter] = useState(filterForm)
-    const [userData, setUsers] = useState([]);
+    const [ticketData, setTicketData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [pageSize, setPageSize] = useState(100);
+    const [pageSize, setPageSize] = useState(10);
+    const [pageNo, setPageNo] = useState(1);
 
     const [loader, setLoader] = useState(false);
 
@@ -39,23 +40,32 @@ export default function Ticket() {
     const [downloadPayload, setDownloadPayload] = useState({});
     const history = useHistory();
 
-    const getUsers = () => {
+    const getTickets = () => {
         const successHandler = (res) => {
             if (res.data && res.data) {
                 setLoader(false);
-                setUsers(res.data);
+                setTicketData(res.data.content);
                 setTotalPages(res.data.totalPages);
                 setTotalElements(res.data.totalElements);
             }
         };
         const errorHandler = () => { };
+        const payload = {
+            ticketId: "",
+            commentId: "",
+            category: "",
+            status: "",
+            dateTo: "",
+            dateFrom: "",
+            project: ""
+          }
 
         const api = new Request("", successHandler, errorHandler, false);
-        return api.get(`${urls.login.BASE_URL}${urls.User.USER_LIST}?pageSize=${pageSize}`);
+        return api.post(`${urls.login.BASE_URL}${urls.ticket.TICKET_LIST}?pageNo=${pageNo}&pageSize=${pageSize}`, payload);
     };
 
     useEffect(() => {
-        getUsers();
+        getTickets();
     }, [])
 
     const handleDateChange = (date) => {
@@ -65,6 +75,14 @@ export default function Ticket() {
             ["toDate"]: new Date(date),
         });
         // setFormErrors({ ...formErrors, [event.target.name]: "" });
+    };
+
+    const handleFromChange = (date) => {
+        setFromDate(date);
+        setFilter({
+            ...filter,
+            ["fromDate"]: new Date(date),
+        });
     };
 
     console.log(totalElements, pageSize);
@@ -79,9 +97,9 @@ export default function Ticket() {
                         <BorderBtn className="btn-soft-success" onClick={() => history.push('/create-ticket')}>
                             Create Ticket
                         </BorderBtn>
-                        <BorderBtn>
+                        {/* <BorderBtn>
                             Download CSV
-                        </BorderBtn>
+                        </BorderBtn> */}
                         {/* <PdfDown
                             tableHeader={tableHeader}
                             getTableBody={getTableBody}
@@ -122,7 +140,6 @@ export default function Ticket() {
                         <label>Filter by</label>
                         <div className="field">
                             <MaterialInput
-                                // icon={<IconMobile />}
                                 name="toDate"
                                 type="date1"
                                 onChange={handleDateChange}
@@ -131,12 +148,11 @@ export default function Ticket() {
                             // error={formErrors.dob}
                             />
                             <MaterialInput
-                                // icon={<IconMobile />}
                                 name="fromDate"
                                 type="date1"
-                                onChange={handleDateChange}
+                                onChange={handleFromChange}
                                 placeholder="To Date"
-                                value={toDate}
+                                value={fromDate}
                             // error={formErrors.dob}
                             />
                             <ButtonSolid primary md>GO</ButtonSolid>
@@ -160,7 +176,7 @@ export default function Ticket() {
                                     </th>
                                     <th className="text-left">
                                         <Text size="rg" fw="medium" color="color7">
-                                           Mobile No.
+                                        Priority
                                         </Text>
                                     </th>
                                     <th className="text-left">
@@ -202,7 +218,7 @@ export default function Ticket() {
                                 
                             </thead>
                             <tbody>
-                                <tr>
+                                {/* <tr>
                                     <td>
                                     <Text size="rg" color="color3">P2P2458</Text>
                                     </td>
@@ -361,14 +377,14 @@ export default function Ticket() {
                                     <td>
                                     <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
                                     </td>
-                                </tr>
+                                </tr> */}
                                 
-                                {/* {loader && <TableLoader />}
-                                {!loader && userData.length ? (
-                                    userData.map((user, index) => (
+                                {loader && <TableLoader />}
+                                {!loader && ticketData.length ? (
+                                    ticketData.map((user, index) => (
                                         <tr key={index}>
                                             <td>
-                                                <Text size="rg" color="color3">{user.firstName}</Text>
+                                                <Text size="rg" color="color3">{user.ticketId}</Text>
                                             </td>
                                             <td>
                                                 <Text size="xsm" color="color3">
@@ -377,43 +393,42 @@ export default function Ticket() {
                                             </td>
                                             <td>
                                                 <Text size="xsm" color="color3">
-                                                    {user?.userName}
+                                                    {user?.priority}
                                                 </Text>
                                             </td>
                                             <td>
                                                 <Text size="xsm" color="color3">
-                                                    {user?.email}
+                                                    {user?.createdAt}
                                                 </Text>
                                             </td>
                                             <td>
                                                 <Text size="xsm" color="color3">
-                                                    {user?.dob}
+                                                    {user?.category}
                                                 </Text>
                                             </td>
                                             <td>
                                                 <Text size="xsm" color="color3">
-                                                    {user.role
-                                                        ? user.role.replace(/_/g, " ").replace("ROLE", "")
-                                                        : user?.userType
-                                                            ? user?.userType.replace(/_/g, " ").replace("ROLE", "")
-                                                            : ""}
+                                                    {user?.requestType}
                                                 </Text>
                                             </td>
                                             <td>
                                                 <Text size="xsm" color="color3">
-                                                    {user?.phoneNumber}
+                                                    {user?.description}
                                                 </Text>
                                             </td>
                                             <td>
                                                 <Text size="xsm" fw="medium" color="color3">
-                                                    {user.pincode}
+                                                    {user?.status}
                                                 </Text>
                                             </td>
                                             <td>
                                                 <Text size="xsm" fw="medium" color="color3">
-                                                    {user.address1}
+                                                    {user?.updatedAt}
                                                 </Text>
                                             </td>
+                                            <td>
+                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
+                                    </td>
 
                                         </tr>
                                     ))
@@ -421,12 +436,12 @@ export default function Ticket() {
                                     <tr>
                                         <td colSpan={12} style={{ textAlign: 'center' }}>No record found</td>
                                     </tr>
-                                )} */}
+                                )}
                             </tbody>
                         </table>
                     </TableWarpper>
                     <div className="mt24 flex flex-center">
-                        {userData.length > 1 && (
+                        {ticketData.length > 1 && (
                             <ItemPerPage
                                 pageSize={pageSize}
                                 getPageSize={(pageSize) => {

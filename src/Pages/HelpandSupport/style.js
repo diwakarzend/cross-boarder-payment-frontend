@@ -191,3 +191,8 @@ export const ChatWrapper = styled.div`
     }
     }
 `;
+
+export const SuccessWrapper = styled.div`
+  text-align: center;
+  padding: 50px 0;
+`;

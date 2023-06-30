@@ -6,7 +6,8 @@ export default {
     //BASE_URL: "https://api-service.texta.info:8443",
     // BASE_URL:"https://api-service.primepay.info:8443",
     // BASE_URL: "https://api-service.texta.info",
-    BASE_URL: "https://p2p-api.texta.info/payment-finance-service",
+    // BASE_URL: "https://p2p-api.texta.info/payment-finance-service",
+    BASE_URL: "",
 
     LOGIN_REQUEST: "/api/authenticate",
     OTP_VALIDATION: "/agent/otp/validation",
@@ -117,4 +118,12 @@ export default {
     GET_VENDOR_DETAILS: "/api/users?pageSize=100",
     GET_USER_BY_VENDOR_ROLE: "/api/users/searchByVendor",
   },
+  ticket: {
+    TICKET_LIST: "/admin/ticket/list",
+    GET_CATEGORY: "/admin/ticket/category",
+    GET_PRIORITY: "/admin/ticket/priority",
+    GET_REQUEST_TYPE: "/admin/ticket/request-type",
+    GET_STATUS: "/admin/ticket/status",
+    CREATE_TICKET: "/admin/ticket/create",
+  }
 };

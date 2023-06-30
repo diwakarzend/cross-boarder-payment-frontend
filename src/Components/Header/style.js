@@ -18,6 +18,98 @@ export const HeaderWrapper = styled.header`
     top: 0;
     right: 0;
     z-index: 9;
+    .user-name{
+        display: flex;
+        align-items: center;
+        text-transform: capitalize;
+    }
+    .profile-wraper {
+        // padding: 0 24px;
+        // margin-bottom: 15px;
+        font-family: "Roboto", sans-serif;
+        .profile{
+            position: relative;
+        }
+        .link {
+          border-radius: 10px 10px 0 10px;
+          background-color: #fff;
+          padding: 6px 9px;
+          cursor: pointer;
+          &.active {
+            border-radius: 10px 10px 0 0;
+            i {
+              transform: rotate(180deg);
+            }
+          }
+        }
+        .image {
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          overflow: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #fff;
+          font-size: 18px;
+          margin-right: 10px;
+          /* background: transparent linear-gradient(252deg, #ff6600 0%, #692cff 100%)
+            0% 0% no-repeat padding-box; */
+            background: var(--ip-black);
+            text-transform: uppercase;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .name {
+          font-size: 15px;
+          line-height: 20px;
+          color: #292929;
+          margin-bottom: 1px;
+          font-weight: 500;
+          text-transform: capitalize;
+        }
+        .role {
+          font-size: 12px;
+          line-height: 14px;
+          color: #085b51;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+        .dropdown {
+          i {
+            font-size: 16px;
+          }
+        }
+        .dropdownList {
+          background-color: #fff;
+          border-radius: 0 0 10px 10px;
+          overflow: hidden;
+          display: none;
+          position : absolute;
+          left: 0;
+          right: 0;
+          bottom: -45px;
+          box-shadow: rgba(56, 65, 74, 0.15) 0px 1px 2px;
+          z-index: 1;
+          &.active {
+            display: block;
+          }
+          li {
+            list-style: none;
+            padding: 10px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            &:hover {
+              color: #fff;
+              background: var(--ip-black);
+            }
+          }
+        }
+      }
     .header-hamburger {
         border: none;
         background-color: transparent;

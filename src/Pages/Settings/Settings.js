@@ -8,6 +8,7 @@ import Request from "../../utils/Request";
 import urls from "../../utils/urls";
 import "./Settings.css";
 import { Button, TableWrapper } from "../../Components/UI/StyledConstants";
+import { ButtonSolid } from "../../Components/styledConstants";
 
 const Settings = (props) => {
   const [toggleApi1, setToggeleAPI1] = useState(false);
@@ -84,9 +85,9 @@ const Settings = (props) => {
    */
   return (
     <>
-      <BreadCrumb heading="Settings" value="Settings" />
+      {/* <BreadCrumb heading="Settings" value="Settings" /> */}
 
-      <div className="card-wrapper flex-column mb-4">
+      <div className="card-wrapper flex-column mb-4 mt30 ml30 mr30">
         <div className="card-header">
           <ul className="tab-List">
             <li
@@ -129,12 +130,19 @@ const Settings = (props) => {
             )}
             {activeTab == "apikey" && (
               <>
-                <Button
+               <ButtonSolid 
+                  className="mb16" 
+                  onClick={() => generateString(70)} 
+                  primary lg
+                >
+                    Generate Token
+              </ButtonSolid>
+                {/* <Button
                   className="btn-success mb16"
                   onClick={() => generateString(70)}
                 >
                   Generate Token
-                </Button>
+                </Button> */}
                 <div className="form-group">
                   <input
                     className="form-control"

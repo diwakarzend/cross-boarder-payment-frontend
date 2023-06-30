@@ -238,6 +238,12 @@ export default createGlobalStyle`
   .ml10{
     margin-left: 10px;
   }
+  .ml30{
+    margin-left: 30px;
+  }
+  .mr30{
+    margin-right: 30px;
+  }
   .p16 {
     padding: 16px;
   }
@@ -278,6 +284,7 @@ export default createGlobalStyle`
 
   .wrapper {
     padding: 32px;
+    min-height: 80%;
   }
   .select__single-value{
     margin-top: 25px;

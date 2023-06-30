@@ -195,3 +195,29 @@ export const getPayoutBulkUploadedListingRequest = (params) => {
     params
   );
 };
+
+export const getCategory = () => {
+  return apiRequest.get(`${urls.login.BASE_URL + urls.ticket.GET_CATEGORY}`
+  );
+};
+
+export const getStatus = () => {
+  return apiRequest.get(`${urls.login.BASE_URL + urls.ticket.GET_STATUS}`
+  );
+};
+
+export const getPriority = () => {
+  return apiRequest.get(`${urls.login.BASE_URL + urls.ticket.GET_PRIORITY}`
+  );
+};
+
+export const getRequestType = () => {
+  return apiRequest.get(`${urls.login.BASE_URL + urls.ticket.GET_REQUEST_TYPE}`
+  );
+};
+
+export const createTicket = (params) => {
+  return apiRequest.post(
+    `${urls.login.BASE_URL + urls.ticket.CREATE_TICKET}?ticketRequest=${params}`, {}
+  );
+};

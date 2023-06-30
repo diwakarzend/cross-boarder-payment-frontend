@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Heading, TableWarpper, Text, IconInactive, ButtonSolid } from "../../Components/styledConstants";
 import Request from "../../utils/Request";
 import urls from "../../utils/urls";
@@ -65,6 +65,7 @@ export default function MerchantsList() {
     const [toDate, setToDate] = useState("");
     const [fromDate, setFromDate] = useState("");
     const [downloadPayload, setDownloadPayload] = useState({});
+    const history = useHistory();
 
     const getTransactions = () => {
         const successHandler = (res) => {
@@ -96,7 +97,13 @@ export default function MerchantsList() {
         // setFormErrors({ ...formErrors, [event.target.name]: "" });
     };
 
-    console.log(totalElements, pageSize);
+    const handleTicket = (id) => {
+        history.push({ 
+            pathname: '/create-ticket',
+            state: id
+        });
+    }
+
     return (
         <>
             {/* <BreadCrumb heading="Transaction Report" value="Transaction Report" /> */}
@@ -116,7 +123,7 @@ export default function MerchantsList() {
                             headers={headers}
                             url={`${urls.login.BASE_URL}${urls.User.TRANSACTION_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`}
                             params={downloadPayload}
-                            reportName="transactionlist.csv" 
+                            reportName="transactionlist.csv"
                         />
                     </span>
                 </HeadingWrapper>
@@ -191,6 +198,12 @@ export default function MerchantsList() {
                                             Remarks
                                         </Text>
                                     </th>
+                                    <th className="text-left">
+                                        <Text size="rg" fw="medium" color="color7">
+                                            Action
+                                        </Text>
+                                    </th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -230,6 +243,9 @@ export default function MerchantsList() {
                                                 <Text size="xsm" color="color3">
                                                     {user.remarks}
                                                 </Text>
+                                            </td>
+                                            <td>
+                                                <ButtonSolid primary rg onClick={() => handleTicket(user?.transactionId)}>Create Ticket</ButtonSolid>
                                             </td>
                                         </tr>
                                     ))
