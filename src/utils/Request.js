@@ -66,6 +66,7 @@ class Request {
       // const dispatch = useDispatch();
       // const history = useHistory();
       clearAuthToken();
+      window.location.href = "/";
       // dispatch(loginResetStore());
       // history.push("/");
       return this.errorFn([], {}, httpStatusCodes.BAD_REQUEST);
@@ -92,6 +93,10 @@ class Request {
         const data = getObjectValue(error, "response.data", null);
         const headers = getObjectValue(error, "response.headers", null);
         const status = getObjectValue(error, "response.status", null);
+        if(status === 401) {
+          clearAuthToken();
+          window.location.href = "/";
+        }
         this.errorFn(data, headers, status);
         return error;
       });
@@ -111,6 +116,7 @@ class Request {
         // const dispatch = useDispatch();
         // const history = useHistory();
         clearAuthToken();
+        window.location.href = "/";
         // dispatch(loginResetStore());
         // history.push("/");
         return this.errorFn([], {}, httpStatusCodes.BAD_REQUEST);
@@ -138,6 +144,10 @@ class Request {
         const data = getObjectValue(error, "response.data", null);
         const headers = getObjectValue(error, "response.headers", null);
         const status = getObjectValue(error, "response.status", null);
+        if(status === 401) {
+          clearAuthToken();
+          window.location.href = "/";
+        }
         this.errorFn(data, headers, status);
         return error;
       });
