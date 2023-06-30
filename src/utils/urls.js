@@ -113,7 +113,7 @@ export default {
     GET_USER_BY_VENDOR_ROLE: "/payment-finance-service/api/users/searchByVendor",
   },
   ticket: {
-    TICKET_LIST: "/support-service/support-service/admin/ticket/list",
+    TICKET_LIST: "/support-service/admin/ticket/list",
     GET_CATEGORY: "/support-service/admin/ticket/category",
     GET_PRIORITY: "/support-service/admin/ticket/priority",
     GET_REQUEST_TYPE: "/support-service/admin/ticket/request-type",
