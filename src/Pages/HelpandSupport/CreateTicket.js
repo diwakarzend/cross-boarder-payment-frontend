@@ -116,7 +116,7 @@ export default function CreateTicket(props) {
 
     return (
         <div className="wrapper">
-            {ticketCreated && <><Heading size="xl" color="color3">Create Ticket</Heading>
+            {!ticketCreated && <><Heading size="xl" color="color3">Create Ticket</Heading>
                 <QuestionWrapper>
                     <div className="flex space-between">
                         <div className="mb20 col-6">
@@ -250,7 +250,7 @@ export default function CreateTicket(props) {
             </>
             }
             {
-                !ticketCreated &&
+                ticketCreated &&
                 <SuccessWrapper>
                     <div className="border"></div>
                     <Text as="h2" color="color3">Successfully Ticket Created</Text>
