@@ -1,9 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 import { ButtonSolid, Heading } from '../../Components/styledConstants';
 import Logo from '../../assests/images/Icons/IconLogo'
+import { getChatMessage, sendChatMessage } from '../../utils/api';
 import { ChatWrapper } from "./style";
 
-export default function Chat() {
+export default function Chat(props) {
+    const [chat, setChat] = useState([]);
+    const [message, setMessage] = useState('');
+    const userData = useSelector((state) => state?.login?.userData);
+
+    const getChatMessageRequest = () => {
+        getChatMessage().then((res) => {
+            if (res?.data?.data) {
+                setChat(res?.data?.data?.content);
+            }
+        }).catch((error) => {
+            console.log(`Error in getting the chat message ${error}`)
+        });
+    };
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            getChatMessageRequest();
+        }, 3000)
+        return () => {
+            clearInterval(timer);
+        }
+    }, [])
+
+    const sendChatMessageRequest = (e) => {
+        e.preventDefault();
+        const form = document.querySelector('.form');
+        var formData = new FormData(form);
+        formData.append("from", userData?.uuid);
+        // formData.append("to", "0b0fb4ea-55c7-4af2-9622-2035c6956996");
+        formData.append("to", props?.location?.state?.assignee);
+        formData.append("message", message);
+        sendChatMessage(formData).then((res) => {
+            if (res?.data?.code === '0000') {
+                setMessage('');
+            }
+        }).catch((error) => {
+            console.log(`Error in getting the chat message ${error}`)
+        });
+    };
+
+    const handleChange = (event) => {
+        setMessage(event.target.value);
+        if (event.keyCode == 13 && event.shiftKey == false) {
+            sendChatMessageRequest(event);
+            scrollToBottom()
+        }
+    }
+
+    useEffect(() => {
+        getChatMessageRequest();
+    }, [])
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [chat.length])
+
+    const scrollToBottom = () => {
+        const data = document.querySelector('.chat-container');
+        data.scrollTo(0, data.scrollHeight)
+    }
+
     return (
         <div className="wrapper">
             <Heading size="xl" color="color3" className='mb20'>Ticket Chat Details</Heading>
@@ -12,44 +75,31 @@ export default function Chat() {
                     <ul>
                         <li>
                             <span>Ticket ID</span>
-                            <span className='detail'>P2P343</span>
-                        </li>
-                        <li>
-                            <span>Name</span>
-                            <span className='detail'>Manoj Kumar</span>
-                        </li>
-                        <li>
-                            <span>Mobile No.</span>
-                            <span className='detail'>9898989898</span>
+                            <span className='detail'>{props?.location?.state?.ticketId}</span>
                         </li>
                         <li>
                             <span>Ticket Date</span>
-                            <span className='detail'>07 Apr 2023 | 10:50AM</span>
+                            <span className='detail'>{props?.location?.state?.createdAt}</span>
                         </li>
                         <li>
                             <span>Issue Category</span>
-                            <span className='detail'>KYC</span>
+                            <span className='detail'>{props?.location?.state?.category}</span>
                         </li>
                         <li>
                             <span>Request Type</span>
-                            <span className='detail'>Issue</span>
+                            <span className='detail'>{props?.location?.state?.requestType}</span>
                         </li>
                         <li>
                             <span>Discription</span>
-                            <span className='detail'>if your money is deducted from your bank account for a failed payment, there is no need to worry as you money is absolutely safe with bank.</span>
+                            <span className='detail'>{props?.location?.state?.description}</span>
                         </li>
                         <li>
                             <span>Issue Status</span>
-                            <span>
-                                <select>
-                                    <option>Open</option>
-                                    <option>Close</option>
-                                </select>
-                            </span>
+                            <span className='detail'>{props?.location?.state?.status}</span>
                         </li>
                         <li>
                             <span>Last Update</span>
-                            <span className='detail'>07 Apr 2023</span>
+                            <span className='detail'>{props?.location?.state?.updatedAt}</span>
                         </li>
                         <li>
                             <span>Action</span>
@@ -63,17 +113,26 @@ export default function Chat() {
                     </ul>
                 </div>
                 <div className='right'>
-                    <ul>
-                        <li className='receiver'><span>Hi! How can I help you? </span><Logo /></li>
+                    <ul className='chat-container'>
+                        {chat.map((ele) => {
+                            if (ele?.toId === userData?.uuid) {
+                                return <li key={ele.createdAt} className='sender'><img src='../../images/userimg.png' /><span>{ele.message}</span></li>
+                            } else {
+                                return <li key={ele.createdAt} className='receiver'><span>{ele.message}</span><Logo /></li>
+                            }
+                        })}
+                        {/* <li className='receiver'><span>Hi! How can I help you? </span><Logo /></li>
                         <li className='sender'><img src='../../images/userimg.png' /><span>I cannot see my balance and history after logging in</span></li>
-                        <li className='receiver'><span>Don't worry! This may be due to some technical issues on the our end</span><Logo /></li>
+                        <li className='receiver'><span>Don't worry! This may be due to some technical issues on the our end</span><Logo /></li> */}
                     </ul>
                     <div className='chat-box'>
-                    <textarea></textarea>
-                    <ButtonSolid primary rg>Submit</ButtonSolid>
+                        <form className='form' onSubmit={sendChatMessageRequest}>
+                            <textarea placeholder='Type your message here...' value={message} onChange={handleChange} onKeyDown={handleChange}></textarea>
+                            <ButtonSolid primary rg type='submit'>Submit</ButtonSolid>
+                        </form>
+                    </div>
                 </div>
-                </div>
-                
+
             </ChatWrapper>
         </div>
     )

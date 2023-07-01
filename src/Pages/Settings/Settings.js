@@ -102,7 +102,7 @@ const Settings = (props) => {
             >
               PAYOUT API
             </li> */}
-            <li
+            {/* <li
               className={setTabItemClass()}
               onClick={() => handleTabClick("apikey")}
             >
@@ -113,7 +113,7 @@ const Settings = (props) => {
               onClick={() => handleTabClick("ip")}
             >
               IP
-            </li>
+            </li> */}
           </ul>
         </div>
 

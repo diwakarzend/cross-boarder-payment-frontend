@@ -14,14 +14,14 @@ export default function CreateTicket(props) {
         status: "",
         priority: "",
         requestType: "",
-        requesterName: props?.location?.state || '',
+        requesterName: "",
         email: "",
-        assignee: "",
+        assignee: props?.location?.state || "",
         summary: "",
         description: "",
         remark: "",
+        txnRefId: props?.location?.state,
     };
-    console.log('ppp', props?.location?.state)
     const [category, setCategory] = useState([]);
     const [status, setStatus] = useState([]);
     const [priority, setPriority] = useState([]);
@@ -99,7 +99,9 @@ export default function CreateTicket(props) {
     };
 
     const handleSubmit = () => {
-        const errors = formValidation(formData);
+        const requiredFormData = _.omit(formData, ['txnRefId']);
+        const errors = formValidation(requiredFormData);
+
         if (!!errors && Object.keys(errors).length != 0) {
             setFormErrors(errors);
             return;

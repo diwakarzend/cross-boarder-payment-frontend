@@ -11,8 +11,9 @@ export const HeadingWrapper = styled.div`
 export const FilterWrapper = styled.div`
     display: flex;
     justify-content: space-between;
-    background: #fff;
-    padding: 0 28px 28px;
+    background: #000;
+    color: #fff;
+    padding: 28px;
     align-items: center;
   .search{
     display: flex;

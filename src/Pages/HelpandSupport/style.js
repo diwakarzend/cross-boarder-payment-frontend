@@ -20,8 +20,9 @@ export const HeadingWrapper = styled.div`
 export const FilterWrapper = styled.div`
     display: flex;
     justify-content: space-between;
-    background: #fff;
-    padding: 0 28px 28px;
+    background: #000;
+    color: #fff;
+    padding: 28px;
     align-items: center;
   .search{
     display: flex;
@@ -96,6 +97,7 @@ export const ChatWrapper = styled.div`
     background: #fff;
     padding: 30px;
     max-width: 40%;
+    flex: 1;
     ul{
     
       li{
@@ -135,6 +137,13 @@ export const ChatWrapper = styled.div`
       display: flex;
       flex-direction: column;
       gap: 10px;
+      .form{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
       textarea{
         resize: none;
         height: 80px;
@@ -148,8 +157,11 @@ export const ChatWrapper = styled.div`
     }
     ul{
       display: flex;
-    flex-direction: column;
-    gap: 50px;
+      flex-direction: column;
+      gap: 50px;
+      height: 50vh;
+      overflow: auto;
+      padding: 20px;
       li{
         display: flex;
         max-width: 60%;

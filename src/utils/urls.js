@@ -125,5 +125,9 @@ export default {
     GET_REQUEST_TYPE: "/admin/ticket/request-type",
     GET_STATUS: "/admin/ticket/status",
     CREATE_TICKET: "/admin/ticket/create",
+  },
+  chat: {
+    GET_MESSAGE: "/chatbox/message",
+    SEND_MESSAGE: "/chatbox/save",
   }
 };

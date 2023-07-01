@@ -85,6 +85,13 @@ export default function Ticket() {
         });
     };
 
+    const handleView = (data) => {
+        history.push({ 
+            pathname: '/chat-details',
+            state: data,
+        });
+    }
+
     console.log(totalElements, pageSize);
     return (
         <>
@@ -126,7 +133,7 @@ export default function Ticket() {
                     </TabWrapper>
                 </TicketHeadingWrapper>
                
-                <FilterWrapper className="mt30">
+                <FilterWrapper>
                     <div className="search">
                         <label>Search by</label>
                         <div className="field">
@@ -167,11 +174,6 @@ export default function Ticket() {
                                     <th className="text-left">
                                         <Text size="rg" fw="medium" color="color7">
                                             Ticket ID
-                                        </Text>
-                                    </th>
-                                    <th className="text-left">
-                                        <Text size="rg" fw="medium" color="color7">
-                                            Name
                                         </Text>
                                     </th>
                                     <th className="text-left">
@@ -218,178 +220,12 @@ export default function Ticket() {
                                 
                             </thead>
                             <tbody>
-                                {/* <tr>
-                                    <td>
-                                    <Text size="rg" color="color3">P2P2458</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Manoj Kumar</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">8527141474</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">07 Apr 2023 | 10:50AM</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">KYC</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Issue</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">if your money is deducted from your bank account for a failed payment, there is no need to worry as you money is absolutely safe with bank.</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Open</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">07 Apr 2023</Text>
-                                    </td>
-                                    <td>
-                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    <Text size="rg" color="color3">P2P2458</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Manoj Kumar</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">8527141474</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">07 Apr 2023 | 10:50AM</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">KYC</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Issue</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">if your money is deducted from your bank account for a failed payment, there is no need to worry as you money is absolutely safe with bank.</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Open</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">07 Apr 2023</Text>
-                                    </td>
-                                    <td>
-                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    <Text size="rg" color="color3">P2P2458</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Manoj Kumar</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">8527141474</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">07 Apr 2023 | 10:50AM</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">KYC</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Issue</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">if your money is deducted from your bank account for a failed payment, there is no need to worry as you money is absolutely safe with bank.</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Open</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">07 Apr 2023</Text>
-                                    </td>
-                                    <td>
-                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    <Text size="rg" color="color3">P2P2458</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Manoj Kumar</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">8527141474</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">07 Apr 2023 | 10:50AM</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">KYC</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Issue</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">if your money is deducted from your bank account for a failed payment, there is no need to worry as you money is absolutely safe with bank.</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Open</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">07 Apr 2023</Text>
-                                    </td>
-                                    <td>
-                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                    <Text size="rg" color="color3">P2P2458</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Manoj Kumar</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">8527141474</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">07 Apr 2023 | 10:50AM</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">KYC</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Issue</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">if your money is deducted from your bank account for a failed payment, there is no need to worry as you money is absolutely safe with bank.</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">Open</Text>
-                                    </td>
-                                    <td>
-                                    <Text size="rg" color="color3">07 Apr 2023</Text>
-                                    </td>
-                                    <td>
-                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
-                                    </td>
-                                </tr> */}
-                                
                                 {loader && <TableLoader />}
                                 {!loader && ticketData.length ? (
                                     ticketData.map((user, index) => (
                                         <tr key={index}>
                                             <td>
                                                 <Text size="rg" color="color3">{user.ticketId}</Text>
-                                            </td>
-                                            <td>
-                                                <Text size="xsm" color="color3">
-                                                    {user?.lastName}
-                                                </Text>
                                             </td>
                                             <td>
                                                 <Text size="xsm" color="color3">
@@ -427,7 +263,7 @@ export default function Ticket() {
                                                 </Text>
                                             </td>
                                             <td>
-                                    <ButtonSolid primary rg onClick={() => history.push('/chat-details')}>View</ButtonSolid>
+                                    <ButtonSolid primary rg onClick={() =>handleView(user)}>View</ButtonSolid>
                                     </td>
 
                                         </tr>

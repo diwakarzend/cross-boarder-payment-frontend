@@ -34,6 +34,11 @@ const initialFormData = Object.freeze({
     aadhaarNumber: "",
     panName: "",
     panNumber: "",
+    vpaId: "",
+    accountNumber: "",
+    ifsc: "",
+    accountHolderName: "",
+    webHookUrl: "",
 });
 
 const AddMerchant = () => {
@@ -106,7 +111,7 @@ const AddMerchant = () => {
     const handleChange = (event) => {
         const re = /^[0-9\b]+$/;
         const onlyAlphabets = /^[A-Za-z\s]*$/;
-        if (event.target.name == "phoneNumber") {
+        if (event.target.name == "phoneNumber" || event.target.name === "pincode" || event.target.name === "accountNumber" || event.target.name === "aadhaarNumber") {
             if (event.target.value === "" || re.test(event.target.value)) {
                 updateFormData({
                     ...formData,
@@ -160,7 +165,7 @@ const AddMerchant = () => {
         if (isIdVerificationActive) {
             requiredFormData = _.omit(formData, ['aadhaarName', 'panName']);
         } else {
-            requiredFormData = _.omit(formData, ['aadhaarName', 'aadhaarNumber', 'panName', 'panNumber']);
+            requiredFormData = _.omit(formData, ['aadhaarName', 'aadhaarNumber', 'panName', 'panNumber', 'vpaId', 'accountNumber','ifsc','accountHolderName', 'webHookUrl']);
         }
         const errors = formValidation(requiredFormData);
         if (!!errors && Object.keys(errors).length != 0) {
@@ -168,7 +173,7 @@ const AddMerchant = () => {
             return;
         }
         const successHandler = (res) => {
-            if (res) {
+            if (res?.code === 'INFO002') {
                 setisIdVerificationActive(false)
                 setMerchatCreated(true)
             }
@@ -229,8 +234,8 @@ const AddMerchant = () => {
     return (
         <MerchantWrapper>
             {!merchatCreated && <div className="flex gap16 item-center heading-box">
-                <Text color="color3" as="h2" className="border-r-dash pr10" size="xl" fw="bold">Add New User</Text>
-                <Text color="color3" size="md">Share your details and we will get back to you.</Text>
+                <Text color="color3" as="h2" className="pr10" size="xl" fw="bold">Add New User</Text>
+                {/* <Text color="color3" size="md">Share your details and we will get back to you.</Text> */}
             </div> }
             <div className="merchant-content">
                 <div className="merchant-body">
@@ -403,6 +408,65 @@ const AddMerchant = () => {
                     }
                     {!merchatCreated && isIdVerificationActive &&
                         <>
+                        <div className="track-check">
+                                <Text color="color3" as="h2" className="pr10" size="rg" fw="bold">Bank Details</Text>
+                            </div>
+                            <div className="flex space-between">
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="vpaId"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Vpa Id"
+                                        value={formData?.vpaId}
+                                        error={formErrors.vpaId}
+                                    />
+                                </div>
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="accountNumber"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Account Number"
+                                        value={formData?.accountNumber}
+                                        error={formErrors.accountNumber}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex space-between">
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="ifsc"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="IFSC"
+                                        value={formData?.ifsc}
+                                        error={formErrors.ifsc}
+                                    />
+                                </div>
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="accountHolderName"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Accout Holder Name"
+                                        value={formData?.accountHolderName}
+                                        error={formErrors.accountHolderName}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex space-between">
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="webHookUrl"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Web Hook URL"
+                                        value={formData?.webHookUrl}
+                                        error={formErrors.webHookUrl}
+                                    />
+                                </div>
+                            </div>
                             <div className="track-check">
                                 <Text color="color3" as="h2" className="pr10" size="rg" fw="bold">ID Verification</Text>
                             </div>

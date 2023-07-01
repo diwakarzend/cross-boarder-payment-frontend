@@ -221,3 +221,15 @@ export const createTicket = (params) => {
     `${urls.login.BASE_URL + urls.ticket.CREATE_TICKET}?ticketRequest=${params}`, {}
   );
 };
+
+export const getChatMessage = (id) => {
+  return apiRequest.get(
+    `${urls.login.BASE_URL + urls.chat.GET_MESSAGE}?pageNo=0&pageSize=100&toId=0b0fb4ea-55c7-4af2-9622-2035c6956996`
+  );
+};
+
+export const sendChatMessage = (payload) => {
+  return apiRequest.post(
+    `${urls.login.BASE_URL + urls.chat.SEND_MESSAGE}`, payload
+  );
+};

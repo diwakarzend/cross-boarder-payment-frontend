@@ -114,7 +114,7 @@ module.exports = {
         secure: false,
       },
       {
-        context: ["/admin/"],
+        context: ["/admin/", "/chatbox/"],
         target: "http://13.126.244.49:8085/support-service/",
         secure: false,
       },
