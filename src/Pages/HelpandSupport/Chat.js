@@ -11,7 +11,7 @@ export default function Chat(props) {
     const userData = useSelector((state) => state?.login?.userData);
 
     const getChatMessageRequest = () => {
-        getChatMessage().then((res) => {
+        getChatMessage(userData?.uuid).then((res) => {
             if (res?.data?.data) {
                 setChat(res?.data?.data?.content);
             }

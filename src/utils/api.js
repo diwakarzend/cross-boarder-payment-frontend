@@ -224,7 +224,7 @@ export const createTicket = (params) => {
 
 export const getChatMessage = (id) => {
   return apiRequest.get(
-    `${urls.login.BASE_URL + urls.chat.GET_MESSAGE}?pageNo=0&pageSize=100&toId=0b0fb4ea-55c7-4af2-9622-2035c6956996`
+    `${urls.login.BASE_URL + urls.chat.GET_MESSAGE}?pageNo=0&pageSize=100&toId=${id}`
   );
 };
 
