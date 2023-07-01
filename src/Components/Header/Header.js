@@ -94,7 +94,7 @@ const Header = () => {
               <span></span>
             </span>
           </button>
-          <Text className="user-name" color="color3" size="xxl" fw="bold">{`${userData?.firstName} ${userData?.lastName}`}</Text>
+          {/* <Text className="user-name" color="color3" size="xxl" fw="bold">{`${userData?.firstName} ${userData?.lastName}`}</Text> */}
           {/* <div className="user-wallet">
               <strong>Wallet Ballence {userWallet?.MAIN_WALLET?.toLocaleString("en-IN") || 0}</strong>
               <i className={`fa fa-refresh${isWalletLoading ? ' loading' : ''}`} aria-hidden="true" onClick={handleClick}></i>
