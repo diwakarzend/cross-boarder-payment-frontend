@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import moment from "moment";
 import { useHistory } from "react-router-dom";
 import { Heading, TableWarpper, Text, IconInactive, ButtonSolid } from "../../Components/styledConstants";
 import Request from "../../utils/Request";
@@ -11,7 +12,7 @@ import Pagination from "../../Components/Common/Pagination";
 import BreadCrumb from "../../Components/BreadCrumb/BreadCrumb";
 import ItemPerPage from "../../Components/Common/ItemPerPage";
 import { getParams } from "../../utils/common";
-import { HeadingWrapper, FilterWrapper } from "./style";
+import { HeadingWrapper, FilterWrapper, AdvanceFilterWrapper } from "./style";
 import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
 
@@ -55,6 +56,14 @@ const getTableBody = (data) => {
 };
 
 export default function MerchantsList() {
+    const [formData, setFormData] = useState({
+        fromDate: "",
+        mobileNumber: "",
+        toDate: "",
+        txnId: "",
+        txnType: "",
+        utrNumber: ""
+    });
     const [filter, setFiler] = useState()
     const [userData, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -64,6 +73,7 @@ export default function MerchantsList() {
     const [totalElements, setTotalElements] = useState(500);
     const [toDate, setToDate] = useState("");
     const [fromDate, setFromDate] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
     const [downloadPayload, setDownloadPayload] = useState({});
     const history = useHistory();
 
@@ -79,8 +89,16 @@ export default function MerchantsList() {
         const errorHandler = () => { };
 
         // const params = getParams(controls);
+        const payload = {
+            fromDate: formData?.fromDate,
+            mobileNumber: formData?.mobileNumber,
+            toDate: formData?.toDate,
+            txnId: formData?.txnId,
+            txnType: formData?.txnType,
+            utrNumber: formData?.utrNumber,
+        }
         const api = new Request("", successHandler, errorHandler, false);
-        return api.post(`${urls.login.BASE_URL}${urls.User.TRANSACTION_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`, {});
+        return api.post(`${urls.login.BASE_URL}${urls.User.TRANSACTION_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`, payload);
         // return api.post(`${Config.apis.admin.USER_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`, params);
     };
 
@@ -88,19 +106,36 @@ export default function MerchantsList() {
         getTransactions();
     }, [])
 
-    const handleDateChange = (date) => {
+    const handleFromDateChange = (date) => {
+        setFromDate(date);
+        setFormData({
+            ...formData,
+            ["fromDate"]: moment(date).format('YYYY-MM-DD'),
+        });
+        // setFormErrors({ ...formErrors, "fromDate": "" });
+    };
+
+    const handleToDateChange = (date) => {
         setToDate(date);
-        // setControls({
-        //     ...formData,
-        //     ["dob"]: new Date(date),
-        // });
-        // setFormErrors({ ...formErrors, [event.target.name]: "" });
+
+        setFormData({
+            ...formData,
+            ["toDate"]: moment(date).format('YYYY-MM-DD'),
+        });
+        // setFormErrors({ ...formErrors, "toDate": "" });
     };
 
     const handleTicket = (id) => {
-        history.push({ 
+        history.push({
             pathname: '/create-ticket',
             state: id
+        });
+    }
+
+    const handleAdvanceFilter = (event) => {
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.value,
         });
     }
 
@@ -129,35 +164,80 @@ export default function MerchantsList() {
                 </HeadingWrapper>
                 <FilterWrapper>
                     <div className="search">
-                        <label>Search by</label>
-                        <div className="field">
-                            <select>
-                                <option>Phone No.</option>
-                            </select>
-                            <input type="text" placeholder="value" />
-                        </div>
+                        <label>Search by UTR Number</label>
+                        <input
+                            name="utrNumber"
+                            type="text"
+                            className=""
+                            placeholder="UTR Number"
+                            onChange={handleAdvanceFilter}
+                            value={formData?.utrNumber}
+                        />
+                        <ButtonSolid primary md onClick={getTransactions}>GO</ButtonSolid>
                     </div>
                     <div className="search">
                         <label>Filter by</label>
                         <div className="field">
                             <MaterialInput
-                                name="dob"
+                                name="fromDate"
                                 type="date1"
-                                onChange={handleDateChange}
+                                onChange={handleFromDateChange}
                                 placeholder="From Date"
-                                value={toDate}
-                            />
-                            <MaterialInput
-                                name="dob"
-                                type="date1"
-                                onChange={handleDateChange}
-                                placeholder="To Date"
                                 value={fromDate}
                             />
-                            <ButtonSolid primary md>GO</ButtonSolid>
+                            <MaterialInput
+                                name="toDate"
+                                type="date1"
+                                onChange={handleToDateChange}
+                                placeholder="To Date"
+                                value={toDate}
+                            />
+                            <ButtonSolid primary md onClick={getTransactions}>GO</ButtonSolid>
                         </div>
                     </div>
+
+                    <ButtonSolid md onClick={() => setIsOpen(true)}>Advance Search</ButtonSolid>
+
                 </FilterWrapper>
+                {isOpen &&
+                    <AdvanceFilterWrapper>
+                        <div className="flex space-between mb10 heading-box">
+                            <Heading size="xl" color="color3">Advance Search</Heading>
+                            <button className="btn" onClick={() => setIsOpen(false)}><i className="fa fa-close"></i></button>
+                        </div>
+                        <div className="box">
+                            <label>Transaction Id</label>
+                            <input
+                                name="txnId"
+                                type="text"
+                                className=""
+                                placeholder="Transaction Id"
+                                onChange={handleAdvanceFilter}
+                                value={formData?.txnId}
+                            />
+                        </div>
+                        <div className="box">
+                            <label>Transaction Type</label>
+                            <select onChange={handleAdvanceFilter} name="txnType">
+                                <option value=""></option>
+                                <option value="CREDIT">CREDIT</option>
+                                <option value="DEBIT">DEBIT</option>
+                            </select>
+                        </div>
+                        <div className="box">
+                            <label>Mobile Number</label>
+                            <input
+                                name="mobileNumber"
+                                type="text"
+                                className=""
+                                placeholder="Mobile Number"
+                                onChange={handleAdvanceFilter}
+                                value={formData?.mobileNumber}
+                            />
+                        </div>
+                        <ButtonSolid primary md onClick={getTransactions}>GO</ButtonSolid>
+                    </AdvanceFilterWrapper>
+                }
                 <div>
                     <TableWarpper className="mt24">
                         <table className="table">
