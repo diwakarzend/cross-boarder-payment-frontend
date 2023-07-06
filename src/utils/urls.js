@@ -1,6 +1,6 @@
 export default {
   login: {
-    BASE_URL:"https://p2p.texta.info",
+    BASE_URL:"https://p2p-api.texta.info",
     //BASE_URL: "https://p2p-api.texta.info",
 
     LOGIN_REQUEST: "/payment-finance-service/api/authenticate",
