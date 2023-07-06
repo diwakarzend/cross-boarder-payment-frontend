@@ -3,7 +3,7 @@ export default {
     BASE_URL:"https://p2p.texta.info",
     //BASE_URL: "https://p2p-api.texta.info",
 
-    LOGIN_REQUEST: "/payment-finance-service/authenticate",
+    LOGIN_REQUEST: "/payment-finance-service/api/authenticate",
     OTP_VALIDATION: "/agent/otp/validation",
     LOGIN_OTP_RESEND: "/agent/otp/resend",
     FETCH_USER_PROFILE: "/user/getUserProfile",
