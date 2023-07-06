@@ -1,0 +1,137 @@
+.api-code-block {
+    background: rgba(0, 0, 0, .05);
+    color: rgba(0, 0, 0, .87);
+	padding: 16px;
+    margin: 1.5em -16px 0;
+    line-height: 1.5em;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+	padding: 1.5em 24px;
+    margin: 0;
+	border: 1px solid rgba(0, 0, 0, .12);
+}
+.api-code-block span {
+    -webkit-transition: color .25s;
+    transition: color .25s;
+	display: block;
+}
+.card-body .card-title{
+	padding-top: 12px;
+}
+.mobile-float-none a{
+    font-size: 14px !important;
+}
+.mobile-float-none a.active{
+    background: #1e437b !important;
+    color:#ffffff;
+}
+.plus {
+	border-radius:8px;
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+	width: 37px;
+	height: 37px;
+	position: relative;
+	top:0;
+	right:0;
+	transition: all 0.4s ease 0s;
+	-webkit-transition: all 0.4s ease 0s;
+  }
+.rotate-icon{
+	-webkit-transform:rotate(0deg);
+	transform:rotate(0deg);
+}
+.plus:after {
+	background-color: #ffffff;
+	width: 13px;
+	height: 2px;
+	border-radius: 1px;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	position: absolute;
+	top:50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	content:"";
+}
+.plus:before {
+	background-color: #ffffff;
+	width: 2px;
+	height: 14px;
+	border-radius: 1px;
+	-webkit-border-radius: 1px;
+	-moz-border-radius: 1px;
+	position: absolute;
+	top:50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	content:"";
+}
+.rotate-icon:before{
+	display: none;
+}  
+.faq-accordian-wrapper{
+	padding: 0;
+}
+.faq-accordian-wrapper .accordian-wrapper{
+	padding: 0;
+	list-style-type: none;
+	margin: 0;
+}
+.faq-accordian-wrapper .accordian-wrapper li:first-child{
+	border-top: 0;
+}
+.faq-accordian-wrapper .accordian-wrapper li{
+	position: relative;
+	padding: 20px 0 0;
+    border-top: 1px solid #dee2e6;
+}
+.faq-accordian-wrapper .accordian-heading {
+  padding: 0 0 20px;
+  margin:0;
+  position: relative;
+  font-size: 16px;
+}
+.faq-accordian-wrapper .accordian-content{
+	border-top: 1px solid #dee2e6;
+}
+.faq-accordian-wrapper .dental-service-wrapper{
+	padding: 0;
+}
+.faq-accordian-wrapper .dental-service-wrapper .accordian-wrapper li h4 span{
+	font-size: 18px;
+	line-height: 29px;
+	display: inline-block;
+	background: #1e437b;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+}
+.faq-accordian-wrapper .dental-service-wrapper .accordian-wrapper li p{
+	font-size: 20px;
+	line-height: 35px;
+}
+
+.faq-accordian-wrapper .icon{
+	position: absolute;
+	top:-8px;
+    right:0
+}
+.faq-accordian-wrapper .left-content h6{
+	font-size: 37px;
+	color:#ffffff;
+	margin:13px 0;
+}
+.faq-accordian-wrapper .banner-bottom-content div{
+	padding-bottom: 21px;
+}
+
+
+
+@media all and (max-width:767px){
+    .mobile-float-none{
+        float: none !important;
+        margin-top:15px;
+    }
+}
