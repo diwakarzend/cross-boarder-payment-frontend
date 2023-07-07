@@ -123,5 +123,8 @@ export default {
   chat: {
     GET_MESSAGE: "/chatbox/message",
     SEND_MESSAGE: "/chatbox/save",
+  },
+  commission: {
+    GET_COMMISSION_PLAN: "/api/fetchCommissionPlan",
   }
 };

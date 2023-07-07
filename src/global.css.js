@@ -281,7 +281,9 @@ export default createGlobalStyle`
   .fw-bold {
     font-weight: 600;
   }
-
+  .btn-action {
+    padding: 7px;
+  }
   .wrapper {
     padding: 32px;
     min-height: 80%;

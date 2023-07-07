@@ -12,7 +12,7 @@ import ReportsLoadable from "../Pages/Payout/ReportsLoadable";
 import ReportsLoadableUPI from "../Pages/Payout/ReportsLoadableUPI";
 
 import SettingsLodable from "../Pages/Settings/SettingsLodable";
-import CommissionLoadable from "../Pages/Commission/CommissionLodable";
+import CommissionPlan from "../Pages/Commission/CommissionPlan";
 import MapQRPageLoadable from "../Pages/MapQR/MapqrLoadable";
 import MapQRListLoadable from "../Pages/MapQR/MapQRListLoadable";
 import VendorListLoadable from "../Pages/MapQR/VendorListLoadable";
@@ -33,6 +33,7 @@ import AddTopic from "../Pages/HelpandSupport/AddTopic";
 import AddQuestion from "../Pages/HelpandSupport/AddQuestion";
 import CreateTicket from "../Pages/HelpandSupport/CreateTicket";
 import Chat from "../Pages/HelpandSupport/Chat";
+import MerchantList from "../Pages/Commission/MerchantList";
 
 const Routes = (props) => {
   return (
@@ -64,8 +65,13 @@ const Routes = (props) => {
         />
         <PrivateRoute path="/settings" component={SettingsLodable} exact />
         <PrivateRoute
-          path="/vendor-commission"
-          component={CommissionLoadable}
+          path="/commission-plan"
+          component={CommissionPlan}
+          exact
+        />
+        <PrivateRoute
+          path="/merchant-list"
+          component={MerchantList}
           exact
         />
         <PrivateRoute
