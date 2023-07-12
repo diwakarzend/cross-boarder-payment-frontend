@@ -565,6 +565,11 @@ export const TableWarpper = styled.div`
           }
         }
       }
+      .btn{
+        margin-right: 9%;
+        justify-content: space-evenly;
+        gap:4px
+      }
     }
   }
 `;

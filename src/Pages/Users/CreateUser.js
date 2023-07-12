@@ -30,6 +30,7 @@ const initialFormData = Object.freeze({
     country: "India",
     langKey: "en",
     role: "",
+    distributor:"",
     aadhaarName: "",
     aadhaarNumber: "",
     panName: "",
@@ -254,8 +255,23 @@ const AddMerchant = () => {
                                 error={formErrors.role}
                                 options={roles}
                             />
+                            
+                        </div>
+                        <div className="mb16 col-6">
+                            <MaterialInput
+                                name="distributor"
+                                type="select"
+                                onChange={handleRoleChange}
+                                placeholder="Select Distributor"
+                                value={roles.filter((item) => item.value === formData.role)}
+                                error={formErrors.distributor}
+                             
+                            />
+                            
                         </div>
                     </div>
+                  
+
 
                         <div className="flex space-between">
                             <div className="mb16 col-6">

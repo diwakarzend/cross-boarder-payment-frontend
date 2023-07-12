@@ -135,6 +135,7 @@ export const MerchantWrapper = styled.div`
     
     }
     
+    
 `
 
 export const Wrapper = styled.div`
@@ -189,4 +190,48 @@ export const FilterWrapper = styled.div`
         border: 1px solid #f6f6f6;
     }
   }
+`;
+export const AdvanceFilterWrapper = styled.div`
+    display: flex;
+    justify-content:  space-between;
+    width: 700px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    right: 30px;
+    color: #000;
+    border: 1px solid #ccc;
+    flex-wrap: wrap;
+    gap: 14px;
+    box-shadow: 0px 0px 0px 1px #ccc;
+    .box{
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      label{
+        font-size: 13px;
+        font-weight: 500;
+      }
+      input, select {
+        height: 35px;
+        min-width: 135px;
+        padding: 0px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+    }
+    .btn{
+      background: transparent;
+      border: none;
+      font-size: 20px;
+    }
+    .heading-box{
+      width: 100%;
+    }
+    .search-wrapper{
+        width: 89%;
+        justify-content: space-around;
+    }
 `;

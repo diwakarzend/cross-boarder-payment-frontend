@@ -8,7 +8,7 @@ import PdfDown from "../../Components/ExportFiles/PdfDown";
 import Pagination from "../../Components/Common/Pagination";
 import BreadCrumb from "../../Components/BreadCrumb/BreadCrumb";
 import ItemPerPage from "../../Components/Common/ItemPerPage";
-import { HeadingWrapper, FilterWrapper } from "./style";
+import { HeadingWrapper, FilterWrapper, AdvanceFilterWrapper } from "./style";
 import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
 
@@ -65,6 +65,7 @@ const getTableBody = (data) => {
 
 export default function MerchantsList() {
     const [filter, setFilter] = useState(filterForm)
+    const [isOpen, setIsOpen] = useState(false);
     const [userData, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -80,6 +81,12 @@ export default function MerchantsList() {
     const [toDate, setToDate] = useState("");
     const [fromDate, setFromDate] = useState("");
     const [downloadPayload, setDownloadPayload] = useState({});
+    const [formData, setFormData] = useState({
+        username: "",
+        mobileNumber: "",
+        emailid: "",
+        Name: "",
+    });
 
     const getUsers = () => {
         const successHandler = (res) => {
@@ -109,6 +116,9 @@ export default function MerchantsList() {
         // setFormErrors({ ...formErrors, [event.target.name]: "" });
     };
 
+const handleAdvanceFilter=()=>{
+
+}
     console.log(totalElements, pageSize);
     return (
         <>
@@ -137,15 +147,19 @@ export default function MerchantsList() {
                 </HeadingWrapper>
                 <FilterWrapper>
                     <div className="search">
-                        <label>Search by</label>
+                        <label>Search By</label>
                         <div className="field">
                             <select>
-                                <options>Phone No.</options>
+                                <option value="">Role</option>
                             </select>
-                            <input type="text" placeholder="value" />
                         </div>
                     </div>
+                    
+                    
+                    
                     <div className="search">
+                        
+                        
                         <label>Filter by</label>
                         <div className="field">
                             <MaterialInput
@@ -169,7 +183,62 @@ export default function MerchantsList() {
                             <ButtonSolid primary md>GO</ButtonSolid>
                         </div>
                     </div>
+                    <ButtonSolid md onClick={() => setIsOpen(true)}>Advance Search</ButtonSolid>
                 </FilterWrapper>
+             {  isOpen? <AdvanceFilterWrapper>
+                        <div className="flex space-between mb10 heading-box">
+                            <Heading size="xl" color="color3">Advance Search</Heading>
+                            <button className="btn" onClick={() => setIsOpen(false)}><i className="fa fa-close"></i></button>
+                        </div>
+                        <div className="flex search-wrapper">
+                        <div className="box">
+                            <label>Name</label>
+                            <input
+                                name="Name"
+                                type="text"
+                                className=""
+                                placeholder="Name"
+                                onChange={handleAdvanceFilter}
+                                value={formData?.txnId}
+                            />
+                        </div>
+                        <div className="box">
+                            <label>Mobile Number</label>
+                            <input
+                                name="mobileNumber"
+                                type="text"
+                                className=""
+                                placeholder="Mobile Number"
+                                onChange={handleAdvanceFilter}
+                                value={formData?.mobileNumber}
+                            />
+                            
+                        </div>
+                       </div>
+                        <div className="flex search-wrapper">
+                        <div className="box">
+                            <label>Email Id</label>
+                            <input
+                                name="emailid"
+                                type="text"
+                                className=""
+                                placeholder="Email Id"
+                                onChange={handleAdvanceFilter}
+                                value={formData?.mobileNumber}
+                            /></div>
+                              <div className="box">
+                            <label>User Name</label>
+                            <input
+                                name="username"
+                                type="text"
+                                className=""
+                                placeholder="User Name"
+                                onChange={handleAdvanceFilter}
+                                value={formData?.mobileNumber}
+                            /></div>
+                            </div>
+                        <ButtonSolid primary md>GO</ButtonSolid>
+                    </AdvanceFilterWrapper>:""}
                 <div>
                     <TableWarpper className="mt24">
                         <table className="table">
@@ -220,6 +289,11 @@ export default function MerchantsList() {
                                     <th className="text-left">
                                         <Text size="rg" fw="medium" color="color7">
                                             Address
+                                        </Text>
+                                    </th>
+                                    <th className="text-left">
+                                        <Text size="rg" fw="medium" color="color7">
+                                            Action
                                         </Text>
                                     </th>
                                 </tr>
@@ -275,6 +349,10 @@ export default function MerchantsList() {
                                                 <Text size="xsm" fw="medium" color="color3">
                                                     {user.address1}
                                                 </Text>
+                                            </td>
+                                            <td className=" flex btn gap16">
+                                            <ButtonSolid primary rg>Edit</ButtonSolid>
+                                            <ButtonSolid primary rg>Delete</ButtonSolid>
                                             </td>
 
                                         </tr>
