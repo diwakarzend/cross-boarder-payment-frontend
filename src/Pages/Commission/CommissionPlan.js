@@ -15,6 +15,8 @@ import { getParams } from "../../utils/common";
 import { HeadingWrapper, FilterWrapper, AdvanceFilterWrapper } from "./style";
 import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
+import { deleteCommissionPlans } from "../../utils/api";
+import AddNewPlanForm from "./AddNewPlanForm";
 
 const headers = [
     { label: "UserId", key: "userId" },
@@ -64,9 +66,10 @@ export default function CommissionPlan() {
         txnType: "",
         utrNumber: ""
     });
+    const[deleteplan,setDeletePlan]=useState()
     const [filter, setFiler] = useState()
     const [userData, setUsers] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [loader, setLoader] = useState(false);
@@ -75,6 +78,8 @@ export default function CommissionPlan() {
     const [fromDate, setFromDate] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [downloadPayload, setDownloadPayload] = useState({});
+    const[isPopShow,setPopupShow]=useState(false)
+    
     const history = useHistory();
 
     const getCommissionPlans = () => {
@@ -82,6 +87,7 @@ export default function CommissionPlan() {
             if (res.data && res.data.content) {
                 setLoader(false);
                 setUsers(res.data.content);
+                console.log("rest",res.data.content)
                 setTotalPages(res.data.totalPages);
                 setTotalElements(res.data.totalElements);
             }
@@ -99,7 +105,7 @@ export default function CommissionPlan() {
         }
         console.log('inside', currentPage)
         const api = new Request("", successHandler, errorHandler, false);
-        return api.get(`${urls.login.BASE_URL}${urls.commission.GET_COMMISSION_PLAN}/${currentPage}/${pageSize}`);
+        return api.get(`${urls.login.BASE_URL}${urls.commission.GET_COMMISSION_PLAN}?pageNo=${currentPage}&pageSize=${pageSize}`);
         // return api.post(`${Config.apis.admin.USER_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`, params);
     };
 
@@ -122,12 +128,16 @@ export default function CommissionPlan() {
         // setFormErrors({ ...formErrors, "toDate": "" });
     };
 
-    const handleTicket = (id) => {
-        history.push({
-            pathname: '/create-ticket',
-            state: id
-        });
+    const handleDelete = (id) => {
+       deleteCommissionPlans(id).then((res)=>{
+                console.log("resp",res)
+                setDeletePlan(res)
+       })
+        
     }
+     useEffect(()=>{
+        handleDelete()
+     },[deleteplan]);
 
     const handleAdvanceFilter = (event) => {
         setFormData({
@@ -137,8 +147,11 @@ export default function CommissionPlan() {
     }
 
     useEffect(() => {
-        getCommissionPlans();
+        getCommissionPlans()
     }, [currentPage, pageSize])
+    const handleNewPlan=()=>{
+        setPopupShow(true)
+    }
 
     return (
         <>
@@ -147,7 +160,7 @@ export default function CommissionPlan() {
                 <HeadingWrapper>
                     <Heading size="xl" color="color3">Commission Plans</Heading>
                     <span className="flex gap16">
-                        <ButtonSolid primary>Add New Plan</ButtonSolid>
+                        <ButtonSolid primary onClick={handleNewPlan}>Add New Plan</ButtonSolid>
                         <PdfDown
                             tableHeader={tableHeader}
                             getTableBody={getTableBody}
@@ -268,61 +281,8 @@ export default function CommissionPlan() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <Text size="rg" color="color3">Basic</Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            2%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            1%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <ButtonSolid primary rg className="btn-action">Delete</ButtonSolid>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <Text size="rg" color="color3">Standard</Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            3%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            1.5%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <ButtonSolid primary rg className="btn-action">Delete</ButtonSolid>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <Text size="rg" color="color3">Premium</Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            3.5%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            2%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <ButtonSolid primary className="btn-action" >Delete</ButtonSolid>
-                                    </td>
-                                </tr>
-                                {/* {loader && <TableLoader />}
+                
+                                {loader && <TableLoader />}
                                 {!loader && userData.length ? (
                                     userData.map((user, index) => (
                                         <tr key={index}>
@@ -340,7 +300,7 @@ export default function CommissionPlan() {
                                                 </Text>
                                             </td>
                                             <td>
-                                                <ButtonSolid primary rg onClick={() => handleTicket(user?.transactionId)}>Create Ticket</ButtonSolid>
+                                                <ButtonSolid primary rg onClick={() => handleDelete(user?.id)}>Delete</ButtonSolid>
                                             </td>
                                         </tr>
                                     ))
@@ -348,7 +308,7 @@ export default function CommissionPlan() {
                                     <tr>
                                         <td colSpan={12} style={{ textAlign: 'center' }}>No record found</td>
                                     </tr>
-                                )} */}
+                                )} 
                             </tbody>
                         </table>
                     </TableWarpper>
@@ -373,6 +333,11 @@ export default function CommissionPlan() {
                         )}
                     </div>
                 </div>
+
+
+
+
+               {isPopShow? <AddNewPlanForm setIsPopupShow ={setPopupShow}/>:""}
             </div>
         </>
     );

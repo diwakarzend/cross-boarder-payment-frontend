@@ -37,7 +37,7 @@ export default {
     GET_STATE: "/payment-finance-service/api/state/list",
     GET_ROLE: "/payment-finance-service/api/role/list",
     DASHBOARD: "/payment-finance-service/api/dashboard",
-    WALLET_BALANCE: "/payment-finance-service/api/wallet"
+    WALLET_BALANCE: "/payment-finance-service/api/wallet",
   },
 
   OperatorList: {
@@ -126,5 +126,7 @@ export default {
   },
   commission: {
     GET_COMMISSION_PLAN: "/payment-finance-service/api/fetchCommissionPlan",
+    DELETE_COMMISSION_PLAN:"/payment-finance-service/api/deleteCommissionPlan"
+
   }
 };

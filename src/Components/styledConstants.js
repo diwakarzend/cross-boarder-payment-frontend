@@ -82,6 +82,9 @@ export const MaterialInputWrapper = styled.div`
         transition: all 300ms;
         color: ${theme[themeName].color.color1};
       }
+      .form-input{
+        width:320px
+      }
       .item-icon {
         position: absolute;
         left: 20px;
@@ -383,7 +386,8 @@ export const CheckFieldWrapper = styled.div`
 `;
 
 export const ButtonSolid = styled.button`
-  width: ${({ width }) => width || "auto"};
+  width: ${({ width }) => width || 
+'auto'};
   padding: 0 15px;
   border: none;
   font-family: ${theme[themeName].font.fontFamily.poppins};
@@ -428,6 +432,21 @@ export const ButtonSolid = styled.button`
     height: ${theme[themeName].button.height.md};
     border-radius: ${theme[themeName].button.rounded.md};
     font-size: ${theme[themeName].button.fontSize.md};
+  `}
+  ${({ rg }) =>
+    rg &&
+    `
+    height: ${theme[themeName].button.height.rg};
+    border-radius: ${theme[themeName].button.rounded.rg};
+    font-size: ${theme[themeName].button.fontSize.rg};
+  `}
+  ${({ add_user }) =>
+  add_user &&
+    `
+    height: 60px;
+    border-radius: 0;
+    width:320px
+    
   `}
   ${({ rg }) =>
     rg &&

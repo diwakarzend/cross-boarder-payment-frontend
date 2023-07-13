@@ -174,6 +174,51 @@ class Request {
         return error;
       });
   }
+
+
+  delete(url, params = {}) {
+    if(!getAuthToken()) return;
+    const decodedToken = jwtDecode(getAuthToken());
+    const isTokenExired = moment.unix(decodedToken.exp) < moment();
+    if (this.authorize && isTokenExired) {
+      // const dispatch = useDispatch();
+      // const history = useHistory();
+      clearAuthToken();
+      window.location.href = "/";
+      // dispatch(loginResetStore());
+      // history.push("/");
+      return this.errorFn([], {}, httpStatusCodes.BAD_REQUEST);
+    }
+
+    const options = {
+      headers: {
+        Authorization: getAuthToken(),
+        "api-Authorization": getAuthToken("api-Authorization"),
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+
+    return axios
+      .delete(url, options)
+      .then((response) => {
+        const data = getObjectValue(response, "data", null);
+        const headers = getObjectValue(response, "headers", null);
+        const isSuccess = true;
+        this.successFn(data, headers, isSuccess);
+        return response;
+      })
+      .catch((error) => {
+        const data = getObjectValue(error, "response.data", null);
+        const headers = getObjectValue(error, "response.headers", null);
+        const status = getObjectValue(error, "response.status", null);
+        if(status === 401) {
+          clearAuthToken();
+          window.location.href = "/";
+        }
+        this.errorFn(data, headers, status);
+        return error;
+      });
+  }
 }
 
 export default Request;

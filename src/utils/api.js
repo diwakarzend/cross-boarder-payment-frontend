@@ -233,3 +233,10 @@ export const sendChatMessage = (payload) => {
     `${urls.login.BASE_URL + urls.chat.SEND_MESSAGE}`, payload
   );
 };
+export const deleteCommissionPlans = (id) => {
+  return apiRequest.delete(
+    `${urls.login.BASE_URL + urls.commission. DELETE_COMMISSION_PLAN}/${id}`
+  );
+};
+
+

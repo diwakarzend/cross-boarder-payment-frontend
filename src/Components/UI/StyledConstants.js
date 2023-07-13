@@ -344,15 +344,17 @@ export const ModalWrapper = styled.div`
     overflow-x: hidden;
     overflow-y: auto;
     outline: 0;
-    background-color: rgba(0,0,0,.7);
+    background-color: rgba(225,225,225,.7);
     .modal-dialog {
         position: relative;
-        max-width: 600px;
+        top: 15%;
+        left: 6%;
+        max-width: 760px;
         margin: 50px auto;
         transform: translateY(0);
-        border-radius: 20px;
         transition: transform .3s ease-out,-webkit-transform .3s ease-out;
         overflow: hidden;
+        background: #F9F9F9;
     }
     .modal-content {
         position: relative;
@@ -362,7 +364,6 @@ export const ModalWrapper = styled.div`
         pointer-events: auto;
         background-clip: padding-box;
         border: 1px solid var(--ip-border-color);
-        border-radius: 8px;
         outline: 0;
     }
     .modal-header {
@@ -370,7 +371,6 @@ export const ModalWrapper = styled.div`
         align-items: center;
         justify-content: space-between;
         padding: 20px 40px;
-        border-radius: 20px 20px 0 0;
         .modal-title{
             font-size: 20px;
             color:#063151;
@@ -463,7 +463,13 @@ export const ModalWrapper = styled.div`
         }
         .modal-footer{
             padding-bottom: 10px;
+            sc-brKeYL.add-btn{
+                display:inline-block
+                height:50px
+                width:45%
+            }
         }
+        
         .loader{
             max-width: 20px;
             margin-left: 10px;
@@ -521,18 +527,13 @@ export const ModalWrapper = styled.div`
         align-items: center;
         justify-content: flex-end;
         padding: 10px 40px 40px;
-        border-radius: 0 0 20px 20px;
         &.justify-start{
             justify-content: flex-start;
         }
         &.justify-center{
             justify-content: center;
         }
-        button{
-            height: 50px;
-            border-radius: 30px;
-            padding: 0 25px;
-        }
+       
     }
 `
 
