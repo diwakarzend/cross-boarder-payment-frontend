@@ -24,9 +24,9 @@ const initialFormData = Object.freeze({
   payOut:""
 });
 
-const AddNewPlanForm = memo(
+const AddNewMerchantForm = memo(
   ({
-    setIsPopupShow,
+    setIsopen,
     // setStatus,
     editUserData,
     status = false,
@@ -44,7 +44,7 @@ const AddNewPlanForm = memo(
     });
 
     const closePopUpHandler=()=>{
-        setIsPopupShow(false)
+        setIsopen(false)
 
     }
      
@@ -61,7 +61,7 @@ const AddNewPlanForm = memo(
 
     console.log("formData", formData);
 
-    const handleAddNewPlan = (event) => {
+    const handleAddMerchantCommision = (event) => {
       event.preventDefault();
 
       console.log("formData", formData);
@@ -156,7 +156,7 @@ const AddNewPlanForm = memo(
                 onClick={closePopUpHandler}
               >
                 <span aria-hidden="true">
-                  <i className="fa fa-times " style={{backgroundColor:"#ed141f", width:"15px",height:"15px" ,color:"#fff",borderRadius:"50%"}} aria-hidden="true"></i> Cancel{" "}
+                  <i className="fa fa-times " style={{backgroundColor:"#ed141f", width:"15px",height:"15px" ,color:"#fff",borderRadius:"15PX"}} aria-hidden="true"></i> Close{" "}
                 </span>
               </button>
             </div>
@@ -165,8 +165,8 @@ const AddNewPlanForm = memo(
                 <AlertMessage alertMessage={alertMessage} />
                 {success}
                 <div className="flex gap  flex-wrap">
-                    
-                    <div className="mb16">
+                    <div>
+                       <div className="mb16">
                           <MaterialInput
                           className="form-input"
                             wrapperClassName="planName"
@@ -179,40 +179,49 @@ const AddNewPlanForm = memo(
                             error={formErrors.planName}
                           />
                         </div>
-                        <div className="flex gap flex-wrap">
                         <div className="mb16">
                           <MaterialInput
-                          className="form-input"
+                            className="form-input"
                             wrapperClassName="payIn"
                             maxLength="10"
                             name="payIn"
                             type="text"
-                            placeholder="PayIn Commission"
+                            placeholder="Pay In Commission"
                             onChange ={handleChange}
                             value={formData?.payIn}
                             error={formErrors.payIn}
                           />
                         </div>
-                
-                        <div className="mb16">
+                </div>
+                       <div>
+                       <div className="mb16">
+                       <MaterialInput
+                                name="selectuser"
+                                type="select"
+                                placeholder="Select User"
+                                error={formErrors.role}
+                            />
+                        </div>
+                       <div className="mb16">
                           <MaterialInput
                           className="form-input"
                             wrapperClassName="payOut"
                             maxLength="10"
                             name="payOut"
                             type="text"
-                            placeholder="payOut Commission"
+                            placeholder="pay Out Commission"
                             onChange ={handleChange}
                             value={formData?.payOut}
                             error={formErrors.payOut}
                           />
                         </div>
-                        </div>
+                       </div>
+                        
                 </div>
               </div>
 
               <div className="modal-footer justify-start">
-              <ButtonSolid primary add_user onClick={handleAddNewPlan}>Add Plan</ButtonSolid>
+              <ButtonSolid primary add_user onClick={handleAddMerchantCommision}>Add Commission</ButtonSolid>
               </div>
     
           </div>
@@ -222,4 +231,4 @@ const AddNewPlanForm = memo(
   }
 );
 
-export default AddNewPlanForm;
+export default AddNewMerchantForm;

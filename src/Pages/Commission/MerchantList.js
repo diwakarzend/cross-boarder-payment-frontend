@@ -15,6 +15,8 @@ import { getParams } from "../../utils/common";
 import { HeadingWrapper, FilterWrapper, AdvanceFilterWrapper } from "./style";
 import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
+import AddNewMerchantForm from "./AddNewMerchantForm";
+
 
 const headers = [
     { label: "UserId", key: "userId" },
@@ -147,7 +149,7 @@ export default function MerchantList() {
                 <HeadingWrapper>
                     <Heading size="xl" color="color3">Merchant Commission List</Heading>
                     <span className="flex gap16">
-                        <ButtonSolid primary>Add New Merchant Commission</ButtonSolid>
+                        <ButtonSolid primary onClick={() => setIsOpen(true)}>Add New Merchant Commission</ButtonSolid>
                         <PdfDown
                             tableHeader={tableHeader}
                             getTableBody={getTableBody}
@@ -334,6 +336,7 @@ export default function MerchantList() {
                                     </td>
                                     <td>
                                         <ButtonSolid primary rg className="btn-action">Delete</ButtonSolid>
+    
                                     </td>
                                 </tr>
                                 {/* {loader && <TableLoader />}
@@ -387,6 +390,7 @@ export default function MerchantList() {
                         )}
                     </div>
                 </div>
+               {isOpen? <AddNewMerchantForm setIsopen={setIsOpen}/>:""}
             </div>
         </>
     );

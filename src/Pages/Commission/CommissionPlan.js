@@ -17,6 +17,7 @@ import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
 import { deleteCommissionPlans } from "../../utils/api";
 import AddNewPlanForm from "./AddNewPlanForm";
+import EditNewPlanForm from "./EditNewPlanForm";
 
 const headers = [
     { label: "UserId", key: "userId" },
@@ -56,6 +57,12 @@ const getTableBody = (data) => {
 
     return tableBody;
 };
+const updateFormata = {
+    id:"",
+    planName:"",
+    payIn:"",
+    payOut:""
+  }
 
 export default function CommissionPlan() {
     const [formData, setFormData] = useState({
@@ -78,7 +85,9 @@ export default function CommissionPlan() {
     const [fromDate, setFromDate] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [downloadPayload, setDownloadPayload] = useState({});
-    const[isPopShow,setPopupShow]=useState(false)
+    const[isPopShow,setPopupShow]=useState(false);
+    const [trackUpdate, setTrackUpdate] =useState({})
+    const[updatedata,setupdateData]=useState(updateFormata)
     
     const history = useHistory();
 
@@ -135,9 +144,13 @@ export default function CommissionPlan() {
        })
         
     }
-     useEffect(()=>{
-        handleDelete()
-     },[deleteplan]);
+    const handleEdit =(item)=>{
+        setIsOpen(true)
+        setupdateData(item);
+        console.log("hello",updatedata);
+
+    }
+     
 
     const handleAdvanceFilter = (event) => {
         setFormData({
@@ -148,7 +161,9 @@ export default function CommissionPlan() {
 
     useEffect(() => {
         getCommissionPlans()
-    }, [currentPage, pageSize])
+    }, [currentPage, pageSize,deleteplan,trackUpdate])
+   
+   
     const handleNewPlan=()=>{
         setPopupShow(true)
     }
@@ -188,7 +203,6 @@ export default function CommissionPlan() {
                             onChange={handleAdvanceFilter}
                             value={formData?.utrNumber}
                         />
-                        <ButtonSolid primary md onClick={getCommissionPlans}>GO</ButtonSolid>
                     </div>
                     <div className="search">
                         <label>Filter by</label>
@@ -292,15 +306,18 @@ export default function CommissionPlan() {
                                             <td>
                                                 <Text size="xsm" color="color3">
                                                     {user?.payIn}
+                                                    <span>%</span>
                                                 </Text>
                                             </td>
                                             <td>
                                                 <Text size="xsm" color="color3">
                                                     {user?.payOut}
+                                                    <span>%</span>
                                                 </Text>
                                             </td>
-                                            <td>
-                                                <ButtonSolid primary rg onClick={() => handleDelete(user?.id)}>Delete</ButtonSolid>
+                                            <td className="flex" style={{gap:"4px" }}>
+                                                <ButtonSolid primary rg  onClick={() => handleDelete(user?.id)}>Delete</ButtonSolid>
+                                                <ButtonSolid primary rg  onClick={() => handleEdit(user)}>Edit</ButtonSolid>
                                             </td>
                                         </tr>
                                     ))
@@ -337,7 +354,8 @@ export default function CommissionPlan() {
 
 
 
-               {isPopShow? <AddNewPlanForm setIsPopupShow ={setPopupShow}/>:""}
+               {isPopShow? <AddNewPlanForm setIsPopupShow ={setPopupShow} setTrackUpdate={setTrackUpdate} />:""}
+              {isOpen? <EditNewPlanForm setIsOpen ={setIsOpen}/>:""}
             </div>
         </>
     );

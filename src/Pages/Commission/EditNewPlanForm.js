@@ -24,9 +24,9 @@ const initialFormData = Object.freeze({
   payOut:""
 });
 
-const AddNewPlanForm = memo(
+const EditNewPlanForm = memo(
   ({
-    setIsPopupShow,
+    setIsOpen,
     // setStatus,
     editUserData,
     status = false,
@@ -44,7 +44,7 @@ const AddNewPlanForm = memo(
     });
 
     const closePopUpHandler=()=>{
-        setIsPopupShow(false)
+        setIsOpen(false)
 
     }
      
@@ -146,7 +146,7 @@ const AddNewPlanForm = memo(
           <div className="modal-content">
             <div className="modal-header flex justify-between item-center">
               <h5 className="modal-title" id="exampleModalLabel">
-                Add New Plan
+                Edit New Plan
                </h5>
               <button
                 type="button"
@@ -212,7 +212,7 @@ const AddNewPlanForm = memo(
               </div>
 
               <div className="modal-footer justify-start">
-              <ButtonSolid primary add_user onClick={handleAddNewPlan}>Add Plan</ButtonSolid>
+              <ButtonSolid primary add_user onClick={handleAddNewPlan}>Edit Plan</ButtonSolid>
               </div>
     
           </div>
@@ -222,4 +222,4 @@ const AddNewPlanForm = memo(
   }
 );
 
-export default AddNewPlanForm;
+export default EditNewPlanForm;

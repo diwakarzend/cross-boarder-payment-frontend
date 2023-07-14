@@ -238,5 +238,10 @@ export const deleteCommissionPlans = (id) => {
     `${urls.login.BASE_URL + urls.commission. DELETE_COMMISSION_PLAN}/${id}`
   );
 };
+ export const addNewPlanRequest = (payload)=>{
+       return apiRequest.post(
+        `${urls.login.BASE_URL + urls.commission.ADD_NEW_PLAN}`, payload
+       );
+ }
 
 

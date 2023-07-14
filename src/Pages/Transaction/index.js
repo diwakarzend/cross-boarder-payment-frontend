@@ -165,16 +165,12 @@ export default function MerchantsList() {
                 </HeadingWrapper>
                 <FilterWrapper>
                     <div className="search">
-                        <label>Search by UTR Number</label>
-                        <input
-                            name="utrNumber"
-                            type="text"
-                            className=""
-                            placeholder="UTR Number"
-                            onChange={handleAdvanceFilter}
-                            value={formData?.utrNumber}
-                        />
-                        <ButtonSolid primary md onClick={getTransactions}>GO</ButtonSolid>
+                       <label>Search By Transaction Type</label>
+                            <select value={formData?.txnType} onChange={handleAdvanceFilter} name="txnType">
+                                <option value=""></option>
+                                <option value="CREDIT">CREDIT</option>
+                                <option value="DEBIT">DEBIT</option>
+                            </select>
                     </div>
                     <div className="search">
                         <label>Filter by</label>

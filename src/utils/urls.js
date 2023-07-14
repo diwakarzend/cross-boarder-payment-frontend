@@ -126,6 +126,7 @@ export default {
   },
   commission: {
     GET_COMMISSION_PLAN: "/payment-finance-service/api/fetchCommissionPlan",
+    ADD_NEW_PLAN:"/payment-finance-service/api/addCommissionPlan",
     DELETE_COMMISSION_PLAN:"/payment-finance-service/api/deleteCommissionPlan"
 
   }
