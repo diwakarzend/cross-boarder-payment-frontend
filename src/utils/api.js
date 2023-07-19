@@ -243,5 +243,8 @@ export const deleteCommissionPlans = (id) => {
         `${urls.login.BASE_URL + urls.commission.ADD_NEW_PLAN}`, payload
        );
  }
+ export const editCommissionPlan =(id,payload)=>{
+  return apiRequest.put(`${urls.login.BASE_URL+urls.commission.EDIT_COMMISSION_PLAN}/${id}`,payload)
+ }
 
 

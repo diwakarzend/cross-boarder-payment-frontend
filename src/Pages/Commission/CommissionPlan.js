@@ -88,6 +88,7 @@ export default function CommissionPlan() {
     const[isPopShow,setPopupShow]=useState(false);
     const [trackUpdate, setTrackUpdate] =useState({})
     const[updatedata,setupdateData]=useState(updateFormata)
+    const[editData,setEditData] = useState({})
     
     const history = useHistory();
 
@@ -161,7 +162,7 @@ export default function CommissionPlan() {
 
     useEffect(() => {
         getCommissionPlans()
-    }, [currentPage, pageSize,deleteplan,trackUpdate])
+    }, [currentPage, pageSize,deleteplan,trackUpdate,editData])
    
    
     const handleNewPlan=()=>{
@@ -317,7 +318,7 @@ export default function CommissionPlan() {
                                             </td>
                                             <td className="flex" style={{gap:"4px" }}>
                                                 <ButtonSolid primary rg  onClick={() => handleDelete(user?.id)}>Delete</ButtonSolid>
-                                                <ButtonSolid primary rg  onClick={() => handleEdit(user)}>Edit</ButtonSolid>
+                                                <ButtonSolid primary rg  onClick={()=>handleEdit(user)}>Edit</ButtonSolid>
                                             </td>
                                         </tr>
                                     ))
@@ -355,7 +356,7 @@ export default function CommissionPlan() {
 
 
                {isPopShow? <AddNewPlanForm setIsPopupShow ={setPopupShow} setTrackUpdate={setTrackUpdate} />:""}
-              {isOpen? <EditNewPlanForm setIsOpen ={setIsOpen}/>:""}
+              {isOpen? <EditNewPlanForm setIsOpen ={setIsOpen} updatedata={updatedata}  setEditData={setEditData}/>:""}
             </div>
         </>
     );

@@ -11,11 +11,23 @@ import ItemPerPage from "../../Components/Common/ItemPerPage";
 import { HeadingWrapper, FilterWrapper, AdvanceFilterWrapper } from "./style";
 import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
+import EditUserListForm from "./EditUserListForm";
 
 const filterForm = {
     phoneNumber: "",
     toDate: "",
     fromDate: "",
+}
+const updateuser ={
+    userName:"",
+    firstName:"",
+    lastName:"",
+      role:"",
+    phoneNumber:"",
+      pincode:"",
+      dob:"",
+    address1:""
+
 }
 
 const headers = [
@@ -76,7 +88,7 @@ export default function MerchantsList() {
     const [totalElements, setTotalElements] = useState(500);
     const [searchUserList, setSearchUserList] = useState([]);
     const [userDetail, setUserDetails] = useState({});
-    const [autoCompleteShow, setAutoCompleteShow] = useState(false);
+    const [editpopupShow, setEditPopUpSow] = useState(false);
     const [showAgent, setShowAgent] = useState(false);
     const [toDate, setToDate] = useState("");
     const [fromDate, setFromDate] = useState("");
@@ -86,8 +98,11 @@ export default function MerchantsList() {
         mobileNumber: "",
         emailid: "",
         Name: "",
+        role:""
     });
-
+    const[updatedata,setupdateData]=useState(updateuser)
+    const [roles, setRoles] = useState([]);
+    
     const getUsers = () => {
         const successHandler = (res) => {
             if (res.data && res.data) {
@@ -119,7 +134,20 @@ export default function MerchantsList() {
 const handleAdvanceFilter=()=>{
 
 }
-    console.log(totalElements, pageSize);
+const handleRoleChange=(option)=>{
+    setFormData({
+        ...formData,
+        ["role"]: option.value,
+    });
+}
+
+const handleEdit =(item)=>{
+setupdateData(item)
+console.log("update user" ,updatedata)
+
+    setEditPopUpSow(true);
+}
+    // console.log(totalElements, pageSize);
     return (
         <>
             {/* <BreadCrumb heading="Transaction Report" value="Transaction Report" /> */}
@@ -148,13 +176,19 @@ const handleAdvanceFilter=()=>{
                 <FilterWrapper>
                     <div className="search">
                         <label>Search By</label>
-                        <div className="field">
-                            <select>
-                                <option value="">Role</option>
-                            </select>
+                        <div className="mb16 col-6">
+                            <MaterialInput
+                                name="role"
+                                type="select"
+                                onChange={handleRoleChange}
+                                placeholder="Select role"
+                                value={roles.filter((item) => item.value === formData.role)}
+                                // error={formErrors.role}
+                                options={roles}
+                            />
+                            
                         </div>
                     </div>
-                    
                     
                     
                     <div className="search">
@@ -188,7 +222,7 @@ const handleAdvanceFilter=()=>{
              {  isOpen? <AdvanceFilterWrapper>
                         <div className="flex space-between mb10 heading-box">
                             <Heading size="xl" color="color3">Advance Search</Heading>
-                            <button className="btn" onClick={() => setIsOpen(false)}><i className="fa fa-close"></i></button>
+                            <button className="btn" onClick={()=>setIsOpen(false)}><i className="fa fa-close"></i></button>
                         </div>
                         <div className="flex search-wrapper">
                         <div className="box">
@@ -351,7 +385,7 @@ const handleAdvanceFilter=()=>{
                                                 </Text>
                                             </td>
                                             <td className=" flex btn gap16">
-                                            <ButtonSolid primary rg>Edit</ButtonSolid>
+                                            <ButtonSolid primary rg onClick={()=>handleEdit(user)}>Edit</ButtonSolid>
                                             <ButtonSolid primary rg>Delete</ButtonSolid>
                                             </td>
 
@@ -365,6 +399,7 @@ const handleAdvanceFilter=()=>{
                             </tbody>
                         </table>
                     </TableWarpper>
+                  {editpopupShow ? <EditUserListForm setEditPopUpSow={setEditPopUpSow}/>:""}
                     <div className="mt24 flex flex-center">
                         {userData.length > 1 && (
                             <ItemPerPage

@@ -4,7 +4,7 @@ import { formValidation } from "../../utils/formValidation";
 
 import urls from "../../utils/urls";
 import { removeOverlay } from "../../utils/common";
-import "./AddNewPlanForm.css";
+// import "./AddNewPlanForm.css";
 import {
   AlertWrapper,
   BorderBtn,
@@ -24,9 +24,9 @@ const initialFormData = Object.freeze({
   payOut:""
 });
 
-const EditNewPlanForm = memo(
+const EditUserListForm = memo(
   ({
-    setIsOpen,
+    setEditPopUpSow,
     // setStatus,
     editUserData,
     status = false,
@@ -47,7 +47,7 @@ const EditNewPlanForm = memo(
     });
 
     const closePopUpHandler=()=>{
-        setIsOpen(false)
+      setEditPopUpSow(false)
 
     }
      
@@ -64,7 +64,7 @@ const EditNewPlanForm = memo(
 
     console.log("formData", formData);
 
-    const handleEditPlan = (event) => {
+    const   handleEditUser = (event) => {
       event.preventDefault();
 
       console.log("formData", formData);
@@ -166,22 +166,22 @@ const EditNewPlanForm = memo(
               <div className="modal-body">
                 <AlertMessage alertMessage={alertMessage} />
                 {success}
-                <div className="flex gap  flex-wrap">
+                <div className="flex   flex-wrap">
                     
-                    <div className="mb16">
+                    <div className="mb16" style={{marginRight:"16px"}}>
                           <MaterialInput
                           className="form-input"
                             wrapperClassName="planName"
                             maxLength="10"
                             name="planName"
                             type="text"
-                            placeholder="Plan Name"
+                            placeholder="First Name"
                             onChange ={handleChange}
                             value={formData?.planName}
                             error={formErrors.planName}
                           />
                         </div>
-                        <div className="flex gap flex-wrap">
+                       
                         <div className="mb16">
                           <MaterialInput
                           className="form-input"
@@ -189,13 +189,28 @@ const EditNewPlanForm = memo(
                             maxLength="10"
                             name="payIn"
                             type="text"
-                            placeholder="PayIn Commission"
+                            placeholder="Last Name"
                             onChange ={handleChange}
                             value={formData?.payIn}
                             error={formErrors.payIn}
                           />
                         </div>
+
+                        <div className="flex  flex-wrap">
                 
+                        <div className="mb16" style={{marginRight:"16px"}}>
+                          <MaterialInput
+                          className="form-input"
+                            wrapperClassName="payOut"
+                            maxLength="10"
+                            name="payOut"
+                            type="text"
+                            placeholder="Dob"
+                            onChange ={handleChange}
+                            value={formData?.payOut}
+                            error={formErrors.payOut}
+                          />
+                        </div>
                         <div className="mb16">
                           <MaterialInput
                           className="form-input"
@@ -203,18 +218,62 @@ const EditNewPlanForm = memo(
                             maxLength="10"
                             name="payOut"
                             type="text"
-                            placeholder="payOut Commission"
+                            placeholder="Role"
                             onChange ={handleChange}
                             value={formData?.payOut}
                             error={formErrors.payOut}
                           />
                         </div>
+
+                        </div>
+                        <div className="flex  flex-wrap">
+                
+                        <div className="mb16" style={{marginRight:"16px"}}>
+                          <MaterialInput
+                          className="form-input"
+                            wrapperClassName="payOut"
+                            maxLength="10"
+                            name="payOut"
+                            type="text"
+                            placeholder="Phone No"
+                            onChange ={handleChange}
+                            value={formData?.payOut}
+                            error={formErrors.payOut}
+                          />
+                        </div>
+                        <div className="mb16">
+                          <MaterialInput
+                          className="form-input"
+                            wrapperClassName="payOut"
+                            maxLength="10"
+                            name="payOut"
+                            type="text"
+                            placeholder="Pin Code"
+                            onChange ={handleChange}
+                            value={formData?.payOut}
+                            error={formErrors.payOut}
+                          />
+                        </div>
+                        <div className="mb16">
+                          <MaterialInput
+                          className="form-input"
+                            wrapperClassName="payOut"
+                            maxLength="10"
+                            name="payOut"
+                            type="text"
+                            placeholder="Address"
+                            onChange ={handleChange}
+                            value={formData?.payOut}
+                            error={formErrors.payOut}
+                          />
+                        </div>
+
                         </div>
                 </div>
               </div>
 
               <div className="modal-footer justify-start">
-              <ButtonSolid primary add_user onClick={handleEditPlan}>Edit Plan</ButtonSolid>
+              <ButtonSolid primary add_user onClick={handleEditUser}>Edit Plan</ButtonSolid>
               </div>
     
           </div>
@@ -224,4 +283,4 @@ const EditNewPlanForm = memo(
   }
 );
 
-export default EditNewPlanForm;
+export default EditUserListForm;
