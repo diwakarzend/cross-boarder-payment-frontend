@@ -146,7 +146,7 @@ export default function MerchantsList() {
             <div className="wrapper">
                 <HeadingWrapper>
                     <Heading size="xl" color="color3">Transaction Report</Heading>
-                    <span className="flex gap16">
+                    <span className="flex" style={{gap:"5%"}}>
                         <PdfDown
                             tableHeader={tableHeader}
                             getTableBody={getTableBody}

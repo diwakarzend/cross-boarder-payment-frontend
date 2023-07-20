@@ -31,6 +31,7 @@ const initialFormData = Object.freeze({
     langKey: "en",
     role: "",
     distributor:"",
+    commissionPlan:"",
     aadhaarName: "",
     aadhaarNumber: "",
     panName: "",
@@ -40,6 +41,7 @@ const initialFormData = Object.freeze({
     ifsc: "",
     accountHolderName: "",
     webHookUrl: "",
+    planName:""
 });
 
 const AddMerchant = () => {
@@ -52,14 +54,25 @@ const AddMerchant = () => {
     const [stateData, setStateData] = useState([]);
     const [cityLists, setCityLists] = useState([]);
     const [roles, setRoles] = useState([]);
+    const [isAgentActive,setisAgentActive] =useState(false);
+    const [commissionPlan,setCommissionPlan] = useState([])
     const history = useHistory();
 
     useEffect(() => {
-        const idVerificatonRole = ['PTM_MERCHANT', 'PTM_AGENT']
+        const idVerificatonRole = ['PTM_MERCHANT']
+        const agentVerficationRole =['PTM_AGENT']
         if (idVerificatonRole.includes(formData.role)) {
             setisIdVerificationActive(true)
+    
         } else {
             setisIdVerificationActive(false)
+        }
+        if (agentVerficationRole.includes(formData.role)) {
+            setisAgentActive(true)
+            getCommissionPlans()
+    
+        } else {
+            setisAgentActive(false)
         }
     }, [formData.role])
 
@@ -176,6 +189,7 @@ const AddMerchant = () => {
         const successHandler = (res) => {
             if (res?.code === 'INFO002') {
                 setisIdVerificationActive(false)
+                setisAgentActive(false)
                 setMerchatCreated(true)
             }
         }
@@ -196,7 +210,42 @@ const AddMerchant = () => {
             ["role"]: option.value,
         });
     };
+    const handleCommissionPlanChange = (option) => {
+        updateFormData({
+            ...formData,
+            ["planName"]: option.value,
+        });
+    };
+    const newData = [];
+    const getCommissionPlans = () => {
+        const successHandler = (res) => {
+            
+            if (res.data && res.data.content) {
+                res.data.content.map((val) =>{
+                   const newObj = {
+                    label:val.planName,
+                    value:val.planName
+                   }
+                   newData.push(newObj)
+                })
+                setCommissionPlan([...newData]);
+                console.log("rest",res.data.content)
+                //  console.log("plannee",commissionPlan)
+            }
+        };
+        const options = {
+            headers: {
+                Authorization: getAuthToken(),
+                "api-Authorization": getAuthToken("api-Authorization"),
+            },
+        };
+        
+        const api = new Request("", successHandler, false);
+        return api.get(`${urls.login.BASE_URL}${urls.commission.GET_COMMISSION_PLAN}?pageNo=${1}&pageSize=${100}`,options);
+        // return api.post(`${Config.apis.admin.USER_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`, params);
+    };
 
+    console.log("plannee",commissionPlan)
     const handleStateChange = (option) => {
         updateFormData({
             ...formData,
@@ -263,8 +312,8 @@ const AddMerchant = () => {
                                 type="select"
                                 onChange={handleRoleChange}
                                 placeholder="Select Distributor"
-                                value={roles.filter((item) => item.value === formData.role)}
-                                error={formErrors.distributor}
+                                value={formData.distributor}
+                            
                              
                             />
                             
@@ -531,7 +580,133 @@ const AddMerchant = () => {
                                 </div>
                             </div>
                         </>
+                    } {!merchatCreated && isAgentActive &&
+                        <>
+                        <div className="track-check">
+                                <Text color="color3" as="h2" className="pr10" size="rg" fw="bold">Bank Details</Text>
+                            </div>
+                            <div className="flex space-between">
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="vpaId"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Vpa Id"
+                                        value={formData?.vpaId}
+                                        error={formErrors.vpaId}
+                                    />
+                                </div>
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="accountNumber"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Account Number"
+                                        value={formData?.accountNumber}
+                                        error={formErrors.accountNumber}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex space-between">
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="ifsc"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="IFSC"
+                                        value={formData?.ifsc}
+                                        error={formErrors.ifsc}
+                                    />
+                                </div>
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="accountHolderName"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Accout Holder Name"
+                                        value={formData?.accountHolderName}
+                                        error={formErrors.accountHolderName}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex space-between">
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="webHookUrl"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Web Hook URL"
+                                        value={formData?.webHookUrl}
+                                        error={formErrors.webHookUrl}
+                                    />
+                                </div>
+                            </div>
+                            <div className="track-check">
+                                <Text color="color3" as="h2" className="pr10" size="rg" fw="bold">ID Verification</Text>
+                            </div>
+                            <div className="flex space-between">
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="panName"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Name of the PAN holder"
+                                        value={formData?.panName}
+                                        error={formErrors.panName}
+                                    />
+                                </div>
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="panNumber"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="PAN Number"
+                                        value={formData?.panNumber}
+                                        error={formErrors.panNumber}
+                                    />
+                                </div>
+                            </div>
+                            <div className="flex space-between">
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="aadhaarName"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Name of the Aadhaar holder"
+                                        value={formData?.aadhaarName}
+                                        error={formErrors.aadhaarName}
+                                    />
+                                </div>
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="aadhaarNumber"
+                                        type="text"
+                                        onChange={handleChange}
+                                        placeholder="Aadhaar Number"
+                                        value={formData?.aadhaarNumber}
+                                        error={formErrors.aadhaarNumber}
+                                    />
+                                </div>
+                           
+                           
+                            </div>
+                            <div>
+                                 
+                            <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="planName"
+                                        type="select"
+                                        onChange={handleCommissionPlanChange}
+                                        placeholder="Commission Plan"
+                                        value={commissionPlan.filter((item) => item.value===formData.planName)}
+                                        error={formErrors.aadhaarNumber}
+                                        options={commissionPlan}
+                                    />
+                                </div>
+                            </div>
+                        </>
                     }
+
                     {!merchatCreated && <div className="flex">
                         <ButtonSolid primary xl className="mt30 col-6" onClick={handleSubmit}>
                             Continue

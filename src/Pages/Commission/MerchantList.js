@@ -148,7 +148,7 @@ export default function MerchantList() {
             <div className="wrapper">
                 <HeadingWrapper>
                     <Heading size="xl" color="color3">Merchant Commission List</Heading>
-                    <span className="flex gap16">
+                    <span className="flex" style={{gap:"5%"}}>
                         <ButtonSolid primary onClick={() => setIsOpen(true)}>Add New Merchant Commission</ButtonSolid>
                         <PdfDown
                             tableHeader={tableHeader}
@@ -166,7 +166,7 @@ export default function MerchantList() {
                         />
                     </span>
                 </HeadingWrapper>
-                <FilterWrapper>
+                {/* <FilterWrapper>
                     <div className="search">
                         <label>Search by Plan Name</label>
                         <input
@@ -200,9 +200,9 @@ export default function MerchantList() {
                         </div>
                     </div>
 
-                    {/* <ButtonSolid md onClick={() => setIsOpen(true)}>Advance Search</ButtonSolid> */}
+                    <ButtonSolid md onClick={() => setIsOpen(true)}>Advance Search</ButtonSolid> 
 
-                </FilterWrapper>
+                </FilterWrapper>  */}
                 {isOpen &&
                     <AdvanceFilterWrapper>
                         <div className="flex space-between mb10 heading-box">

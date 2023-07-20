@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Heading, TableWarpper, Text, ButtonSolid } from "../../Components/styledConstants";
 import urls from "../../utils/urls";
 import Request from "../../utils/Request";
 import CsvDown from "../../Components/ExportFiles/CsvDown";
 import PdfDown from "../../Components/ExportFiles/PdfDown";
-
+import { removeOverlay, getAuthToken } from "../../utils/common";
 import Pagination from "../../Components/Common/Pagination";
 import BreadCrumb from "../../Components/BreadCrumb/BreadCrumb";
 import ItemPerPage from "../../Components/Common/ItemPerPage";
@@ -148,13 +149,43 @@ console.log("update user" ,updatedata)
     setEditPopUpSow(true);
 }
     // console.log(totalElements, pageSize);
+    const fetchState = () => {
+        const successHandler = (roles) => {
+            setRoles(roles?.data?.data)
+            console.log(roles?.data?.data)
+        };
+
+        const options = {
+            headers: {
+                Authorization: getAuthToken(),
+                "api-Authorization": getAuthToken("api-Authorization"),
+            },
+        };
+
+         axios.get(
+                `${urls.login.BASE_URL}${urls.User.GET_ROLE}`, options)
+           
+            .then((resp) =>{
+                successHandler(resp);
+            }
+                
+            )
+            .catch((errors) => {
+                // console.log("responseOne errors", errors);
+            });
+    };
+    useEffect(() => {
+        fetchState();
+    }, []);
+
+
     return (
         <>
             {/* <BreadCrumb heading="Transaction Report" value="Transaction Report" /> */}
             <div className="wrapper">
                 <HeadingWrapper>
                     <Heading size="xl" color="color3">User List</Heading>
-                    <span className="flex gap16">
+                    <span className="flex" style={{gap:"5%"}}>
                     <PdfDown
                             tableHeader={tableHeader}
                             getTableBody={getTableBody}
@@ -176,16 +207,23 @@ console.log("update user" ,updatedata)
                 <FilterWrapper>
                     <div className="search">
                         <label>Search By</label>
-                        <div className="mb16 col-6">
-                            <MaterialInput
+                        <div>
+                            {/* <MaterialInput
                                 name="role"
                                 type="select"
                                 onChange={handleRoleChange}
-                                placeholder="Select role"
-                                value={roles.filter((item) => item.value === formData.role)}
+                                value={roles && roles.map((item) => console.log(item))}
                                 // error={formErrors.role}
                                 options={roles}
-                            />
+                            /> */}
+                              <select style={{width:"200px"}} onChange={handleRoleChange} name="role" placeholder="Select Role">
+                              <option value=''></option>
+                               {roles.map((role)=>{
+                                return <option>{role.value}</option>}
+                              
+                              )}
+                                
+                            </select>
                             
                         </div>
                     </div>
