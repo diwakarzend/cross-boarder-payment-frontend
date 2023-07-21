@@ -175,17 +175,55 @@ const AddMerchant = () => {
     };
 
     const handleSubmit = () => {
-        let requiredFormData;
-        if (isIdVerificationActive) {
-            requiredFormData = _.omit(formData, ['aadhaarName', 'panName']);
-        } else {
-            requiredFormData = _.omit(formData, ['aadhaarName', 'aadhaarNumber', 'panName', 'panNumber', 'vpaId', 'accountNumber','ifsc','accountHolderName', 'webHookUrl']);
+        // let requiredFormData;
+       
+        // if (isIdVerificationActive) {
+            
+        //     requiredFormData = _.omit(formData, ['aadhaarName', 'panName']);
+        // } else {
+        //     requiredFormData = _.omit(formData, ['aadhaarName', 'aadhaarNumber', 'panName', 'panNumber', 'vpaId', 'accountNumber','ifsc','accountHolderName', 'webHookUrl']);
+        // }
+       
+        let requiredFormData = {
+            role:formData.role,
+            userName: formData.userName,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            phoneNumber: formData.phoneNumber,
+            password: formData.password,
+            dob: formData.dob,
+            email: formData.email,
+            address1: formData.address1,
+            state: formData.state,
+            city: formData.city,
+            pincode: formData.pincode,
+            country: "India"
         }
-        const errors = formValidation(requiredFormData);
-        if (!!errors && Object.keys(errors).length != 0) {
-            setFormErrors(errors);
-            return;
+
+       if(formData.role === "PTM_AGENT"){
+        requiredFormData = {
+            ...requiredFormData,
+            aadhaarName: formData.aadhaarName,
+            aadhaarNumber: formData.aadhaarNumber,
+            panName: formData.panName,
+            panNumber: formData.panName,
+            vpaId: formData.vpaId,
+            accountNumber: formData.accountNumber,
+            ifsc: formData.ifsc,
+            accountHolderName: formData.accountHolderName,
+            webHookUrl: formData.webHookUrl,
+            commissionUid:formData.planName
         }
+       }
+console.log( "payload",requiredFormData)
+
+// const errors = formValidation(requiredFormData);
+// console.log(errors )
+// if (!!errors && Object.keys(errors).length != 0) {
+//    setFormErrors(errors);
+//     return;
+// }
+
         const successHandler = (res) => {
             if (res?.code === 'INFO002') {
                 setisIdVerificationActive(false)
@@ -224,7 +262,7 @@ const AddMerchant = () => {
                 res.data.content.map((val) =>{
                    const newObj = {
                     label:val.planName,
-                    value:val.planName
+                    value:val.ccode
                    }
                    newData.push(newObj)
                 })
@@ -245,7 +283,7 @@ const AddMerchant = () => {
         // return api.post(`${Config.apis.admin.USER_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`, params);
     };
 
-    console.log("plannee",commissionPlan)
+    // console.log("plannee",commissionPlan)
     const handleStateChange = (option) => {
         updateFormData({
             ...formData,
@@ -484,7 +522,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Vpa Id"
                                         value={formData?.vpaId}
-                                        error={formErrors.vpaId}
+                                        
                                     />
                                 </div>
                                 <div className="mb16 col-6">
@@ -494,7 +532,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Account Number"
                                         value={formData?.accountNumber}
-                                        error={formErrors.accountNumber}
+                                       
                                     />
                                 </div>
                             </div>
@@ -506,7 +544,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="IFSC"
                                         value={formData?.ifsc}
-                                        error={formErrors.ifsc}
+                                    
                                     />
                                 </div>
                                 <div className="mb16 col-6">
@@ -516,7 +554,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Accout Holder Name"
                                         value={formData?.accountHolderName}
-                                        error={formErrors.accountHolderName}
+                                      
                                     />
                                 </div>
                             </div>
@@ -528,7 +566,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Web Hook URL"
                                         value={formData?.webHookUrl}
-                                        error={formErrors.webHookUrl}
+                                      
                                     />
                                 </div>
                             </div>
@@ -553,7 +591,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="PAN Number"
                                         value={formData?.panNumber}
-                                        error={formErrors.panNumber}
+                                       
                                     />
                                 </div>
                             </div>
@@ -565,7 +603,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Name of the Aadhaar holder"
                                         value={formData?.aadhaarName}
-                                        error={formErrors.aadhaarName}
+                                      
                                     />
                                 </div>
                                 <div className="mb16 col-6">
@@ -575,7 +613,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Aadhaar Number"
                                         value={formData?.aadhaarNumber}
-                                        error={formErrors.aadhaarNumber}
+                                        
                                     />
                                 </div>
                             </div>
@@ -593,7 +631,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Vpa Id"
                                         value={formData?.vpaId}
-                                        error={formErrors.vpaId}
+                                    
                                     />
                                 </div>
                                 <div className="mb16 col-6">
@@ -603,7 +641,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Account Number"
                                         value={formData?.accountNumber}
-                                        error={formErrors.accountNumber}
+                                       
                                     />
                                 </div>
                             </div>
@@ -615,7 +653,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="IFSC"
                                         value={formData?.ifsc}
-                                        error={formErrors.ifsc}
+                                        
                                     />
                                 </div>
                                 <div className="mb16 col-6">
@@ -625,7 +663,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Accout Holder Name"
                                         value={formData?.accountHolderName}
-                                        error={formErrors.accountHolderName}
+                                        
                                     />
                                 </div>
                             </div>
@@ -637,7 +675,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Web Hook URL"
                                         value={formData?.webHookUrl}
-                                        error={formErrors.webHookUrl}
+                                      
                                     />
                                 </div>
                             </div>
@@ -652,7 +690,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Name of the PAN holder"
                                         value={formData?.panName}
-                                        error={formErrors.panName}
+                                       
                                     />
                                 </div>
                                 <div className="mb16 col-6">
@@ -662,7 +700,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="PAN Number"
                                         value={formData?.panNumber}
-                                        error={formErrors.panNumber}
+                                       
                                     />
                                 </div>
                             </div>
@@ -674,7 +712,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Name of the Aadhaar holder"
                                         value={formData?.aadhaarName}
-                                        error={formErrors.aadhaarName}
+                                    
                                     />
                                 </div>
                                 <div className="mb16 col-6">
@@ -684,7 +722,7 @@ const AddMerchant = () => {
                                         onChange={handleChange}
                                         placeholder="Aadhaar Number"
                                         value={formData?.aadhaarNumber}
-                                        error={formErrors.aadhaarNumber}
+                                        
                                     />
                                 </div>
                            
@@ -699,7 +737,7 @@ const AddMerchant = () => {
                                         onChange={handleCommissionPlanChange}
                                         placeholder="Commission Plan"
                                         value={commissionPlan.filter((item) => item.value===formData.planName)}
-                                        error={formErrors.aadhaarNumber}
+                                        error={formErrors.planName}
                                         options={commissionPlan}
                                     />
                                 </div>

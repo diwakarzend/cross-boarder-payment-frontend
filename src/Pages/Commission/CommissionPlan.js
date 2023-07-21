@@ -20,24 +20,18 @@ import AddNewPlanForm from "./AddNewPlanForm";
 import EditNewPlanForm from "./EditNewPlanForm";
 
 const headers = [
-    { label: "UserId", key: "userId" },
-    { label: "Transaction Id", key: "transactionId" },
-    { label: "Order Id", key: "orderId" },
-    { label: "createdDate", key: "createdDate" },
-    { label: "Transaction Amout", key: "transactionAmout" },
-    { label: "Transaction Type", key: "transactionType" },
-    { label: "Remarks", key: "remarks" },
+    { label: "PlanName", key: "planName" },
+    { label: "Pay In Commission", key: "payIn" },
+    { label: "Pay Out Commission", key: "payOut" },
+    
 ];
 
 const tableHeader = [
     {
-        userId: "User Id",
-        transactionId: "Transaction Id",
-        orderId: "Order Id",
-        createdDate: "Created Date",
-        transactionAmout: "Transaction Amount",
-        transactionType: "Transaction Type",
-        remarks: "Remarks"
+        planName: "Plan Name",
+        payIn: "Pay In Commission",
+        payOut: "Pay Out Commission",
+       
     },
 ];
 
@@ -45,13 +39,9 @@ const getTableBody = (data) => {
     const tableBody = [];
     data.forEach((element) => {
         tableBody.push({
-            userId: element.userId,
-            transactionId: element.transactionId,
-            orderId: element.orderId,
-            createdDate: element.createdDate,
-            transactionAmout: element.transactionAmout,
-            transactionType: element.transactionType,
-            remarks: element.remarks,
+            planName: element.planName,
+            payIn: element.payIn,
+            payOut: element.payOut,
         });
     });
 
@@ -180,16 +170,18 @@ export default function CommissionPlan() {
                         <PdfDown
                             tableHeader={tableHeader}
                             getTableBody={getTableBody}
-                            url={`${urls.login.BASE_URL}${urls.User.TRANSACTION_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`}
+                            url={`${urls.login.BASE_URL}${urls.commission.GET_COMMISSION_PLAN}?pageNo=${currentPage}&pageSize=${pageSize}`}
                             params={downloadPayload}
-                            heading="Transaction List"
-                            fileName="transactionlist"
+                            heading="Commission Plan"
+                            fileName="commissionPlan"
+                            method= "get"
                         />
                         <CsvDown
                             headers={headers}
-                            url={`${urls.login.BASE_URL}${urls.User.TRANSACTION_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`}
+                            url={`${urls.login.BASE_URL}${urls.commission.GET_COMMISSION_PLAN}?pageNo=${currentPage}&pageSize=${pageSize}`}
                             params={downloadPayload}
-                            reportName="transactionlist.csv"
+                            reportName="commissionplan.csv"
+                            method="get"
                         />
                     </span>
                 </HeadingWrapper>

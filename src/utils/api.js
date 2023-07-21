@@ -246,5 +246,8 @@ export const deleteCommissionPlans = (id) => {
  export const editCommissionPlan =(id,payload)=>{
   return apiRequest.put(`${urls.login.BASE_URL+urls.commission.EDIT_COMMISSION_PLAN}/${id}`,payload)
  }
-
+ export const getCommissionMapping = (param) => {
+  return apiRequest.get(`${urls.login.BASE_URL + urls.merchantlist.COMMISSION_MAPPING}?pageNo=${param.pageNo}&pageSize=${param.pageSize}`
+  );
+};
 

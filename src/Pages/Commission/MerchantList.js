@@ -16,6 +16,7 @@ import { HeadingWrapper, FilterWrapper, AdvanceFilterWrapper } from "./style";
 import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
 import AddNewMerchantForm from "./AddNewMerchantForm";
+import { getCommissionMapping } from "../../utils/api";
 
 
 const headers = [
@@ -77,33 +78,8 @@ export default function MerchantList() {
     const [fromDate, setFromDate] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [downloadPayload, setDownloadPayload] = useState({});
+    const [mappingData ,setMappingData] =useState([]);
     const history = useHistory();
-
-    const getCommissionPlans = () => {
-        const successHandler = (res) => {
-            if (res.data && res.data.content) {
-                setLoader(false);
-                setUsers(res.data.content);
-                setTotalPages(res.data.totalPages);
-                setTotalElements(res.data.totalElements);
-            }
-        };
-        const errorHandler = () => { };
-
-        // const params = getParams(controls);
-        const payload = {
-            fromDate: formData?.fromDate,
-            mobileNumber: formData?.mobileNumber,
-            toDate: formData?.toDate,
-            txnId: formData?.txnId,
-            txnType: formData?.txnType,
-            utrNumber: formData?.utrNumber,
-        }
-        console.log('inside', currentPage)
-        const api = new Request("", successHandler, errorHandler, false);
-        return api.get(`${urls.login.BASE_URL}${urls.commission.GET_COMMISSION_PLAN}/${currentPage}/${pageSize}`);
-        // return api.post(`${Config.apis.admin.USER_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`, params);
-    };
 
     const handleFromDateChange = (date) => {
         setFromDate(date);
@@ -137,10 +113,19 @@ export default function MerchantList() {
             [event.target.name]: event.target.value,
         });
     }
-
+ const param = {
+    pageSize:10,
+    pageNo:1
+ }
     useEffect(() => {
-        getCommissionPlans();
-    }, [currentPage, pageSize])
+        getCommissionMapping(param).then((resp)=>{
+                
+            setMappingData(resp?.data?.data?.content);
+            console.log("data",resp?.data)
+
+        });
+    }, [])
+    console.log("data",mappingData)
 
     return (
         <>
@@ -275,70 +260,36 @@ export default function MerchantList() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <Text size="rg" color="color3">Smritiman Maudgalya</Text>
-                                    </td>
-                                    <td>
-                                        <Text size="rg" color="color3">Basic</Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            2%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            1%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <ButtonSolid primary rg className="btn-action">Delete</ButtonSolid>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <Text size="rg" color="color3">Ashok Dasgupta</Text>
-                                    </td>
-                                    <td>
-                                        <Text size="rg" color="color3">Standard</Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            3%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            1.5%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <ButtonSolid primary rg className="btn-action">Delete</ButtonSolid>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <Text size="rg" color="color3">SRamavatar Khodaiji </Text>
-                                    </td>
-                                    <td>
-                                        <Text size="rg" color="color3">Premium</Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            3.5%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <Text size="xsm" color="color3">
-                                            2%
-                                        </Text>
-                                    </td>
-                                    <td>
-                                        <ButtonSolid primary rg className="btn-action">Delete</ButtonSolid>
-    
-                                    </td>
-                                </tr>
+                              
+                              {mappingData && mappingData.map((merhchantData,i)=>{
+                               
+                                  return(
+                                    <tr key={i}>
+                                  <td>
+                                      <Text size="rg" color="color3">{merhchantData?.name}</Text>
+                                  </td>
+                                  <td>
+                                      <Text size="rg" color="color3">{merhchantData?.plan?.planName}</Text>
+                                  </td>
+                                  <td>
+                                      <Text size="xsm" color="color3">
+                                          {merhchantData?.plan?.payIn}
+                                      </Text>
+                                  </td>
+                                  <td>
+                                      <Text size="xsm" color="color3">
+                                          {merhchantData?.plan?.payOut}
+                                      </Text>
+                                  </td>
+                                  <td>
+                                      <ButtonSolid primary rg className="btn-action">Delete</ButtonSolid>
+                                  </td>
+                              </tr>
+                                  )
+
+                              })  }
+                             
+                                
                                 {/* {loader && <TableLoader />}
                                 {!loader && userData.length ? (
                                     userData.map((user, index) => (

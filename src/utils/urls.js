@@ -130,5 +130,9 @@ export default {
     DELETE_COMMISSION_PLAN:"/payment-finance-service/api/deleteCommissionPlan",
     EDIT_COMMISSION_PLAN:"/payment-finance-service/api/updateCommissionPlanById"
 
+  },
+  merchantlist:{
+    COMMISSION_MAPPING:"/payment-finance-service/api/commission-mapping"
+
   }
 };
