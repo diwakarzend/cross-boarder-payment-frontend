@@ -16,7 +16,8 @@ import { HeadingWrapper, FilterWrapper, AdvanceFilterWrapper } from "./style";
 import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
 import AddNewMerchantForm from "./AddNewMerchantForm";
-import { getCommissionMapping } from "../../utils/api";
+import { getCommissionMapping,deleteMerchantCommissionPlans } from "../../utils/api";
+import EditMerchantCommissionForm from "./EditMerchantCommissionForm";
 
 
 const headers = [
@@ -67,6 +68,14 @@ export default function MerchantList() {
         txnType: "",
         utrNumber: ""
     });
+    const updateFormdata = {
+        id:"",
+        name:"",
+        planName:"",
+        payIn:"",
+        payOut:""
+      
+      }
     const [filter, setFiler] = useState()
     const [userData, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
@@ -79,6 +88,8 @@ export default function MerchantList() {
     const [isOpen, setIsOpen] = useState(false);
     const [downloadPayload, setDownloadPayload] = useState({});
     const [mappingData ,setMappingData] =useState([]);
+    const [deleteMerchant,setDeleteMerchant] =useState()
+    const[updatemerchant,setupdateMerchant] =useState(updateFormdata);
     const history = useHistory();
 
     const handleFromDateChange = (date) => {
@@ -117,6 +128,21 @@ export default function MerchantList() {
     pageSize:10,
     pageNo:1
  }
+ const handleDelete=(uuid)=>{
+    deleteMerchantCommissionPlans(uuid).then((resp)=>{
+        console.log("delete",resp)
+        setDeleteMerchant(resp)
+
+    })
+           
+ }
+ const handleEdit =(item)=>{
+    setIsOpen(true);
+    console.log("updatemerchant",item)
+    setupdateMerchant({...item})
+    
+ }
+ console.log("item",updatemerchant)
     useEffect(() => {
         getCommissionMapping(param).then((resp)=>{
                 
@@ -124,7 +150,7 @@ export default function MerchantList() {
             console.log("data",resp?.data)
 
         });
-    }, [])
+    }, [deleteMerchant])
     console.log("data",mappingData)
 
     return (
@@ -188,7 +214,7 @@ export default function MerchantList() {
                     <ButtonSolid md onClick={() => setIsOpen(true)}>Advance Search</ButtonSolid> 
 
                 </FilterWrapper>  */}
-                {isOpen &&
+                {/* {isOpen &&
                     <AdvanceFilterWrapper>
                         <div className="flex space-between mb10 heading-box">
                             <Heading size="xl" color="color3">Advance Search</Heading>
@@ -226,7 +252,7 @@ export default function MerchantList() {
                         </div>
                         <ButtonSolid primary md onClick={getCommissionPlans}>GO</ButtonSolid>
                     </AdvanceFilterWrapper>
-                }
+                } */}
                 <div>
                     <TableWarpper className="mt24">
                         <table className="table">
@@ -282,7 +308,8 @@ export default function MerchantList() {
                                       </Text>
                                   </td>
                                   <td>
-                                      <ButtonSolid primary rg className="btn-action">Delete</ButtonSolid>
+                                      <ButtonSolid style={{marginRight:"5px"}} primary rg className="btn-action" onClick={()=>handleDelete(merhchantData?.userUuid)}>Delete</ButtonSolid>
+                                      <ButtonSolid primary rg className="btn-action" onClick={()=>handleEdit(merhchantData)}>Edit</ButtonSolid>
                                   </td>
                               </tr>
                                   )
@@ -341,7 +368,8 @@ export default function MerchantList() {
                         )}
                     </div>
                 </div>
-               {isOpen? <AddNewMerchantForm setIsopen={setIsOpen}/>:""}
+               {/* {isOpen? <AddNewMerchantForm setIsopen={setIsOpen}/>:""} */}
+               {isOpen?<EditMerchantCommissionForm setIsOpen={setIsOpen} updatemerchant={updatemerchant}/>:""}
             </div>
         </>
     );

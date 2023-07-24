@@ -16,7 +16,7 @@ export default {
   },
 
   User: {
-    USER_LIST: "/payment-finance-service/api/users",
+    USER_LIST: "/payment-finance-service/api/users/list",
     TRANSACTION_LIST: "/payment-finance-service/api/transaction-report",
     API_LIST: "/payment-finance-service/api/ip",
     API_LIST_UPDATE: "/payment-finance-service/api/update-ip",
@@ -132,7 +132,9 @@ export default {
 
   },
   merchantlist:{
-    COMMISSION_MAPPING:"/payment-finance-service/api/commission-mapping"
+    COMMISSION_MAPPING:"/payment-finance-service/api/commission-mapping",
+    DELETE_MERCHANT_COMMISSION:"/payment-finance-service/api/delete/commission-mapping",
+    EDIT_MERCHANT_COMMISSION:"/payment-finance-service/api/update/commission-mapping"
 
   }
 };

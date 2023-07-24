@@ -251,3 +251,18 @@ export const deleteCommissionPlans = (id) => {
   );
 };
 
+export const deleteMerchantCommissionPlans = (userUuid) => {
+  return apiRequest.delete(
+    `${urls.login.BASE_URL + urls.merchantlist.DELETE_MERCHANT_COMMISSION}?userUUID=${userUuid}`
+  );
+};
+export const editMerchantCommissionPlan =(userUuid,commissionUuid)=>{
+  return apiRequest.put(`${urls.login.BASE_URL+urls.merchantlist.EDIT_MERCHANT_COMMISSION}?userUUID=${userUuid}&newCode=${commissionUuid}`)
+ }
+
+ export const getUsers = (payload) => {
+  return apiRequest.post(
+    `${urls.login.BASE_URL + urls.User.USER_LIST}?pageSize=${100}`, payload
+  );
+};
+

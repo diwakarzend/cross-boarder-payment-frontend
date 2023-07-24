@@ -13,6 +13,8 @@ import { HeadingWrapper, FilterWrapper, AdvanceFilterWrapper } from "./style";
 import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
 import EditUserListForm from "./EditUserListForm";
+import { getUsers } from "../../utils/api";
+import moment from "moment";
 
 const filterForm = {
     phoneNumber: "",
@@ -95,50 +97,60 @@ export default function MerchantsList() {
     const [fromDate, setFromDate] = useState("");
     const [downloadPayload, setDownloadPayload] = useState({});
     const [formData, setFormData] = useState({
-        username: "",
+        email: "",
+        firstName: "",
+        fromDate: "",
         mobileNumber: "",
-        emailid: "",
-        Name: "",
-        role:""
+        role: "",
+        toDate: "",
+        userName: ""
     });
+
     const[updatedata,setupdateData]=useState(updateuser)
-    const [roles, setRoles] = useState([]);
-    
-    const getUsers = () => {
-        const successHandler = (res) => {
-            if (res.data && res.data) {
-                setLoader(false);
-                setUsers(res.data);
-                setTotalPages(res.data.totalPages);
-                setTotalElements(res.data.totalElements);
-            }
-        };
-        const errorHandler = () => { };
-
-        const api = new Request("", successHandler, errorHandler, false);
-        return api.get(`${urls.login.BASE_URL}${urls.User.USER_LIST}?pageSize=${pageSize}`);
-    };
-
+    const [roles, setRoles] = useState([]);  
     useEffect(() => {
-        getUsers();
-    }, [])
+        getUsers(formData).then((resp)=>{
+            console.log("requestData" ,resp)
+            setUsers(resp.data.data)
 
-    const handleDateChange = (date) => {
-        setToDate(date);
-        setFilter({
-            ...filter,
-            ["toDate"]: new Date(date),
         });
-        // setFormErrors({ ...formErrors, [event.target.name]: "" });
+    }, [])
+    const handleFromDateChange = (date) => {
+        setFromDate(date);
+        setFormData({
+            ...formData,
+            ["fromDate"]: moment(date).format('YYYY-MM-DD'),
+        });
+        // setFormErrors({ ...formErrors, "fromDate": "" });
     };
+
+    const handleToDateChange = (date) => {
+        setToDate(date);
+
+        setFormData({
+            ...formData,
+            ["toDate"]: moment(date).format('YYYY-MM-DD'),
+        });
+        // setFormErrors({ ...formErrors, "toDate": "" });
+    };
+//   const handleDateChange = (date) => {
+//         setToDate(date);
+//         setFromDate(date)
+//         setFilter({
+//             ...filter,
+//             ["toDate"]: new Date(date),
+//             ["fromDate"]: new Date(date)
+//         });
+//         // setFormErrors({ ...formErrors, [event.target.name]: "" });
+//     };
 
 const handleAdvanceFilter=()=>{
 
 }
-const handleRoleChange=(option)=>{
+const handleRoleChange=(e)=>{
     setFormData({
         ...formData,
-        ["role"]: option.value,
+        [e.target.name]:e.target.value
     });
 }
 
@@ -179,6 +191,63 @@ console.log("update user" ,updatedata)
     }, []);
 
 
+    function getData(e,key){
+
+        let param = {  email: "",
+        firstName: "",
+        fromDate: "",
+        mobileNumber: "",
+        role: "",
+        toDate: "",
+        userName: ""}
+
+        if(key === "date"){
+         param = {
+             email: "",
+            firstName: "",
+            fromDate: formData.fromDate,
+            mobileNumber: "",
+            role: "",
+            toDate: formData.toDate,
+            userName: ""
+            }
+        }
+        if(key === "role"){
+            param = {
+             email: "",
+            firstName: "",
+            fromDate: "",
+            mobileNumber: "",
+            role: e.target.value,
+            toDate: "",
+            userName: ""
+            }
+        }
+        // if(key === "role"){
+
+        //     param ={
+        //         email: "",
+        //         firstName: "",
+        //         fromDate: "",
+        //         mobileNumber: "",
+        //         role: formData.role,
+        //         toDate:"",
+        //         userName: ""
+        //         }
+        //     }
+
+        
+
+        getUsers(param).then((res)=>{
+
+            console.log("hello",param)
+
+
+            console.log("filter",res.data.data);
+
+        })
+    }
+
     return (
         <>
             {/* <BreadCrumb heading="Transaction Report" value="Transaction Report" /> */}
@@ -216,10 +285,10 @@ console.log("update user" ,updatedata)
                                 // error={formErrors.role}
                                 options={roles}
                             /> */}
-                              <select style={{width:"200px"}} onChange={handleRoleChange} name="role" placeholder="Select Role">
-                              <option value=''></option>
+                              <select style={{width:"200px"}} onChange={(e) =>getData(e,"role")} name="role" placeholder="Select Role">
+                              <option value=''>Select</option>
                                {roles.map((role)=>{
-                                return <option>{role.value}</option>}
+                                return <option value={role.value}>{role.value}</option>}
                               
                               )}
                                 
@@ -236,23 +305,23 @@ console.log("update user" ,updatedata)
                         <div className="field">
                             <MaterialInput
                                 // icon={<IconMobile />}
-                                name="toDate"
+                                name="fromDate"
                                 type="date1"
-                                onChange={handleDateChange}
+                                onChange={handleFromDateChange}
                                 placeholder="From Date"
-                                value={toDate}
+                                value={fromDate}
                             // error={formErrors.dob}
                             />
                             <MaterialInput
                                 // icon={<IconMobile />}
-                                name="fromDate"
+                                name="toDate"
                                 type="date1"
-                                onChange={handleDateChange}
+                                onChange={handleToDateChange}
                                 placeholder="To Date"
                                 value={toDate}
                             // error={formErrors.dob}
                             />
-                            <ButtonSolid primary md>GO</ButtonSolid>
+                            <ButtonSolid primary md  onClick ={(e)=>getData(e,"date")}>GO</ButtonSolid>
                         </div>
                     </div>
                     <ButtonSolid md onClick={() => setIsOpen(true)}>Advance Search</ButtonSolid>

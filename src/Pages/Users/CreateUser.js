@@ -319,6 +319,8 @@ console.log( "payload",requiredFormData)
             ["city"]: option.value,
         });
     }
+
+    
     return (
         <MerchantWrapper>
             {!merchatCreated && <div className="flex gap16 item-center heading-box">
