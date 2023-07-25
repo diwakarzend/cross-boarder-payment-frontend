@@ -165,7 +165,7 @@ export default function CommissionPlan() {
             <div className="wrapper">
                 <HeadingWrapper>
                     <Heading size="xl" color="color3">Commission Plans</Heading>
-                    <span className="flex gap16">
+                    <span className="flex" style={{gap:"2%"}}>
                         <ButtonSolid primary onClick={handleNewPlan}>Add New Plan</ButtonSolid>
                         <PdfDown
                             tableHeader={tableHeader}

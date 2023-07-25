@@ -32,13 +32,10 @@ const headers = [
 
 const tableHeader = [
     {
-        userId: "User Id",
-        transactionId: "Transaction Id",
-        orderId: "Order Id",
-        createdDate: "Created Date",
-        transactionAmout: "Transaction Amount",
-        transactionType: "Transaction Type",
-        remarks: "Remarks"
+        name: "Name",
+        planName: "Plan Name",
+        payIn: "Pay In Commission",
+        payOut: "Pay Out Commission",
     },
 ];
 
@@ -46,13 +43,10 @@ const getTableBody = (data) => {
     const tableBody = [];
     data.forEach((element) => {
         tableBody.push({
-            userId: element.userId,
-            transactionId: element.transactionId,
-            orderId: element.orderId,
-            createdDate: element.createdDate,
-            transactionAmout: element.transactionAmout,
-            transactionType: element.transactionType,
-            remarks: element.remarks,
+            name: element.name,
+            planName: element.plan.planName,
+            payIn: element.plan.payIn,
+            payOut: element.plan.payOut,
         });
     });
 
@@ -78,7 +72,7 @@ export default function MerchantList() {
       }
     const [filter, setFiler] = useState()
     const [userData, setUsers] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [loader, setLoader] = useState(false);
@@ -90,6 +84,7 @@ export default function MerchantList() {
     const [mappingData ,setMappingData] =useState([]);
     const [deleteMerchant,setDeleteMerchant] =useState()
     const[updatemerchant,setupdateMerchant] =useState(updateFormdata);
+    const[editData,setEditData] = useState({})
     const history = useHistory();
 
     const handleFromDateChange = (date) => {
@@ -150,7 +145,7 @@ export default function MerchantList() {
             console.log("data",resp?.data)
 
         });
-    }, [deleteMerchant])
+    }, [deleteMerchant,editData])
     console.log("data",mappingData)
 
     return (
@@ -159,21 +154,23 @@ export default function MerchantList() {
             <div className="wrapper">
                 <HeadingWrapper>
                     <Heading size="xl" color="color3">Merchant Commission List</Heading>
-                    <span className="flex" style={{gap:"5%"}}>
+                    <span className="flex" style={{gap:"2%"}}>
                         <ButtonSolid primary onClick={() => setIsOpen(true)}>Add New Merchant Commission</ButtonSolid>
                         <PdfDown
                             tableHeader={tableHeader}
                             getTableBody={getTableBody}
-                            url={`${urls.login.BASE_URL}${urls.User.TRANSACTION_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`}
+                            url={`${urls.login.BASE_URL}${urls.merchantlist.COMMISSION_MAPPING}?pageNo=${currentPage}&pageSize=${pageSize}`}
                             params={downloadPayload}
-                            heading="Transaction List"
-                            fileName="transactionlist"
+                            heading="Merchan List"
+                            fileName="merchantlist"
+                            method = "get"
                         />
                         <CsvDown
                             headers={headers}
-                            url={`${urls.login.BASE_URL}${urls.User.TRANSACTION_LIST}?pageNo=${currentPage}&pageSize=${pageSize}`}
+                            url={`${urls.login.BASE_URL}${urls.merchantlist.COMMISSION_MAPPING}?pageNo=${currentPage}&pageSize=${pageSize}`}
                             params={downloadPayload}
-                            reportName="transactionlist.csv"
+                            reportName="merchantlist.csv"
+                            method="get"
                         />
                     </span>
                 </HeadingWrapper>
@@ -369,7 +366,7 @@ export default function MerchantList() {
                     </div>
                 </div>
                {/* {isOpen? <AddNewMerchantForm setIsopen={setIsOpen}/>:""} */}
-               {isOpen?<EditMerchantCommissionForm setIsOpen={setIsOpen} updatemerchant={updatemerchant}/>:""}
+               {isOpen?<EditMerchantCommissionForm setIsOpen={setIsOpen} updatemerchant={updatemerchant} setEditData={setEditData}/>:""}
             </div>
         </>
     );

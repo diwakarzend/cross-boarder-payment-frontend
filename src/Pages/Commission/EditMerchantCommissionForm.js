@@ -95,9 +95,9 @@ const EditMerchantCommissionForm = memo(
     }
 
         editMerchantCommissionPlan(editmerchant.userUuid ,editmerchant.ccode).then((res)=>{
-        //   setEditData(res)
+          setEditData(res)
           console.log("edit",res)
-        //   closePopUpHandler();
+         closePopUpHandler();
 
         })
         // const errorHandler = (response) => {

@@ -144,7 +144,11 @@ export default function MerchantsList() {
 //         // setFormErrors({ ...formErrors, [event.target.name]: "" });
 //     };
 
-const handleAdvanceFilter=()=>{
+const handleAdvanceFilter=(event)=>{
+    setFormData({
+        ...formData,
+        [event.target.name]: event.target.value,
+    });
 
 }
 const handleRoleChange=(e)=>{
@@ -223,18 +227,18 @@ console.log("update user" ,updatedata)
             userName: ""
             }
         }
-        // if(key === "role"){
+        if(key === "advanceFilter"){
 
-        //     param ={
-        //         email: "",
-        //         firstName: "",
-        //         fromDate: "",
-        //         mobileNumber: "",
-        //         role: formData.role,
-        //         toDate:"",
-        //         userName: ""
-        //         }
-        //     }
+             param ={
+                email: formData.email,
+               firstName: formData.firstName,
+               fromDate: "",
+               mobileNumber: formData.mobileNumber,
+               role: "",
+               toDate:"",
+               userName: ""
+               }
+       }
 
         
 
@@ -335,12 +339,12 @@ console.log("update user" ,updatedata)
                         <div className="box">
                             <label>Name</label>
                             <input
-                                name="Name"
+                                name="firstName"
                                 type="text"
                                 className=""
                                 placeholder="Name"
                                 onChange={handleAdvanceFilter}
-                                value={formData?.txnId}
+                                value={formData?.firstName}
                             />
                         </div>
                         <div className="box">
@@ -360,12 +364,12 @@ console.log("update user" ,updatedata)
                         <div className="box">
                             <label>Email Id</label>
                             <input
-                                name="emailid"
+                                name="email"
                                 type="text"
                                 className=""
                                 placeholder="Email Id"
                                 onChange={handleAdvanceFilter}
-                                value={formData?.mobileNumber}
+                                value={formData?.email}
                             /></div>
                               <div className="box">
                             <label>User Name</label>
@@ -375,10 +379,10 @@ console.log("update user" ,updatedata)
                                 className=""
                                 placeholder="User Name"
                                 onChange={handleAdvanceFilter}
-                                value={formData?.mobileNumber}
+                                value={formData?.userName}
                             /></div>
                             </div>
-                        <ButtonSolid primary md>GO</ButtonSolid>
+                        <ButtonSolid primary md onClick={(e)=>getData(e,"advanceFilter")}>GO</ButtonSolid>
                     </AdvanceFilterWrapper>:""}
                 <div>
                     <TableWarpper className="mt24">
