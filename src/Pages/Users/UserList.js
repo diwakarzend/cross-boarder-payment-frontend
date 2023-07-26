@@ -13,7 +13,7 @@ import { HeadingWrapper, FilterWrapper, AdvanceFilterWrapper } from "./style";
 import MaterialInput from "../../Components/Common/Form";
 import TableLoader from "../../Components/Common/TableLoader";
 import EditUserListForm from "./EditUserListForm";
-import { getUsers } from "../../utils/api";
+import { getUsers,deleteUserList } from "../../utils/api";
 import moment from "moment";
 
 const filterForm = {
@@ -25,11 +25,11 @@ const updateuser ={
     userName:"",
     firstName:"",
     lastName:"",
-      role:"",
-    phoneNumber:"",
-      pincode:"",
-      dob:"",
-    address1:""
+    pincode:"",
+    dob:"",
+    address1:"",
+    vpaId:"",
+    webHookUrl:""
 
 }
 
@@ -96,6 +96,7 @@ export default function MerchantsList() {
     const [toDate, setToDate] = useState("");
     const [fromDate, setFromDate] = useState("");
     const [downloadPayload, setDownloadPayload] = useState({});
+    const[isexpand,setisexpand] =useState(false)
     const [formData, setFormData] = useState({
         email: "",
         firstName: "",
@@ -161,8 +162,7 @@ const handleRoleChange=(e)=>{
 const handleEdit =(item)=>{
 setupdateData(item)
 console.log("update user" ,updatedata)
-
-    setEditPopUpSow(true);
+setEditPopUpSow(true);
 }
     // console.log(totalElements, pageSize);
     const fetchState = () => {
@@ -251,6 +251,16 @@ console.log("update user" ,updatedata)
 
         })
     }
+    const handleexpand=()=>{
+        setisexpand(!isexpand);
+    }
+    const handleDeleteUser =(username)=>{
+        deleteUserList(username).then((res)=>{
+            console.log("user deleted succesfully")
+        })
+
+    }
+
 
     return (
         <>
@@ -263,17 +273,17 @@ console.log("update user" ,updatedata)
                             tableHeader={tableHeader}
                             getTableBody={getTableBody}
                             url={`${urls.login.BASE_URL}${urls.User.USER_LIST}?pageSize=${pageSize}`}
-                            params={downloadPayload}
+                            params={formData}
                             heading="User List"
                             fileName="userlist"
-                            method="get"
+                            method="post"
                         />
                         <CsvDown
                             headers={headers}
                             url={`${urls.login.BASE_URL}${urls.User.USER_LIST}?pageSize=${pageSize}`}
-                            params={downloadPayload}
+                            params={formData}
                             reportName="userlist.csv" 
-                            method="get"
+                            method="post"
                         />
                     </span>
                 </HeadingWrapper>
@@ -432,10 +442,24 @@ console.log("update user" ,updatedata)
 
 
                                     <th className="text-left">
+                                        <div className="flex" style={{justifyContent:"space-between"}}>     
                                         <Text size="rg" fw="medium" color="color7">
                                             Address
                                         </Text>
+                                        <button style={{width:"20px",height:"20px", backgroundColor: "#ed141f",border:"0.5px black"}} onClick={handleexpand}>+</button></div>
+                                   
                                     </th>
+        
+                                 {isexpand ? <th className="text-left">
+                                        <Text size="rg" fw="medium" color="color7">
+                                            VpaId
+                                        </Text>
+                                    </th>:"" }
+                                 { isexpand?   <th className="text-left">
+                                        <Text size="rg" fw="medium" color="color7">
+                                            WebHook Url
+                                        </Text>
+                                    </th>:""}
                                     <th className="text-left">
                                         <Text size="rg" fw="medium" color="color7">
                                             Action
@@ -495,9 +519,19 @@ console.log("update user" ,updatedata)
                                                     {user.address1}
                                                 </Text>
                                             </td>
+                                        { isexpand ?   <td>
+                                                <Text size="xsm" fw="medium" color="color3">
+                                                    {user.vpaId}
+                                                </Text>
+                                            </td>:""}
+                                           {isexpand ?<td>
+                                                <Text size="xsm" fw="medium" color="color3">
+                                                    {user.webHookUrl}
+                                                </Text>
+                                            </td>:""}
                                             <td className=" flex btn gap16">
                                             <ButtonSolid primary rg onClick={()=>handleEdit(user)}>Edit</ButtonSolid>
-                                            <ButtonSolid primary rg>Delete</ButtonSolid>
+                                            <ButtonSolid primary rg onClick={()=>handleDeleteUser(user.userName)}>Delete</ButtonSolid>
                                             </td>
 
                                         </tr>
@@ -510,7 +544,7 @@ console.log("update user" ,updatedata)
                             </tbody>
                         </table>
                     </TableWarpper>
-                  {editpopupShow ? <EditUserListForm setEditPopUpSow={setEditPopUpSow}/>:""}
+                  {editpopupShow ? <EditUserListForm setEditPopUpSow={setEditPopUpSow} updatedata={updatedata}/>:""}
                     <div className="mt24 flex flex-center">
                         {userData.length > 1 && (
                             <ItemPerPage

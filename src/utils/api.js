@@ -265,4 +265,11 @@ export const editMerchantCommissionPlan =(userUuid,commissionUuid)=>{
     `${urls.login.BASE_URL + urls.User.USER_LIST}?pageSize=${100}`, payload
   );
 };
-
+export const deleteUserList = (username) => {
+  return apiRequest.delete(
+    `${urls.login.BASE_URL + urls.User.DELETE_USER}/${username}`
+  );
+};
+export const editUserList =(payload)=>{
+  return apiRequest.put(`${urls.login.BASE_URL+urls.User.UPDATE_USER}`,payload)
+ }

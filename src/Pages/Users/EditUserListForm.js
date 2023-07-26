@@ -16,12 +16,18 @@ import {ButtonSolid } from "../../Components/styledConstants"
 import { AlertMessage } from "../../Components/UI/AlertMessage";
 import ErrorMessage from "../../Components/UI/ErrorMessage";
 import MaterialInput from "../../Components/Common/Form";
-import { editCommissionPlan } from "../../utils/api";
+import { editUserList } from "../../utils/api";
 
 const initialFormData = Object.freeze({
-  planName:"",
-  payIn:"",
-  payOut:""
+    firstName:"",
+    lastName:"",
+    pincode:"",
+    dob:"",
+    address1:"",
+    vpaId:"",
+    webHookUrl:""
+
+  
 });
 
 const EditUserListForm = memo(
@@ -66,10 +72,7 @@ const EditUserListForm = memo(
 
     const   handleEditUser = (event) => {
       event.preventDefault();
-
-      console.log("formData", formData);
-
-      const { planName, payInCommission, payOutCommision} = formData;
+      const {userId,vpaId,webHookUrl} = formData;
       const errors = formValidation(formData);
 
       // /^[A-Za-z]{4}\d{7}$/.test('HDFC0001236')
@@ -81,7 +84,7 @@ const EditUserListForm = memo(
       } else {
         setFormErrors({});
 
-        editCommissionPlan(formData.id,formData).then((res)=>{
+        editUserList(formData).then((res)=>{
           setEditData(res)
           console.log("edit",res)
           closePopUpHandler();
@@ -173,11 +176,11 @@ const EditUserListForm = memo(
                           className="form-input"
                             wrapperClassName="planName"
                             maxLength="10"
-                            name="planName"
+                            name="firstName"
                             type="text"
                             placeholder="First Name"
                             onChange ={handleChange}
-                            value={formData?.planName}
+                            value={formData?.firstName}
                             error={formErrors.planName}
                           />
                         </div>
@@ -185,13 +188,13 @@ const EditUserListForm = memo(
                         <div className="mb16">
                           <MaterialInput
                           className="form-input"
-                            wrapperClassName="payIn"
+                            wrapperClassName="lastName"
                             maxLength="10"
-                            name="payIn"
+                            name="lastName"
                             type="text"
                             placeholder="Last Name"
                             onChange ={handleChange}
-                            value={formData?.payIn}
+                            value={formData?.lastName}
                             error={formErrors.payIn}
                           />
                         </div>
@@ -201,13 +204,13 @@ const EditUserListForm = memo(
                         <div className="mb16" style={{marginRight:"16px"}}>
                           <MaterialInput
                           className="form-input"
-                            wrapperClassName="payOut"
+                            wrapperClassName="dob"
                             maxLength="10"
-                            name="payOut"
+                            name="dob"
                             type="text"
                             placeholder="Dob"
                             onChange ={handleChange}
-                            value={formData?.payOut}
+                            value={formData?.dob}
                             error={formErrors.payOut}
                           />
                         </div>
@@ -216,54 +219,65 @@ const EditUserListForm = memo(
                           className="form-input"
                             wrapperClassName="payOut"
                             maxLength="10"
-                            name="payOut"
+                            name="email"
                             type="text"
-                            placeholder="Role"
+                            placeholder="Email"
                             onChange ={handleChange}
-                            value={formData?.payOut}
+                            value={formData?.email}
                             error={formErrors.payOut}
                           />
                         </div>
-
                         </div>
                         <div className="flex  flex-wrap">
-                
-                        <div className="mb16" style={{marginRight:"16px"}}>
+                        <div className="mb16" style={{marginRight:"16px"}} >
                           <MaterialInput
                           className="form-input"
                             wrapperClassName="payOut"
                             maxLength="10"
-                            name="payOut"
-                            type="text"
-                            placeholder="Phone No"
-                            onChange ={handleChange}
-                            value={formData?.payOut}
-                            error={formErrors.payOut}
-                          />
-                        </div>
-                        <div className="mb16">
-                          <MaterialInput
-                          className="form-input"
-                            wrapperClassName="payOut"
-                            maxLength="10"
-                            name="payOut"
+                            name="pincode"
                             type="text"
                             placeholder="Pin Code"
                             onChange ={handleChange}
-                            value={formData?.payOut}
+                            value={formData?.pincode}
                             error={formErrors.payOut}
                           />
                         </div>
                         <div className="mb16">
                           <MaterialInput
                           className="form-input"
-                            wrapperClassName="payOut"
+                            wrapperClassName="address1"
                             maxLength="10"
-                            name="payOut"
+                            name="address1"
                             type="text"
                             placeholder="Address"
                             onChange ={handleChange}
-                            value={formData?.payOut}
+                            value={formData?.address1}
+                            error={formErrors.payOut}
+                          />
+                        </div>
+                        <div className="mb16" style={{marginRight:"16px"}} >
+                          <MaterialInput
+                          className="form-input"
+                            wrapperClassName="vpaId"
+                            maxLength="10"
+                            name="vpaId"
+                            type="text"
+                            placeholder="Vpa Id"
+                            onChange ={handleChange}
+                            value={formData?.vpaId}
+                            error={formErrors.payOut}
+                          />
+                        </div>
+                        <div className="mb16">
+                          <MaterialInput
+                          className="form-input"
+                            wrapperClassName="webHookUrl"
+                            maxLength="10"
+                            name="webHookUrl"
+                            type="text"
+                            placeholder="Web Hook Url"
+                            onChange ={handleChange}
+                            value={formData?.webHookUrl}
                             error={formErrors.payOut}
                           />
                         </div>
