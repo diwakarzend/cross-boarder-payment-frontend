@@ -29,7 +29,10 @@ const updateuser ={
     dob:"",
     address1:"",
     vpaId:"",
-    webHookUrl:""
+    webHookUrl:"",
+    userName:"",
+    phoneNumber:"",
+    apiPermission:""
 
 }
 
@@ -97,6 +100,7 @@ export default function MerchantsList() {
     const [fromDate, setFromDate] = useState("");
     const [downloadPayload, setDownloadPayload] = useState({});
     const[isexpand,setisexpand] =useState(false)
+    const [editData,setEditData] = useState({})
     const [formData, setFormData] = useState({
         email: "",
         firstName: "",
@@ -109,13 +113,17 @@ export default function MerchantsList() {
 
     const[updatedata,setupdateData]=useState(updateuser)
     const [roles, setRoles] = useState([]);  
+    const pagination = {
+        pageSize:10,
+        pageNo:0
+    }
     useEffect(() => {
-        getUsers(formData).then((resp)=>{
+        getUsers(formData,pagination).then((resp)=>{
             console.log("requestData" ,resp)
             setUsers(resp.data.data)
 
         });
-    }, [])
+    }, [currentPage]);
     const handleFromDateChange = (date) => {
         setFromDate(date);
         setFormData({
@@ -160,10 +168,11 @@ const handleRoleChange=(e)=>{
 }
 
 const handleEdit =(item)=>{
-setupdateData(item)
+       setupdateData(item)
+     
+       setEditPopUpSow(true);
+} 
 console.log("update user" ,updatedata)
-setEditPopUpSow(true);
-}
     // console.log(totalElements, pageSize);
     const fetchState = () => {
         const successHandler = (roles) => {
@@ -544,7 +553,7 @@ setEditPopUpSow(true);
                             </tbody>
                         </table>
                     </TableWarpper>
-                  {editpopupShow ? <EditUserListForm setEditPopUpSow={setEditPopUpSow} updatedata={updatedata}/>:""}
+                  {editpopupShow ? <EditUserListForm setEditPopUpSow={setEditPopUpSow} updatedata={updatedata} setEditData={setEditData}/>:""}
                     <div className="mt24 flex flex-center">
                         {userData.length > 1 && (
                             <ItemPerPage
@@ -554,7 +563,7 @@ setEditPopUpSow(true);
                                 }}
                             />
                         )}
-                        {totalPages > 1 && (
+                        
                             <Pagination
                                 totalPages={totalPages}
                                 currentPage={currentPage}
@@ -563,7 +572,7 @@ setEditPopUpSow(true);
                                     setCurrentPage(curpage);
                                 }}
                             />
-                        )}
+                    
                     </div>
                 </div>
             </div>

@@ -260,9 +260,9 @@ export const editMerchantCommissionPlan =(userUuid,commissionUuid)=>{
   return apiRequest.put(`${urls.login.BASE_URL+urls.merchantlist.EDIT_MERCHANT_COMMISSION}?userUUID=${userUuid}&newCode=${commissionUuid}`)
  }
 
- export const getUsers = (payload) => {
+ export const getUsers = (payload,pagination) => {
   return apiRequest.post(
-    `${urls.login.BASE_URL + urls.User.USER_LIST}?pageSize=${100}`, payload
+    `${urls.login.BASE_URL + urls.User.USER_LIST}?pageNo=${pagination.pageNo}&pageSize=${pagination.pageSize}`, payload
   );
 };
 export const deleteUserList = (username) => {

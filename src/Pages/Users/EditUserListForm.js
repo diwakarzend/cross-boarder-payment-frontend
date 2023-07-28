@@ -12,7 +12,7 @@ import {
   ModalWrapper,
 
 } from "../../Components/UI/StyledConstants";
-import {ButtonSolid } from "../../Components/styledConstants"
+import {ButtonSolid,Text } from "../../Components/styledConstants"
 import { AlertMessage } from "../../Components/UI/AlertMessage";
 import ErrorMessage from "../../Components/UI/ErrorMessage";
 import MaterialInput from "../../Components/Common/Form";
@@ -72,8 +72,13 @@ const EditUserListForm = memo(
 
     const   handleEditUser = (event) => {
       event.preventDefault();
-      const {userId,vpaId,webHookUrl} = formData;
-      const errors = formValidation(formData);
+      const {vpaId,webHookUrl} = formData;
+      const newObj = {
+        vpaId,
+        webHookUrl
+      }
+      
+      const errors = formValidation(newObj);
 
       // /^[A-Za-z]{4}\d{7}$/.test('HDFC0001236')
 
@@ -87,6 +92,7 @@ const EditUserListForm = memo(
         editUserList(formData).then((res)=>{
           setEditData(res)
           console.log("edit",res)
+          console.log("edit successfull")
           closePopUpHandler();
 
         })
@@ -151,7 +157,7 @@ const EditUserListForm = memo(
           <div className="modal-content">
             <div className="modal-header flex justify-between item-center">
               <h5 className="modal-title" id="exampleModalLabel">
-                Edit New Plan
+                Edit User List
                </h5>
               <button
                 type="button"
@@ -170,7 +176,21 @@ const EditUserListForm = memo(
                 <AlertMessage alertMessage={alertMessage} />
                 {success}
                 <div className="flex   flex-wrap">
-                    
+                <div className="mb16 col-6">
+                  <MaterialInput
+                    name="role"
+                    type="select"
+                   // onChange={handleRoleChange}
+                    placeholder="Select role"
+                    // value={roles.filter((item) => item.value === formData.role)}
+                    error={formErrors.role}
+                    // options={roles}
+                  />
+                </div>
+                </div>
+
+
+                <div className="flex   flex-wrap">
                     <div className="mb16" style={{marginRight:"16px"}}>
                           <MaterialInput
                           className="form-input"
@@ -198,7 +218,9 @@ const EditUserListForm = memo(
                             error={formErrors.payIn}
                           />
                         </div>
-
+                      </div>
+                       
+                       
                         <div className="flex  flex-wrap">
                 
                         <div className="mb16" style={{marginRight:"16px"}}>
@@ -229,6 +251,36 @@ const EditUserListForm = memo(
                         </div>
                         </div>
                         <div className="flex  flex-wrap">
+                
+                        <div className="mb16" style={{marginRight:"16px"}}>
+                          <MaterialInput
+                          className="form-input"
+                            wrapperClassName="dob"
+                            maxLength="10"
+                            name="userName"
+                            type="text"
+                            placeholder="userName"
+                            onChange ={handleChange}
+                            value={formData?.userName}
+                            error={formErrors.payOut}
+                          />
+                        </div>
+                        <div className="mb16">
+                          <MaterialInput
+                          className="form-input"
+                            wrapperClassName="payOut"
+                            maxLength="10"
+                            name="phoneNumber"
+                            type="text"
+                            placeholder="Phone Number"
+                            onChange ={handleChange}
+                            value={formData?.phoneNumber}
+                            error={formErrors.payOut}
+                          />
+                        </div>
+                        </div>
+
+                        <div className="flex  flex-wrap">
                         <div className="mb16" style={{marginRight:"16px"}} >
                           <MaterialInput
                           className="form-input"
@@ -255,6 +307,23 @@ const EditUserListForm = memo(
                             error={formErrors.payOut}
                           />
                         </div>
+                        </div>
+                       
+
+                        <div className="track-check" style={{marginBottom:"3px"}}>
+                <Text
+                  color="color3"
+                  as="h2"
+                  className="pr10"
+                  size="rg"
+                  fw="bold"
+                >
+                  Bank Details
+                </Text>
+              </div>
+                       
+                        <div className="flex  flex-wrap">
+                          {(formData.role !=="PTM_ADMIN") && 
                         <div className="mb16" style={{marginRight:"16px"}} >
                           <MaterialInput
                           className="form-input"
@@ -267,8 +336,8 @@ const EditUserListForm = memo(
                             value={formData?.vpaId}
                             error={formErrors.payOut}
                           />
-                        </div>
-                        <div className="mb16">
+                        </div>}
+                        {(formData.role !== "PTM_ADMIN") && <div className="mb16">
                           <MaterialInput
                           className="form-input"
                             wrapperClassName="webHookUrl"
@@ -280,10 +349,111 @@ const EditUserListForm = memo(
                             value={formData?.webHookUrl}
                             error={formErrors.payOut}
                           />
-                        </div>
-
-                        </div>
+                        </div>}
+                      </div>
+            <div className="flex  flex-wrap">     
+             { (formData.role !=="PTM_ADMIN")&&  <div className="mb16" style={{marginRight:"16px"}}>
+                  <MaterialInput
+                   className="form-input"
+                    name="panName"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="Name of the Account Holder"
+                    value={formData?.panName}
+                    error={formErrors.panName}
+                  />
+                </div>}
+           {  (formData.role !=="PTM_ADMIN")&&    
+           <div className="mb16">
+                  <MaterialInput
+                  className="form-input"
+                    name="panNumber"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="Account Number"
+                    value={formData?.panNumber}
+                  />
+                </div>}
                 </div>
+               {(formData.role !=="PTM_ADMIN")&&  <div className="mb16 col-6" style={{marginRight:"16px"}}>
+                  <MaterialInput
+                    name="aadhaarName"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="IFSC CODE"
+                    value={formData?.aadhaarName}
+                  />
+                </div>}
+
+                <div className="track-check"  style={{marginBottom:"5px"}}>
+                <Text
+                  color="color3"
+                  as="h2"
+                  className="pr10"
+                  size="rg"
+                  fw="bold"
+                >
+                 ID Verifications
+                </Text>
+              </div>
+
+                <div className="flex  flex-wrap">                 
+                <div className="mb16 col-6" style={{marginRight:"16px"}} >
+                 {(formData.role !=="PTM_ADMIN")&&  <MaterialInput
+                    name="aadhaarNumber"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="Aadhaar Number"
+                    value={formData?.aadhaarNumber}
+                  />}
+                </div>
+                {(formData.role !=="PTM_ADMIN")&& <div className="mb16 col-6">
+                  <MaterialInput
+                    name="accountNumber"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="Aadhhar card holder Name"
+                    value={formData?.accountNumber}
+                  />
+                </div>}
+              </div>
+              <div className="flex  flex-wrap"> 
+                <div className="mb16 col-6" style={{marginRight:"16px"}} >
+                 {(formData.role !=="PTM_ADMIN")&&  <MaterialInput
+                    name="ifsc"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="Pan"
+                    value={formData?.ifsc}
+                  />}
+                </div>
+                {(formData.role !=="PTM_ADMIN")&& <div className="mb16 col-6">
+                  <MaterialInput
+                    name="accountHolderName"
+                    type="text"
+                    onChange={handleChange}
+                    placeholder="Accout Holder Name"
+                    value={formData?.accountHolderName}
+                  />
+                </div>}
+                   </div>
+                { (formData.role ==="PTM_AGENT")&&   <div className="mb16 col-6">
+                  <MaterialInput
+                    name="planName"
+                    type="select"
+                    // onChange={handleCommissionPlanChange}
+                    placeholder="Commission Plan"
+                //    value={commissionPlan.filter(
+                  //    (item) => item.value === formData.planName
+                  //  )}
+                    error={formErrors.planName}
+                 //   options={commissionPlan}
+                  />
+                </div>}
+
+                
+                
+              
               </div>
 
               <div className="modal-footer justify-start">
