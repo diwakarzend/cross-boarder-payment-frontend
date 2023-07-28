@@ -1,9 +1,12 @@
 import React from "react";
 import IconP2PTransfer from "../../assests/images/Icons/IconP2PTransfer";
+import IconFraudPrevention from "../../assests/images/Icons/IconFraudPrevention";
+
 
 export const IconMap = {
   iconDashboard: <i className="fa fa-television" aria-hidden="true"></i>,
   iconManage: <i className="fa fa-user-circle" aria-hidden="true"></i>,
+  iconFraud:<i><IconFraudPrevention/></i>,
   IconP2PTransfer: <i className="fa fa-users" aria-hidden="true"></i>,
   IconPayIn: <i className="fa fa-check-circle" aria-hidden="true"></i>,
   IconPayments: <i className="fa fa-inr" aria-hidden="true"></i>,
@@ -51,6 +54,16 @@ export const Navigation = [
       },
     ],
   },
+  {
+    title: "Fraud Prevention",
+    link: "/fraud-prevention",
+    active: true,
+    default: true,
+    icon: "iconFraud",
+    subNav: [],
+  },
+
+
 {
   title: "Transaction",
   link: "/transaction",

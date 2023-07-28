@@ -34,6 +34,7 @@ import AddQuestion from "../Pages/HelpandSupport/AddQuestion";
 import CreateTicket from "../Pages/HelpandSupport/CreateTicket";
 import Chat from "../Pages/HelpandSupport/Chat";
 import MerchantList from "../Pages/Commission/MerchantList";
+import FraudPrevention from "../Pages/FraudPrevention";
 
 const Routes = (props) => {
   return (
@@ -99,6 +100,8 @@ const Routes = (props) => {
         <PrivateRoute path="/create-user" component={CreateUser} exact />
         <PrivateRoute path="/users-list" component={UserList} exact />
         <PrivateRoute path="/transaction" component={TransactionList} exact />
+        <PrivateRoute path="/fraud-prevention" component={FraudPrevention} exact />
+
         <PrivateRoute path="/ticket-management" component={TicketManagement} exact />
         <PrivateRoute path="/ticket-list" component={TicketList} exact />
         <PrivateRoute path="/new-topic" component={AddTopic} exact />
