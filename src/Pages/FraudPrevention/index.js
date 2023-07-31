@@ -11,6 +11,11 @@ import Iconfraud8 from "../../assests/images/Icons/Iconfraud8";
 import Iconfraud9 from "../../assests/images/Icons/Iconfraud9";
 import Iconfraud10 from "../../assests/images/Icons/Iconfraud10";
 import { useState } from "react";
+import BlockIpAdress from "./BlockIpAddress";
+import BlockIssuerCounteries from "./BlockIssuerCountries";
+import BlockEmailAdress from "./BlockEmailAdress";
+import LimitTransactionAmmount from "./LimitTransactionAmmount";
+import BlockCardRange from "./BlockCardRange";
 
  const tabData = [
         {
@@ -114,7 +119,11 @@ export default function FraudPrevention() {
 
            </div>
            <div className="tab-container">
-
+           {activeTab === "IP-Addresses" && (<BlockIpAdress />)}
+           {activeTab === "Issuer-Countries" && (<BlockIssuerCounteries/>)}
+           {activeTab === "Email-Addresses" && (<BlockEmailAdress/>)}
+           {activeTab === "Transaction-Amount" && (<LimitTransactionAmmount/>)}
+           {activeTab === "Card-Ranges" && (<BlockCardRange/>)}
            </div>
 
       </Wrapper>

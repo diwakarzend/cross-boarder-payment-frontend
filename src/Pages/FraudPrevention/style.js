@@ -13,7 +13,8 @@ export const Wrapper = styled.div`
         padding: 27px 0 0 27px;
         box-shadow: 0px 1px 2px #00000047;
         opacity: 1;
-        .tabBox{
+        cursor: pointer;
+        .tabBox.active{
           border-bottom: 3px solid #ED1C24;;
           .text-block{
             color: #101010;
@@ -26,7 +27,7 @@ export const Wrapper = styled.div`
             font-family: Roboto;
         }
         .tabs-wrapper{
-          padding-bottom: 15px;
+        //  padding-bottom: 15px;
           padding-top: 34px;
         }
         .icon{
@@ -37,6 +38,31 @@ export const Wrapper = styled.div`
           color: #707070;
           font-size: 13px;
           font-weight: bold;
+        }
+       }
+       .tab-container{
+        margin-top: 29.5px;
+        .searchvalue{
+          width: 215px ;
+          height: 35px;
+          background-color:#FFFFFF ;
+          box-shadow: 0px 1px 2px #00000026;
+          border: none;
+          padding: 9px 0 8px 11px;
+        }
+        .btn {
+          width: 111px;
+          height: 35px;
+        }
+        .file{
+           display: none;
+        }
+        .upload_file{
+          width: 677px;
+           background: #FFFFFF;
+             height: 56px;
+           box-shadow: 0px 1px 2px #00000026;
+           padding: 16px 13px 21px 21px;
         }
        }
 

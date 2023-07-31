@@ -3,7 +3,7 @@ import {Text,InputWrapper,ButtonSolid, TableWarpper} from "../../Components/styl
 import search from "../../assests/images/Search.svg"
 import IconUpload from "../../assests/images/Icons/IconUpload"
 
- const BlockIpAdress =()=>{
+ const BlockCardRange =()=>{
     const[ipAddress,setIpAddress]= useState('')
 
 
@@ -18,9 +18,9 @@ import IconUpload from "../../assests/images/Icons/IconUpload"
          <div className="flex title-wrapper space-between mb16">
             
                 <div className="search-wrapper">
-                <Text  as="h4"  fs="20" fw="bold" color="color15"  style={{marginBottom:"14.5px",fontSize:"xl"}}>Block IP Addresses</Text>
+                <Text  as="h4"  fs="20" fw="bold" color="color15"  style={{marginBottom:"14.5px",fontSize:"xl"}}>Block Card Range</Text>
                     
-                        <input name="ipAddress" value={ipAddress} className="searchvalue" onChange={(e) => setIpAddress(e.target.value)} type="text" placeholder='IP Address' />
+                        <input name="ipAddress" value={ipAddress} className="searchvalue" onChange={(e) => setIpAddress(e.target.value)} type="text" placeholder='Card Bin' />
                         <img src={search} alt="" onClick={() => filterData()} />
                 </div>
                 <div> <ButtonSolid className="btn"   primary  style={{marginRight :"10px"}}>Add Rule</ButtonSolid>
@@ -41,7 +41,7 @@ import IconUpload from "../../assests/images/Icons/IconUpload"
                          </th>
                                     <th className="text-left">
                                         <Text size="sm" fw="medium" color="color7">
-                                            Ip Address
+                                            Card Range
                                         </Text>
                                     </th>
                                     <th className="text-left">
@@ -124,4 +124,4 @@ import IconUpload from "../../assests/images/Icons/IconUpload"
 
 
 }
-export default BlockIpAdress;
+export default BlockCardRange;
