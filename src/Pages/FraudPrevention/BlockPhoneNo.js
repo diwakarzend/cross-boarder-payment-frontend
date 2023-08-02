@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import {Text,InputWrapper,ButtonSolid, TableWarpper} from "../../Components/styledConstants";
 import search from "../../assests/images/Search.svg"
 import IconUpload from "../../assests/images/Icons/IconUpload"
-import BlockIpAddressModal from "./BlockIpAddressModal";
+import BlockPhoneNumberModal from "./BlockPhoneNumberModal";
 
- const BlockIpAdress =()=>{
+ const BlockPhoneNo =()=>{
     const[ipAddress,setIpAddress]= useState('')
-    const[isopen,setIsopen] = useState(false)
+    const [isOpen,setIsOpen] = useState (false);
 
 
     const filterData =()=>{
@@ -20,12 +20,12 @@ import BlockIpAddressModal from "./BlockIpAddressModal";
          <div className="flex title-wrapper space-between mb16">
             
                 <div className="search-wrapper">
-                <Text  as="h4"  fs="20" fw="bold" color="color15"  style={{marginBottom:"14.5px",fontSize:"xl"}}>Block IP Addresses</Text>
+                <Text  as="h4"  fs="20" fw="bold" color="color15"  style={{marginBottom:"14.5px",fontSize:"xl"}}>Block Phone Number</Text>
                     
                         <input name="ipAddress" value={ipAddress} className="searchvalue" onChange={(e) => setIpAddress(e.target.value)} type="text" placeholder='IP Address' />
                         <img src={search} alt="" onClick={() => filterData()} />
                 </div>
-                <div> <ButtonSolid className="btn"   primary  style={{marginRight :"10px"}} onClick ={()=>setIsopen(true)}>Add Rule</ButtonSolid>
+                <div> <ButtonSolid className="btn" onClick={()=>setIsOpen(true)}  primary  style={{marginRight :"10px"}}>Add Rule</ButtonSolid>
                     <ButtonSolid secondary className="btn"  >Delete All</ButtonSolid></div>
     
                 
@@ -115,7 +115,7 @@ import BlockIpAddressModal from "./BlockIpAddressModal";
               
             </div>
         
-            {isopen ?<BlockIpAddressModal setIsopen ={setIsopen}/>:""}   
+        {isOpen ? <BlockPhoneNumberModal setIsOpen ={setIsOpen}/>:""}
         
         </>
     )
@@ -126,4 +126,4 @@ import BlockIpAddressModal from "./BlockIpAddressModal";
 
 
 }
-export default BlockIpAdress;
+export default BlockPhoneNo;

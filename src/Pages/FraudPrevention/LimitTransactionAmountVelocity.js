@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import {Text,InputWrapper,ButtonSolid, TableWarpper} from "../../Components/styledConstants";
 import search from "../../assests/images/Search.svg"
 import IconUpload from "../../assests/images/Icons/IconUpload"
-import BlockIsuerCountryModal from "./BlockIssuerCountryModal";
 
- const BlockIssuerCounteries =()=>{
+ const LimitTransactionAmmountVelocity =()=>{
     const[ipAddress,setIpAddress]= useState('')
-    const[isOpen,setIsOpen] = useState(false)
 
 
     const filterData =()=>{
@@ -20,12 +18,12 @@ import BlockIsuerCountryModal from "./BlockIssuerCountryModal";
          <div className="flex title-wrapper space-between mb16">
             
                 <div className="search-wrapper">
-                <Text  as="h4"  fs="20" fw="bold" color="color15"  style={{marginBottom:"14.5px",fontSize:"xl"}}>Block Issuer Countries</Text>
+                <Text  as="h4"  fs="20" fw="bold" color="color15"  style={{marginBottom:"14.5px",fontSize:"xl"}}>Limit Transaction Amount Velocity</Text>
                     
                         <input name="ipAddress" value={ipAddress} className="searchvalue" onChange={(e) => setIpAddress(e.target.value)} type="text" placeholder='Country' />
                         <img src={search} alt="" onClick={() => filterData()} />
                 </div>
-                <div> <ButtonSolid className="btn"   primary  style={{marginRight :"10px"}} onClick ={()=>setIsOpen(true)}>Add Rule</ButtonSolid>
+                <div> <ButtonSolid className="btn"   primary  style={{marginRight :"10px"}}>Add Rule</ButtonSolid>
                     <ButtonSolid secondary className="btn"  >Delete All</ButtonSolid></div>
     
                 
@@ -43,9 +41,20 @@ import BlockIsuerCountryModal from "./BlockIssuerCountryModal";
                          </th>
                                     <th className="">
                                         <Text size="sm" fw="medium" color="color7">
-                                            Issuer Counteries
+                                  Currency
                                         </Text>
                                     </th>
+                                    <th className="">
+                                        <Text size="sm" fw="medium" color="color7">
+                                        Transaction Amount
+                                        </Text>
+                                    </th>
+                                    <th className="">
+                                        <Text size="sm" fw="medium" color="color7">
+                                        User Identifier
+                                        </Text>
+                                    </th>
+
                                     <th className="">
                                         <Text size="sm" fw="medium" color="color7">
                                             Action
@@ -62,8 +71,7 @@ import BlockIsuerCountryModal from "./BlockIssuerCountryModal";
 
                 </table>
             </TableWarpper>
-           {isOpen ? <BlockIsuerCountryModal  setIsOpen ={setIsOpen}/>:""}
             </>
     )
  }
- export default BlockIssuerCounteries;
+ export default LimitTransactionAmmountVelocity;

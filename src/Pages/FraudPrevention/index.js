@@ -16,6 +16,11 @@ import BlockIssuerCounteries from "./BlockIssuerCountries";
 import BlockEmailAdress from "./BlockEmailAdress";
 import LimitTransactionAmmount from "./LimitTransactionAmmount";
 import BlockCardRange from "./BlockCardRange";
+import BlockCardMask from "./BlockCardMask";
+import LimitCardTransaction from "./LimitCardTransaction";
+import BlockPhoneNo from "./BlockPhoneNo";
+import LimitTransactionAmmountVelocity from "./LimitTransactionAmountVelocity";
+import BlockVirtualPaymentAddress from "./BlockVirtualPaymentAdress";
 
  const tabData = [
         {
@@ -124,6 +129,12 @@ export default function FraudPrevention() {
            {activeTab === "Email-Addresses" && (<BlockEmailAdress/>)}
            {activeTab === "Transaction-Amount" && (<LimitTransactionAmmount/>)}
            {activeTab === "Card-Ranges" && (<BlockCardRange/>)}
+           {activeTab === "Card-Mask" && (<BlockCardMask/>)}
+           {activeTab === "Card-Transaction" && (<LimitCardTransaction/>)}
+           {activeTab === "Phone-Number" && (<BlockPhoneNo/>)}
+           {activeTab === "Amount-Velocity" && (<LimitTransactionAmmountVelocity/>)}
+           {activeTab === "Payment-Addresses" && (<BlockVirtualPaymentAddress/>)}
+
            </div>
 
       </Wrapper>

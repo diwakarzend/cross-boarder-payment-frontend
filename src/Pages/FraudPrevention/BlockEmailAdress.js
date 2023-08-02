@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import {Text,InputWrapper,ButtonSolid, TableWarpper} from "../../Components/styledConstants";
 import search from "../../assests/images/Search.svg"
 import IconUpload from "../../assests/images/Icons/IconUpload"
+import BlockEmailAdressModal from "./BlockEmailAdressModal";
 
  const BlockEmailAdress =()=>{
     const[ipAddress,setIpAddress]= useState('')
+    const[isOpen,setIsOpen] = useState(false);
 
 
     const filterData =()=>{
@@ -23,7 +25,7 @@ import IconUpload from "../../assests/images/Icons/IconUpload"
                         <input name="ipAddress" value={ipAddress} className="searchvalue" onChange={(e) => setIpAddress(e.target.value)} type="text" placeholder= 'Email ID' />
                         <img src={search} alt="" onClick={() => filterData()} />
                 </div>
-                <div> <ButtonSolid className="btn"   primary  style={{marginRight :"10px"}}>Add Rule</ButtonSolid>
+                <div> <ButtonSolid className="btn"   primary  style={{marginRight :"10px"}} onClick={()=>setIsOpen(true)}>Add Rule</ButtonSolid>
                     <ButtonSolid secondary className="btn"  >Delete All</ButtonSolid></div>
     
                 
@@ -114,7 +116,7 @@ import IconUpload from "../../assests/images/Icons/IconUpload"
             </div>
         
         
-        
+         {isOpen ?<BlockEmailAdressModal setIsOpen ={setIsOpen}/> :""}
         </>
     )
 
