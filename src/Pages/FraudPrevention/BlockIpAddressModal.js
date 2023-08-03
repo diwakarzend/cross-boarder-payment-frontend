@@ -204,10 +204,10 @@ const BlockIpAddressModal = memo(
                       
                       
                 </div>
-               <div className="flex space-between">
+               <div className="flex space-between" style={{marginBottom:"13px"}}>
                 <Text size="md" color="color15">Select Date & Time</Text>
-                <div className="flex"> <Text size="md" color="color15">Always</Text>
-                   <input type="checkbox"></input>
+                <div className="flex"> <Text size="md" color="color15" style={{marginRight:"4px"}}>Always On</Text>
+                   <input type="checkbox" style={{accentColor:"#ED1C24"}}></input>
                 </div>
                
                </div>
@@ -268,7 +268,7 @@ const BlockIpAddressModal = memo(
               </div>
 
               <div className="modal-footer justify-start">
-              <ButtonSolid primary add_user onClick={handleAddNewPlan}>Add Plan</ButtonSolid>
+              <ButtonSolid primary add_user onClick={handleAddNewPlan}>Add Rule</ButtonSolid>
               </div>
     
           </div>

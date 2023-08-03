@@ -19,6 +19,9 @@ export const Wrapper = styled.div`
           .text-block{
             color: #101010;
            }
+           svg{
+            stroke: #ED1C24;
+           }
         }
         .text-fraud{
             color: #000000;
