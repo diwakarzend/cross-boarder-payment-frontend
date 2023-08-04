@@ -43,7 +43,7 @@ import BlockPhoneNumberModal from "./BlockPhoneNumberModal";
                          </th>
                                     <th className="text-left">
                                         <Text size="sm" fw="medium" color="color7">
-                                            Ip Address
+                                        Phone No.
                                         </Text>
                                     </th>
                                     <th className="text-left">
@@ -69,6 +69,11 @@ import BlockPhoneNumberModal from "./BlockPhoneNumberModal";
                                     <th className="text-left">
                                         <Text size="sm" fw="medium" color="color7">
                                             Block Period
+                                        </Text>
+                                    </th>
+                                    <th className="text-left">
+                                        <Text size="sm" fw="medium" color="color7">
+                                           Action
                                         </Text>
                                     </th>
                                 </tr>

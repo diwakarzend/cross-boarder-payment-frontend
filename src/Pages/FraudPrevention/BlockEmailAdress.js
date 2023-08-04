@@ -71,6 +71,11 @@ import BlockEmailAdressModal from "./BlockEmailAdressModal";
                                             Block Period
                                         </Text>
                                     </th>
+                                    <th className="text-left">
+                                        <Text size="sm" fw="medium" color="color7">
+                                            Action
+                                        </Text>
+                                    </th>
                                 </tr>
                     </thead>
                     <tbody>

@@ -144,7 +144,7 @@ const BlockVirtualPaymentAddressModal = memo(
       <ModalWrapper>
         <div className="modal-dialog" style={{width:'402px'}}  role="document">
           <div className="modal-content" style={{width:'402px'}}>
-            <div className="modal-header flex justify-between item-center">
+            <div className="modal-header flex justify-between item-center" style={{padding:"20px 23px"}}>
               <h5 className="modal-title" id="exampleModalLabel">
               Block Virtual Payment Addresses
                </h5>
@@ -154,9 +154,10 @@ const BlockVirtualPaymentAddressModal = memo(
                 data-dismiss="modal"
                 aria-label="Close"
                 onClick={closePopUpHandler}
+                style={{padding:"0px", marginRight:"4px"}}
               >
                 <span aria-hidden="true">
-                  <i className="fa fa-times " style={{backgroundColor:"#ed141f", width:"15px",height:"15px" ,color:"#fff",borderRadius:"50%"}} aria-hidden="true"></i> Cancel{" "}
+                  <i className="fa fa-times "aria-hidden="true"></i>
                 </span>
               </button>
             </div>
@@ -204,9 +205,9 @@ const BlockVirtualPaymentAddressModal = memo(
                       
                       
                 </div>
-               <div className="flex space-between">
+               <div className="flex space-between" style={{marginBottom:"12px"}}>
                 <Text size="md" color="color15">Select Date & Time</Text>
-                <div className="flex"> <Text size="md" color="color15">Always</Text>
+                <div className="flex"> <Text size="md" color="color15" style={{marginRight:"4px"}}>Always</Text>
                    <input type="checkbox"></input>
                 </div>
                
@@ -268,7 +269,7 @@ const BlockVirtualPaymentAddressModal = memo(
               </div>
 
               <div className="modal-footer justify-start">
-              <ButtonSolid primary add_user onClick={handleAddNewPlan}>Add Plan</ButtonSolid>
+              <ButtonSolid primary add_user onClick={handleAddNewPlan}>Add Rule</ButtonSolid>
               </div>
     
           </div>

@@ -24,7 +24,7 @@ const initialFormData = Object.freeze({
   payOut:""
 });
 
-const BlockCardMaskModal = memo(
+const LimitCardTransactionModal = memo(
   ({
     setIsOpen,
     // setStatus,
@@ -146,7 +146,7 @@ const BlockCardMaskModal = memo(
           <div className="modal-content" style={{width:'402px'}}>
             <div className="modal-header flex justify-between item-center">
               <h5 className="modal-title" id="exampleModalLabel">
-              Block Card Mask
+              Limit Card Transaction
                </h5>
               <button
                 type="button"
@@ -156,7 +156,7 @@ const BlockCardMaskModal = memo(
                 onClick={closePopUpHandler}
               >
                 <span aria-hidden="true">
-                  <i className="fa fa-times " aria-hidden="true"></i>
+                  <i className="fa fa-times "  aria-hidden="true"></i>
                 </span>
               </button>
             </div>
@@ -204,7 +204,7 @@ const BlockCardMaskModal = memo(
                       
                       
                 </div>
-               <div className="flex space-between" style={{marginBottom:"12px"}}>
+               <div className="flex space-between">
                 <Text size="md" color="color15">Select Date & Time</Text>
                 <div className="flex"> <Text size="md" color="color15">Always</Text>
                    <input type="checkbox"></input>
@@ -262,7 +262,17 @@ const BlockCardMaskModal = memo(
                  </div>
 
 
-
+                 <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="planName"
+                                        type="select"
+                                       // onChange={handleCommissionPlanChange}
+                                        placeholder="Allowed Transection"
+                                       // value={commissionPlan.filter((item) => item.value === formData.ccode)}
+                                        error={formErrors.planName}
+                                        // options={commissionPlan}
+                                    />
+                                </div>
 
 
               </div>
@@ -278,4 +288,4 @@ const BlockCardMaskModal = memo(
   }
 );
 
-export default BlockCardMaskModal;
+export default LimitCardTransactionModal;

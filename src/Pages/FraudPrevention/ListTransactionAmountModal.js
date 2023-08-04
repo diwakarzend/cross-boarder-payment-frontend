@@ -156,7 +156,7 @@ const ListTransactionAmountModal = memo(
                 onClick={closePopUpHandler}
               >
                 <span aria-hidden="true">
-                  <i className="fa fa-times " style={{backgroundColor:"#ed141f", width:"15px",height:"15px" ,color:"#fff",borderRadius:"50%"}} aria-hidden="true"></i> Cancel{" "}
+                  <i className="fa fa-times " aria-hidden="true"></i>
                 </span>
               </button>
             </div>
@@ -177,7 +177,7 @@ const ListTransactionAmountModal = memo(
                                         // options={commissionPlan}
                                     />
                                 </div>
-                                <Text size ="md" color="color15" fw ="bold">Select Amount</Text>
+                                <Text size ="md" color="color15" fw ="bold" style={{marginBottom:"12px"}}>Select Amount</Text>
                                 <div className="mb16 col-6">
                                     <MaterialInput
                                         name="planName"
@@ -215,7 +215,7 @@ const ListTransactionAmountModal = memo(
               </div>
 
               <div className="modal-footer justify-start">
-              <ButtonSolid primary add_user onClick={handleAddNewPlan}>Add Plan</ButtonSolid>
+              <ButtonSolid primary add_user onClick={handleAddNewPlan}>Add Rule</ButtonSolid>
               </div>
     
           </div>

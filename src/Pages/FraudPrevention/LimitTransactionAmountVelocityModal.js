@@ -24,7 +24,7 @@ const initialFormData = Object.freeze({
   payOut:""
 });
 
-const ListTransactionAmountModal = memo(
+const ListTransactionAmountVelocityModal = memo(
   ({
     setIsOpen,
     // setStatus,
@@ -144,7 +144,7 @@ const ListTransactionAmountModal = memo(
       <ModalWrapper>
         <div className="modal-dialog" style={{width:'402px'}}  role="document">
           <div className="modal-content" style={{width:'402px'}}>
-            <div className="modal-header flex justify-between item-center">
+            <div className="modal-header flex justify-between item-center" style={{padding: "20px 23px"}}>
               <h5 className="modal-title" id="exampleModalLabel">
               Limit Transaction Amount Velocity
                </h5>
@@ -156,7 +156,7 @@ const ListTransactionAmountModal = memo(
                 onClick={closePopUpHandler}
               >
                 <span aria-hidden="true">
-                  <i className="fa fa-times " style={{backgroundColor:"#ed141f", width:"15px",height:"15px" ,color:"#fff",borderRadius:"50%"}} aria-hidden="true"></i> Cancel{" "}
+                  <i className="fa fa-times "aria-hidden="true"></i> 
                 </span>
               </button>
             </div>
@@ -180,31 +180,31 @@ const ListTransactionAmountModal = memo(
                                 <div className="mb16 col-6">
                                     <MaterialInput
                                         name="planName"
+                                        type="select"
+                                       // onChange={handleCommissionPlanChange}
+                                        placeholder="Country"
+                                       // value={commissionPlan.filter((item) => item.value === formData.ccode)}
+                                        error={formErrors.planName}
+                                        // options={commissionPlan}
+                                    />
+                                </div>
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="planName"
+                                        type="select"
+                                       // onChange={handleCommissionPlanChange}
+                                        placeholder="Transaction Amount"
+                                       // value={commissionPlan.filter((item) => item.value === formData.ccode)}
+                                        error={formErrors.planName}
+                                        // options={commissionPlan}
+                                    />
+                                </div>
+                                <div className="mb16 col-6">
+                                    <MaterialInput
+                                        name="planName"
                                         type="text"
                                        // onChange={handleCommissionPlanChange}
-                                        placeholder="Min Amount"
-                                       // value={commissionPlan.filter((item) => item.value === formData.ccode)}
-                                        error={formErrors.planName}
-                                        // options={commissionPlan}
-                                    />
-                                </div>
-                                <div className="mb16 col-6">
-                                    <MaterialInput
-                                        name="planName"
-                                        type="select"
-                                       // onChange={handleCommissionPlanChange}
-                                        placeholder="Max Amount"
-                                       // value={commissionPlan.filter((item) => item.value === formData.ccode)}
-                                        error={formErrors.planName}
-                                        // options={commissionPlan}
-                                    />
-                                </div>
-                                <div className="mb16 col-6">
-                                    <MaterialInput
-                                        name="planName"
-                                        type="select"
-                                       // onChange={handleCommissionPlanChange}
-                                        placeholder="Currency"
+                                        placeholder="User Identifier"
                                        // value={commissionPlan.filter((item) => item.value === formData.ccode)}
                                         error={formErrors.planName}
                                         // options={commissionPlan}
@@ -214,7 +214,7 @@ const ListTransactionAmountModal = memo(
               </div>
 
               <div className="modal-footer justify-start">
-              <ButtonSolid primary add_user onClick={handleAddNewPlan}>Add Plan</ButtonSolid>
+              <ButtonSolid primary add_user onClick={handleAddNewPlan}>Add Rule</ButtonSolid>
               </div>
     
           </div>
@@ -224,4 +224,4 @@ const ListTransactionAmountModal = memo(
   }
 );
 
-export default ListTransactionAmountModal;
+export default ListTransactionAmountVelocityModal;

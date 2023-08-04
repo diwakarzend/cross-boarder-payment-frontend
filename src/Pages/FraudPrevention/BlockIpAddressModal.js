@@ -156,7 +156,7 @@ const BlockIpAddressModal = memo(
                 onClick={closePopUpHandler}
               >
                 <span aria-hidden="true">
-                  <i className="fa fa-times " style={{backgroundColor:"#ed141f", width:"15px",height:"15px" ,color:"#fff",borderRadius:"50%"}} aria-hidden="true"></i> Cancel{" "}
+                  <i className="fa fa-times "  aria-hidden="true"></i>
                 </span>
               </button>
             </div>

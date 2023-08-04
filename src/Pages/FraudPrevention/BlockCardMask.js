@@ -45,7 +45,7 @@ import BlockCardMaskModal from "./BlockCardMaskModal";
                          </th>
                                     <th className="text-left">
                                         <Text size="sm" fw="medium" color="color7">
-                                            Ip Address
+                                        Card No.
                                         </Text>
                                     </th>
                                     <th className="text-left">
@@ -71,6 +71,11 @@ import BlockCardMaskModal from "./BlockCardMaskModal";
                                     <th className="text-left">
                                         <Text size="sm" fw="medium" color="color7">
                                             Block Period
+                                        </Text>
+                                    </th>
+                                    <th className="text-left">
+                                        <Text size="sm" fw="medium" color="color7">
+                                            Action
                                         </Text>
                                     </th>
                                 </tr>

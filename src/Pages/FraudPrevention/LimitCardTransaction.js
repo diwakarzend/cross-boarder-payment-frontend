@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import {Text,InputWrapper,ButtonSolid, TableWarpper} from "../../Components/styledConstants";
 import search from "../../assests/images/Search.svg"
 import IconUpload from "../../assests/images/Icons/IconUpload"
+import LimitCardTransactionModal from "./LimitCardTransactionModal";
 
  const LimitCardTransaction =()=>{
     const[ipAddress,setIpAddress]= useState('')
-
+    const[isOpen,setIsOpen] =useState(false);
 
     const filterData =()=>{
 
@@ -23,7 +24,7 @@ import IconUpload from "../../assests/images/Icons/IconUpload"
                         <input name="ipAddress" value={ipAddress} className="searchvalue" onChange={(e) => setIpAddress(e.target.value)} type="text" placeholder='IP Address' />
                         <img src={search} alt="" onClick={() => filterData()} />
                 </div>
-                <div> <ButtonSolid className="btn"   primary  style={{marginRight :"10px"}}>Add Rule</ButtonSolid>
+                <div> <ButtonSolid className="btn"   primary onClick={()=>setIsOpen(true)} style={{marginRight :"10px"}}>Add Rule</ButtonSolid>
                     <ButtonSolid secondary className="btn"  >Delete All</ButtonSolid></div>
     
                 
@@ -41,7 +42,12 @@ import IconUpload from "../../assests/images/Icons/IconUpload"
                          </th>
                                     <th className="text-left">
                                         <Text size="sm" fw="medium" color="color7">
-                                            Ip Address
+                                        Card No.
+                                        </Text>
+                                    </th>
+                                    <th className="text-left">
+                                        <Text size="sm" fw="medium" color="color7">
+                                        Allowed Transaction
                                         </Text>
                                     </th>
                                     <th className="text-left">
@@ -67,6 +73,11 @@ import IconUpload from "../../assests/images/Icons/IconUpload"
                                     <th className="text-left">
                                         <Text size="sm" fw="medium" color="color7">
                                             Block Period
+                                        </Text>
+                                    </th>
+                                    <th className="text-left">
+                                        <Text size="sm" fw="medium" color="color7">
+                                            Action
                                         </Text>
                                     </th>
                                 </tr>
@@ -113,7 +124,7 @@ import IconUpload from "../../assests/images/Icons/IconUpload"
               
             </div>
         
-        
+        {isOpen ? <LimitCardTransactionModal setIsOpen ={setIsOpen}/>:""}
         
         </>
     )
