@@ -15,12 +15,14 @@ export const Wrapper = styled.div`
         opacity: 1;
         cursor: pointer;
         .tabBox.active{
-          border-bottom: 3px solid #ED1C24;;
+          border-bottom: 3px solid #ED1C24;
           .text-block{
             color: #101010;
            }
            svg{
-            stroke: #ED1C24;
+            path{
+              fill:  #ED1C24;
+            }
            }
         }
         .text-fraud{
@@ -42,6 +44,10 @@ export const Wrapper = styled.div`
           font-size: 13px;
           font-weight: bold;
         }
+        .text-block::after{
+          border-bottom: 3px solid red;
+        }
+        
        }
        .tab-container{
         margin-top: 29.5px;

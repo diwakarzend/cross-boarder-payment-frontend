@@ -112,8 +112,8 @@ export default function FraudPrevention() {
                  {tabData.map((data,i)=>{
                   
                   return <div className={`${data?.className ? data?.className : ""} ${activeTab === data.id ? "active" : ""}`} key={data.id} onClick ={()=>setActiveTab(data.id)}>
-                    <i className="icon">{data.icon}</i>
-                    <p className="text-block">{data.name}</p>
+                    <i className="icon" style={{display:"block"}}>{data.icon}</i>
+                    <span className="text-block">{data.name}</span>
 
                    </div>
                  
