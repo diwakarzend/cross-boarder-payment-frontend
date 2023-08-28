@@ -464,9 +464,9 @@ export const ModalWrapper = styled.div`
         .modal-footer{
             padding-bottom: 10px;
             sc-brKeYL.add-btn{
-                display:inline-block
-                height:50px
-                width:45%
+                display:inline-block;
+                height:50px;
+                width:45%;
             }
         }
         
